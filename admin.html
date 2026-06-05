@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-W7J722MQ');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Sketch Construction</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-wrapper {
+            min-height: calc(100vh - var(--header-height) - 40px);
+            background-color: #0F0F0F;
+            padding: 40px 0;
+        }
+
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 992px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Sidebar Navigation */
+        .admin-sidebar {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            padding: 24px;
+            height: fit-content;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .user-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .user-details h4 {
+            font-size: 15px;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 170px;
+        }
+
+        .user-details span {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--primary);
+            font-family: var(--font-technical);
+        }
+
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: var(--border-radius-sm);
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .menu-item:hover, .menu-item.active {
+            color: var(--text-primary);
+            background-color: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid var(--primary);
+            padding-left: 13px;
+        }
+
+        .menu-item svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* Content Area */
+        .admin-content {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            padding: 32px;
+            min-height: 500px;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 16px;
+        }
+
+        .content-header h2 {
+            font-size: 24px;
+            text-transform: uppercase;
+        }
+
+        /* Table Design */
+        .data-table-wrapper {
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .data-table th, .data-table td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 14px;
+        }
+
+        .data-table th {
+            font-family: var(--font-technical);
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+            background-color: rgba(255, 255, 255, 0.01);
+        }
+
+        .data-table tbody tr:hover {
+            background-color: rgba(255, 255, 255, 0.01);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            font-family: var(--font-technical);
+            text-transform: uppercase;
+        }
+
+        .status-published {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #10B981;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .status-draft {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: #F59E0B;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .table-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 4px;
+            transition: var(--transition-fast);
+        }
+
+        .action-btn-edit {
+            color: var(--primary);
+        }
+
+        .action-btn-edit:hover {
+            background-color: rgba(255, 184, 0, 0.1);
+        }
+
+        .action-btn-delete {
+            color: #EF4444;
+        }
+
+        .action-btn-delete:hover {
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+
+        /* Form Design */
+        .form-group {
+            margin-bottom: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-family: var(--font-technical);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+        }
+
+        .form-control {
+            background-color: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            padding: 12px 16px;
+            color: var(--text-primary);
+            font-size: 15px;
+            transition: var(--transition-fast);
+            width: 100%;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            background-color: rgba(255, 184, 0, 0.01);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 16px;
+            margin-top: 30px;
+        }
+
+        .alert {
+            padding: 14px 20px;
+            border-radius: var(--border-radius-sm);
+            margin-bottom: 24px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .alert-danger {
+            background-color: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: #EF4444;
+        }
+
+        .alert-success {
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            color: #10B981;
+        }
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #0F0F0F;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            font-family: var(--font-technical);
+            font-size: 18px;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W7J722MQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <!-- Full-screen Auth Guard Loading screen -->
+    <div id="authGuard" class="loading-screen">
+        Authenticating Admin...
+    </div>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-symbol small-logo">
+                    <img src="assets/logo.webp" alt="Sketch Construction Logo" class="logo-img" width="1024" height="1024">
+                </div>
+                <div class="logo-text">
+                    <span class="logo-title">SKETCH</span>
+                    <span class="logo-subtitle">CONSTRUCTION</span>
+                </div>
+            </a>
+            <nav class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <button id="logoutBtnTop" class="btn btn-outline" style="padding: 6px 14px; font-size: 11px;">Logout</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Admin Section -->
+    <main class="admin-wrapper">
+        <div class="container">
+            <div class="dashboard-container">
+                <!-- Sidebar -->
+                <aside class="admin-sidebar">
+                    <div class="user-profile">
+                        <div class="user-avatar" id="avatarName">A</div>
+                        <div class="user-details">
+                            <h4 id="userEmail">Admin Email</h4>
+                            <span>System Administrator</span>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-menu">
+                        <div class="menu-item active" id="menuBlogs" onclick="switchTab('blogs')">
+                            <svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0-2-.9-2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
+                            Manage Blogs
+                        </div>
+                        <div class="menu-item" id="menuNewPost" onclick="switchTab('editor')">
+                            <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                            Write New Post
+                        </div>
+                        <div class="menu-item" id="logoutBtn" style="color: #EF4444; margin-top: 40px;">
+                            <svg viewBox="0 0 24 24"><path d="M13 3h-2v10h2V3zm4.83 2.17l-1.42 1.42A6.92 6.92 0 0119 12c0 3.87-3.13 7-7 7s-7-3.13-7-7c0-1.91.76-3.64 2-4.91L5.59 5.67A8.87 8.87 0 003 12c0 4.97 4.02 9 9 9 4.97 0 9-4.03 9-9 0-2.74-1.22-5.19-3.17-6.83z"/></svg>
+                            Log Out
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Dynamic Content Panel -->
+                <section class="admin-content">
+                    <div class="alert alert-danger" id="errorAlert"></div>
+                    <div class="alert alert-success" id="successAlert"></div>
+
+                    <!-- Manage Blogs View -->
+                    <div id="viewBlogs">
+                        <div class="content-header">
+                            <h2>Manage Blog Articles</h2>
+                            <button class="btn btn-primary" style="padding: 10px 20px; font-size: 12px;" onclick="switchTab('editor')">Write New Post</button>
+                        </div>
+
+                        <div class="data-table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Slug</th>
+                                        <th>Status</th>
+                                        <th>Published Date</th>
+                                        <th style="width: 120px;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="blogsTableBody">
+                                    <tr>
+                                        <td colspan="5" style="text-align: center; color: var(--text-secondary);">Loading blog posts...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Editor View (Write / Edit Post) -->
+                    <div id="viewEditor" style="display: none;">
+                        <div class="content-header">
+                            <h2 id="editorTitle">Write New Blog Post</h2>
+                            <button class="btn btn-outline" style="padding: 8px 16px; font-size: 11px;" onclick="cancelEditor()">Back to List</button>
+                        </div>
+
+                        <form id="postForm">
+                            <input type="hidden" id="postId">
+                            
+                            <div class="form-group">
+                                <label for="postTitle">Article Title</label>
+                                <input type="text" id="postTitle" class="form-control" placeholder="e.g. 5 Critical Foundations for Clay Soil" required>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="postSlug">URL Slug</label>
+                                    <input type="text" id="postSlug" class="form-control" placeholder="e.g. 5-critical-foundations-clay-soil" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="postAuthor">Author Name</label>
+                                    <input type="text" id="postAuthor" class="form-control" value="Vikky Sharma" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group" style="grid-column: span 2;">
+                                    <label>Featured Image</label>
+                                    <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
+                                        <input type="text" id="postImage" class="form-control" placeholder="Paste Image URL or upload a file..." style="flex-grow: 1;">
+                                        <span style="font-family: var(--font-technical); font-size: 13px; color: var(--text-secondary);">OR</span>
+                                        <label class="btn btn-outline" style="padding: 10px 20px; font-size: 12px; margin: 0; white-space: nowrap; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+                                            <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor;"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg>
+                                            Upload File
+                                            <input type="file" id="imageUploadInput" accept="image/*" style="display: none;">
+                                        </label>
+                                    </div>
+                                    <span id="uploadStatusText" style="font-family: var(--font-technical); font-size: 12px; color: var(--primary); margin-top: 4px; display: block;"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="postExcerpt">Short Summary (Excerpt)</label>
+                                <input type="text" id="postExcerpt" class="form-control" placeholder="A brief sentence summary displaying on the blog feeds." required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="postContent">Full Post Body (HTML or Plain Text allowed)</label>
+                                <textarea id="postContent" class="form-control" rows="12" placeholder="Write your full structural construction post content here..." required></textarea>
+                            </div>
+
+                            <div class="btn-group" style="justify-content: flex-start; margin-top: 40px;">
+                                <button type="button" class="btn btn-primary" id="publishBtn">
+                                    <span>Publish Article</span>
+                                </button>
+                                <button type="button" class="btn btn-outline" id="draftBtn" style="color: var(--primary); border-color: rgba(255, 184, 0, 0.3);">
+                                    <span>Save as Draft</span>
+                                </button>
+                                <button type="button" class="btn btn-outline" onclick="cancelEditor()" style="margin-left: auto;">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- JS Auth Guard & CRUD Panel -->
+    <script type="module">
+        import { supabase } from './supabase-config.js';
+
+        // Globals
+        let activeTab = 'blogs';
+        let blogsList = [];
+
+        // Check Authentication and Role on Load
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                // Get session
+                const { data: { session }, error } = await supabase.auth.getSession();
+                
+                if (error || !session) {
+                    throw new Error('Not authenticated.');
+                }
+
+                // Get role from profile
+                const { data: profile, error: profileErr } = await supabase
+                    .from('profiles')
+                    .select('role')
+                    .eq('id', session.user.id)
+                    .single();
+
+                if (profileErr || !profile || profile.role !== 'admin') {
+                    throw new Error('Unauthorized.');
+                }
+
+                // Authenticated Admin - remove loading screen
+                document.getElementById('authGuard').style.display = 'none';
+                
+                // Display User Info
+                document.getElementById('userEmail').textContent = session.user.email;
+                document.getElementById('avatarName').textContent = session.user.email.charAt(0).toUpperCase();
+
+                // Fetch data
+                loadBlogs();
+
+            } catch (err) {
+                console.error('Auth Guard Redirect:', err);
+                window.location.href = 'login.html';
+            }
+        });
+
+        // Tab Switching Logic
+        window.switchTab = function(tab) {
+            activeTab = tab;
+            
+            const viewBlogs = document.getElementById('viewBlogs');
+            const viewEditor = document.getElementById('viewEditor');
+            const menuBlogs = document.getElementById('menuBlogs');
+            const menuNewPost = document.getElementById('menuNewPost');
+
+            // Reset alerts
+            document.getElementById('errorAlert').style.display = 'none';
+            document.getElementById('successAlert').style.display = 'none';
+
+            if (tab === 'blogs') {
+                viewBlogs.style.display = 'block';
+                viewEditor.style.display = 'none';
+                menuBlogs.classList.add('active');
+                menuNewPost.classList.remove('active');
+                loadBlogs();
+            } else if (tab === 'editor') {
+                viewBlogs.style.display = 'none';
+                viewEditor.style.display = 'block';
+                menuBlogs.classList.remove('active');
+                menuNewPost.classList.add('active');
+            }
+        }
+
+        // Cancel Editor action
+        window.cancelEditor = function() {
+            document.getElementById('postForm').reset();
+            document.getElementById('postId').value = '';
+            document.getElementById('editorTitle').textContent = 'Write New Blog Post';
+            switchTab('blogs');
+        }
+
+        // Auto Slug Generation from Title
+        const postTitleInput = document.getElementById('postTitle');
+        const postSlugInput = document.getElementById('postSlug');
+        postTitleInput.addEventListener('input', () => {
+            // Only auto-generate if ID is empty (writing a new post)
+            if (!document.getElementById('postId').value) {
+                postSlugInput.value = postTitleInput.value
+                    .toLowerCase()
+                    .replace(/[^a-z0-9\s-]/g, '')
+                    .replace(/\s+/g, '-')
+                    .replace(/-+/g, '-');
+            }
+        });
+
+        // Fetch Blogs from Supabase
+        async function loadBlogs() {
+            const tableBody = document.getElementById('blogsTableBody');
+            tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-secondary);">Loading blog articles...</td></tr>';
+            
+            try {
+                const { data, error } = await supabase
+                    .from('blogs')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+                blogsList = data;
+
+                if (data.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--text-secondary);">No articles found. Click "Write New Post" to start blogging!</td></tr>';
+                    return;
+                }
+
+                tableBody.innerHTML = '';
+                data.forEach(blog => {
+                    const tr = document.createElement('tr');
+                    const publishedDate = blog.published_at ? new Date(blog.published_at).toLocaleDateString() : '—';
+                    const statusClass = blog.status === 'published' ? 'status-published' : 'status-draft';
+                    
+                    tr.innerHTML = `
+                        <td style="font-weight: 600;">${escapeHtml(blog.title)}</td>
+                        <td style="font-family: var(--font-technical); font-size: 13px;">${escapeHtml(blog.slug)}</td>
+                        <td><span class="status-badge ${statusClass}">${blog.status}</span></td>
+                        <td style="font-family: var(--font-technical); color: var(--text-secondary);">${publishedDate}</td>
+                        <td class="table-actions">
+                            <button class="action-btn action-btn-edit" onclick="editPost('${blog.id}')" title="Edit Article">
+                                <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: currentColor;"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+                            </button>
+                            <button class="action-btn action-btn-delete" onclick="deletePost('${blog.id}')" title="Delete Article">
+                                <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: currentColor;"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+                            </button>
+                        </td>
+                    `;
+                    tableBody.appendChild(tr);
+                });
+
+            } catch (err) {
+                console.error(err);
+                showAlert('error', 'Error loading blogs: ' + err.message);
+            }
+        }
+
+        // Image Upload Logic via Supabase Storage
+        const imageUploadInput = document.getElementById('imageUploadInput');
+        const uploadStatusText = document.getElementById('uploadStatusText');
+        const postImageInput = document.getElementById('postImage');
+
+        imageUploadInput.addEventListener('change', async (e) => {
+            if (e.target.files.length === 0) return;
+
+            const file = e.target.files[0];
+            uploadStatusText.textContent = 'Uploading file to Supabase Storage...';
+            uploadStatusText.style.color = 'var(--primary)';
+
+            try {
+                const fileExt = file.name.split('.').pop();
+                const fileName = `${Date.now()}-${Math.floor(Math.random() * 1000)}.${fileExt}`;
+                const filePath = `uploads/${fileName}`;
+
+                // Upload to Supabase Storage Bucket 'blog-images'
+                const { data, error } = await supabase.storage
+                    .from('blog-images')
+                    .upload(filePath, file);
+
+                if (error) throw error;
+
+                // Get Public URL
+                const { data: { publicUrl } } = supabase.storage
+                    .from('blog-images')
+                    .getPublicUrl(filePath);
+
+                // Update input field
+                postImageInput.value = publicUrl;
+                uploadStatusText.textContent = `Upload successful! Filename: ${file.name}`;
+                uploadStatusText.style.color = '#10B981';
+
+            } catch (err) {
+                console.error('Image upload error:', err);
+                uploadStatusText.textContent = 'Upload failed: ' + err.message + ' (Make sure a public "blog-images" bucket is created in Supabase)';
+                uploadStatusText.style.color = '#EF4444';
+            }
+        });
+
+        // Submit Handler: Publish or Draft
+        let saveStatus = 'draft';
+
+        document.getElementById('publishBtn').addEventListener('click', () => {
+            saveStatus = 'published';
+            submitArticle();
+        });
+
+        document.getElementById('draftBtn').addEventListener('click', () => {
+            saveStatus = 'draft';
+            submitArticle();
+        });
+
+        async function submitArticle() {
+            const title = document.getElementById('postTitle').value.trim();
+            const slug = document.getElementById('postSlug').value.trim();
+            const author = document.getElementById('postAuthor').value.trim();
+            const excerpt = document.getElementById('postExcerpt').value.trim();
+            const content = document.getElementById('postContent').value.trim();
+
+            if (!title || !slug || !author || !excerpt || !content) {
+                showAlert('error', 'Please fill in all required fields (Title, Slug, Author, Excerpt, Content).');
+                return;
+            }
+
+            const publishBtn = document.getElementById('publishBtn');
+            const draftBtn = document.getElementById('draftBtn');
+            
+            publishBtn.disabled = true;
+            draftBtn.disabled = true;
+            const originalPublishText = publishBtn.querySelector('span').textContent;
+            publishBtn.querySelector('span').textContent = 'Saving...';
+
+            const id = document.getElementById('postId').value;
+            const image_url = document.getElementById('postImage').value.trim() || 'assets/concrete_material.webp';
+            
+            const postData = {
+                title,
+                slug,
+                author,
+                image_url,
+                status: saveStatus,
+                excerpt,
+                content,
+                published_at: saveStatus === 'published' ? new Date().toISOString() : null
+            };
+
+            try {
+                let error;
+                if (id) {
+                    // Update
+                    const { error: err } = await supabase
+                        .from('blogs')
+                        .update(postData)
+                        .eq('id', id);
+                    error = err;
+                } else {
+                    // Insert
+                    const { error: err } = await supabase
+                        .from('blogs')
+                        .insert([postData]);
+                    error = err;
+                }
+
+                if (error) throw error;
+
+                showAlert('success', `Article saved as ${saveStatus} successfully.`);
+                setTimeout(() => {
+                    cancelEditor();
+                }, 800);
+
+            } catch (err) {
+                console.error(err);
+                showAlert('error', 'Error saving article: ' + err.message);
+            } finally {
+                publishBtn.disabled = false;
+                draftBtn.disabled = false;
+                publishBtn.querySelector('span').textContent = originalPublishText;
+            }
+        }
+
+        // Edit Post Setup
+        window.editPost = function(id) {
+            const blog = blogsList.find(b => b.id === id);
+            if (!blog) return;
+
+            document.getElementById('postId').value = blog.id;
+            document.getElementById('postTitle').value = blog.title;
+            document.getElementById('postSlug').value = blog.slug;
+            document.getElementById('postAuthor').value = blog.author;
+            document.getElementById('postImage').value = blog.image_url;
+            document.getElementById('postExcerpt').value = blog.excerpt;
+            document.getElementById('postContent').value = blog.content;
+
+            document.getElementById('editorTitle').textContent = 'Edit Blog Post';
+            switchTab('editor');
+        }
+
+        // Delete Blog Post
+        window.deletePost = async function(id) {
+            if (!confirm('Are you sure you want to permanently delete this article?')) return;
+
+            try {
+                const { error } = await supabase
+                    .from('blogs')
+                    .delete()
+                    .eq('id', id);
+
+                if (error) throw error;
+
+                showAlert('success', 'Article deleted.');
+                loadBlogs();
+
+            } catch (err) {
+                console.error(err);
+                showAlert('error', 'Error deleting article: ' + err.message);
+            }
+        }
+
+        // Logout logic
+        async function handleLogout() {
+            try {
+                const { error } = await supabase.auth.signOut();
+                if (error) throw error;
+                window.location.href = 'login.html';
+            } catch (err) {
+                console.error(err);
+                alert('Sign out error: ' + err.message);
+            }
+        }
+        document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+        document.getElementById('logoutBtnTop').addEventListener('click', handleLogout);
+
+        // Utilities
+        function showAlert(type, message) {
+            const errEl = document.getElementById('errorAlert');
+            const succEl = document.getElementById('successAlert');
+
+            if (type === 'error') {
+                errEl.textContent = message;
+                errEl.style.display = 'block';
+                succEl.style.display = 'none';
+            } else {
+                succEl.textContent = message;
+                succEl.style.display = 'block';
+                errEl.style.display = 'none';
+            }
+            // Auto hide alerts after 5s
+            setTimeout(() => {
+                errEl.style.display = 'none';
+                succEl.style.display = 'none';
+            }, 5000);
+        }
+
+        function escapeHtml(string) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return string.replace(/[&<>"']/g, function(m) { return map[m]; });
+        }
+    </script>
+</body>
+</html>

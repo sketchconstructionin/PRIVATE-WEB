@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) - Google Consent Mode v2 -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+
+      // Set default consent for all regions by default
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'analytics_storage': 'denied'
+      });
+    </script>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-W7J722MQ');</script>
+    <!-- End Google Tag Manager -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GQHE8B3NTT"></script>
+    <script>
+      gtag('js', new Date());
+      gtag('config', 'G-GQHE8B3NTT');
+    </script>
+
+    <!-- Sourcepoint CMP Code Template -->
+    <script>
+      window._sp_queue = [];
+      window._sp_ = {
+        config: {
+          accountId: 9999, // Replace with your Sourcepoint Account ID
+          baseEndpoint: 'https://cdn.privacy-mgmt.com',
+          gdpr: { },
+          events: {
+            onMessageReady: function() {
+              console.log('[event] onMessageReady', arguments);
+            }
+          }
+        }
+      }
+    </script>
+    <script src='https://cdn.privacy-mgmt.com/unified/wrapperMessagingWithoutDetection.js' async></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concrete Curing Log | Sketch Construction Raipur</title>
+    <!-- Preconnect to Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Preload Outfit and Space Grotesk Fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"></noscript>
+    <!-- Main Style Link -->
+    <link rel="stylesheet" href="style.min.css?v=1.0.2">
+    <style>
+        body {
+            background-color: #0F0F0F;
+            color: #FFFFFF;
+            padding: 40px 0;
+        }
+        .log-header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .log-title h1 {
+            font-size: 32px;
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+            margin-bottom: 6px;
+        }
+        .log-meta-tag {
+            display: inline-block;
+            font-family: var(--font-technical);
+            font-size: 12px;
+            background-color: rgba(255, 184, 0, 0.1);
+            color: var(--primary);
+            border: 1px solid var(--border-accent);
+            padding: 4px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .stamp-box {
+            border: 2px dashed var(--border-accent);
+            padding: 12px 20px;
+            border-radius: var(--border-radius-sm);
+            background-color: rgba(255, 184, 0, 0.02);
+            text-align: right;
+            font-family: var(--font-technical);
+        }
+        .stamp-title {
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 4px;
+        }
+        .stamp-name {
+            font-size: 15px;
+            color: #FFFFFF;
+            font-weight: 700;
+        }
+        .stamp-status {
+            font-size: 12px;
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .log-grid {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 40px;
+        }
+        @media (max-width: 1024px) {
+            .log-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .spec-card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .spec-item {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            padding: 16px;
+        }
+        .spec-label {
+            font-family: var(--font-technical);
+            font-size: 11px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 6px;
+        }
+        .spec-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+        .spec-value.highlight {
+            color: var(--primary);
+        }
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            background-color: var(--bg-surface);
+            margin-bottom: 30px;
+        }
+        .log-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 14px;
+        }
+        .log-table th {
+            background-color: #121212;
+            font-family: var(--font-technical);
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .log-table td {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+        .log-table tr:last-child td {
+            border-bottom: none;
+        }
+        .log-table tr:hover td {
+            background-color: rgba(255, 255, 255, 0.01);
+        }
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: var(--font-technical);
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+        }
+        .status-badge.verified {
+            background-color: rgba(74, 222, 128, 0.1);
+            color: #4ade80;
+            border: 1px solid rgba(74, 222, 128, 0.2);
+        }
+        .sidebar-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+        .side-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            padding: 28px;
+        }
+        .side-card h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            color: var(--primary);
+            border-left: 3px solid var(--primary);
+            padding-left: 10px;
+        }
+        .chart-box {
+            width: 100%;
+            height: 180px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding: 20px 10px 0;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+            margin-bottom: 12px;
+        }
+        .chart-bar-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 20%;
+            height: 100%;
+            justify-content: flex-end;
+            position: relative;
+        }
+        .chart-bar {
+            width: 24px;
+            background: linear-gradient(to top, #FF8C00, #FFD700);
+            border-radius: 4px 4px 0 0;
+            transition: height 1s ease-out;
+            position: relative;
+        }
+        .chart-bar-val {
+            position: absolute;
+            top: -20px;
+            font-family: var(--font-technical);
+            font-size: 10px;
+            font-weight: bold;
+            color: #FFFFFF;
+            width: 100%;
+            text-align: center;
+        }
+        .chart-bar-label {
+            font-family: var(--font-technical);
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+        }
+        .chart-target-line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            border-top: 1px dashed var(--primary);
+            opacity: 0.5;
+        }
+        .chart-target-lbl {
+            position: absolute;
+            right: 4px;
+            font-family: var(--font-technical);
+            font-size: 8px;
+            color: var(--primary);
+            background-color: var(--bg-surface);
+            padding: 1px 4px;
+            border-radius: 2px;
+            transform: translateY(-50%);
+        }
+        .print-btn-bar {
+            margin-top: 40px;
+            display: flex;
+            gap: 16px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 30px;
+        }
+        @media print {
+            body {
+                background-color: #FFFFFF;
+                color: #000000;
+                padding: 20px;
+            }
+            .spec-item, .side-card, .table-container {
+                background-color: #FFFFFF !important;
+                border: 1px solid #000000 !important;
+                color: #000000 !important;
+            }
+            .spec-value, td, th, h1, h3 {
+                color: #000000 !important;
+            }
+            .print-btn-bar, .floating-contact-btn {
+                display: none !important;
+            }
+            .stamp-box {
+                border-color: #000000 !important;
+                background-color: transparent !important;
+            }
+            .stamp-status {
+                color: #000000 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W7J722MQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="container">
+        
+        <!-- Header -->
+        <header class="log-header">
+            <div class="log-title">
+                <span class="log-meta-tag">Civil Quality Control Log</span>
+                <h1 style="margin-top: 10px;">Concrete Curing Monitor</h1>
+                <p style="color: var(--text-secondary);">Project: VIP Road Duplex Casing | Structural Shell Execution</p>
+            </div>
+            
+            <div class="stamp-box">
+                <div class="stamp-title">Site Inspector Sign-Off</div>
+                <div class="stamp-name">Vikky Sharma</div>
+                <div class="stamp-status">Approved & IS Code Verified</div>
+            </div>
+        </header>
+
+        <!-- Specifications Grid -->
+        <section class="spec-card-grid">
+            <div class="spec-item">
+                <div class="spec-label">Structural Member</div>
+                <div class="spec-value">1st Floor Slab Deck</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-label">Concrete Design Mix</div>
+                <div class="spec-value highlight">M25 Grade</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-label">Cement Brand</div>
+                <div class="spec-value">ACC Gold OPC 53</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-label">Casting Date</div>
+                <div class="spec-value">May 10, 2026</div>
+            </div>
+            <div class="spec-item">
+                <div class="spec-label">Wet Curing Target</div>
+                <div class="spec-value">14 Days (IS 456)</div>
+            </div>
+        </section>
+
+        <!-- Main Content Layout -->
+        <div class="log-grid">
+            
+            <!-- Left Panel: Curing Log Table -->
+            <main>
+                <div class="table-container">
+                    <table class="log-table">
+                        <thead>
+                            <tr>
+                                <th>Day</th>
+                                <th>Curing Date</th>
+                                <th>Avg Temp (°C)</th>
+                                <th>Moisture Level</th>
+                                <th>Ponding Depth</th>
+                                <th>Status / Sign-off</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Day 01</td>
+                                <td>May 11, 2026</td>
+                                <td>38.4°C</td>
+                                <td>100% (High Saturation)</td>
+                                <td>40 mm</td>
+                                <td><span class="status-badge verified">Verified (VS)</span></td>
+                            </tr>
+                            <tr>
+                                <td>Day 02</td>
+                                <td>May 12, 2026</td>
+                                <td>39.1°C</td>
+                                <td>98% (Saturated)</td>
+                                <td>38 mm</td>
+                                <td><span class="status-badge verified">Verified (VS)</span></td>
+                            </tr>
+                            <tr>
+                                <td>Day 03</td>
+                                <td>May 13, 2026</td>
+                                <td>38.7°C</td>
+                                <td>99% (Saturated)</td>
+                                <td>40 mm</td>
+                                <td><span class="status-badge verified">Verified (VS)</span></td>
+                            </tr>
+                            <tr>
+                                <td>Day 04</td>
+                                <td>May 14, 2026</td>
+                                <td>40.2°C</td>
+                                <td>97% (Re-watered)</td>
+                                <td>42 mm</td>
+                                <td><span class="status-badge verified">Verified (VS)</span></td>
+                            </tr>
+                            <tr>
+                                <td>Day 05</td>
+                                <td>May 15, 2026</td>
+                                <td>39.5°C</td>
+                                <td>99% (Saturated)</td>
+                                <td>38 mm</td>
+                                <td><span class="status-badge verified">Verified (VS)</span></td>
+                            </tr>
+                            <tr>
+                                <td>Day 06</td>
+                                <td>May 16, 2026</td>
+                                <td>37.8°C</td>
+                                <td>99% (Saturated)</td>
+                                <td>40 mm</td>
+                                <td><span class="status-badge verified">Verified (VS)</span></td>
+                            </tr>
+                            <tr>
+                                <td>Day 07</td>
+                                <td>May 17, 2026</td>
+                                <td>38.2°C</td>
+                                <td>100% (Mid-term Check)</td>
+                                <td>40 mm</td>
+                                <td><span class="status-badge verified">Verified (VS)</span></td>
+                            </tr>
+                            <tr>
+                                <td>Day 08</td>
+                                <td>May 18, 2026</td>
+                                <td>39.0°C</td>
+                                <td>98% (Saturated)</td>
+                                <td>35 mm</td>
+                                <td><span class="status-badge verified">Verified (VS)</span></td>
+                            </tr>
+                            <tr>
+                                <td>Day 09</td>
+                                <td>May 19, 2026</td>
+                                <td>40.5°C</td>
+                                <td>96% (Re-watered)</td>
+                                <td>42 mm</td>
+                                <td><span class="status-badge verified">Verified (VS)</span></td>
+                            </tr>
+                            <tr>
+                                <td>Day 10</td>
+                                <td>May 20, 2026</td>
+                                <td>39.8°C</td>
+                                <td>98% (Saturated)</td>
+                                <td>38 mm</td>
+                                <td><span class="status-badge verified">Verified (VS)</span></td>
+                            </tr>
+                            <tr>
+                                <td>Day 11</td>
+                                <td>May 21, 2026</td>
+                                <td>38.9°C</td>
+                                <td>99% (Saturated)</td>
+                                <td>40 mm</td>
+                                <td><span class="status-badge verified">Verified (VS)</span></td>
+                            </tr>
+                            <tr>
+                                <td>Day 12</td>
+                                <td>May 22, 2026</td>
+                                <td>37.5°C</td>
+                                <td>100% (Saturated)</td>
+                                <td>40 mm</td>
+                                <td><span class="status-badge verified">Verified (VS)</span></td>
+                            </tr>
+                            <tr>
+                                <td>Day 13</td>
+                                <td>May 23, 2026</td>
+                                <td>38.1°C</td>
+                                <td>99% (Saturated)</td>
+                                <td>38 mm</td>
+                                <td><span class="status-badge verified">Verified (VS)</span></td>
+                            </tr>
+                            <tr>
+                                <td>Day 14</td>
+                                <td>May 24, 2026</td>
+                                <td>39.2°C</td>
+                                <td>100% (Final Wetting)</td>
+                                <td>35 mm</td>
+                                <td><span class="status-badge verified">Verified (VS)</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+
+            <!-- Right Panel: Charts & Blueprints -->
+            <aside class="sidebar-panel">
+                
+                <!-- Compressive Strength Side Card -->
+                <div class="side-card">
+                    <h3>Compressive Strength (N/mm²)</h3>
+                    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 24px; line-height: 1.4;">
+                        Compression testing of concrete test cubes cast from same batch (IS 516 test standards).
+                    </p>
+                    
+                    <!-- SVG-style HTML/CSS Chart -->
+                    <div class="chart-box">
+                        <!-- Target line at 25 N/mm² (80% of height) -->
+                        <div class="chart-target-line" style="bottom: 78%;"></div>
+                        <div class="chart-target-lbl" style="bottom: 78%;">Target: 25 N/mm²</div>
+                        
+                        <!-- Bar 1 (3 Day) -->
+                        <div class="chart-bar-wrapper">
+                            <div class="chart-bar" style="height: 36%;">
+                                <span class="chart-bar-val">11.5</span>
+                            </div>
+                            <span class="chart-bar-label">3d</span>
+                        </div>
+                        
+                        <!-- Bar 2 (7 Day) -->
+                        <div class="chart-bar-wrapper">
+                            <div class="chart-bar" style="height: 55%;">
+                                <span class="chart-bar-val">17.8</span>
+                            </div>
+                            <span class="chart-bar-label">7d</span>
+                        </div>
+                        
+                        <!-- Bar 3 (14 Day) -->
+                        <div class="chart-bar-wrapper">
+                            <div class="chart-bar" style="height: 78%;">
+                                <span class="chart-bar-val">25.1</span>
+                            </div>
+                            <span class="chart-bar-label">14d</span>
+                        </div>
+                        
+                        <!-- Bar 4 (28 Day) -->
+                        <div class="chart-bar-wrapper">
+                            <div class="chart-bar" style="height: 92%;">
+                                <span class="chart-bar-val">29.4</span>
+                            </div>
+                            <span class="chart-bar-label">28d</span>
+                        </div>
+                    </div>
+                    
+                    <div style="font-family: var(--font-technical); font-size: 11px; text-transform: uppercase; color: var(--text-secondary); display: flex; justify-content: space-between; margin-top: 10px;">
+                        <span>Target Strength: 25.0</span>
+                        <span style="color: #4ade80;">28d Strength: 29.4 (Pass)</span>
+                    </div>
+                </div>
+
+                <!-- Slab Casting Area Blueprint Layout -->
+                <div class="side-card">
+                    <h3>Slab Casting Layout</h3>
+                    <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.4;">
+                        Reference schematic structural blueprint plan for wet ponding grid compartments.
+                    </p>
+                    <div style="border: 1px solid var(--border-color); border-radius: var(--border-radius-sm); overflow: hidden; background: #000; padding: 6px;">
+                        <img src="assets/blueprint_schematic.webp" alt="Slab ponding structural blueprint plan" style="width: 100%; border-radius: 2px; filter: hue-rotate(180deg) brightness(0.95) contrast(1.15);" width="1024" height="1024" loading="lazy">
+                    </div>
+                    <div style="margin-top: 12px; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-family: var(--font-technical); font-size: 11px; color: var(--text-muted);">Scale: 1:100 | Zone III</span>
+                        <a href="blueprint-viewer.html?project=sadarbazar" target="_blank" style="font-family: var(--font-technical); font-size: 11px; color: var(--primary); font-weight: 600;">Inspect Full Layout &rarr;</a>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Bottom Print and Navigation Buttons -->
+        <footer class="print-btn-bar">
+            <button onclick="window.print();" class="btn btn-primary">
+                <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: #000000;"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+                Print Official Curing Report
+            </button>
+            <a href="index.html#portfolio" class="btn btn-outline">Back to Home Section</a>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,380 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-W7J722MQ');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sketch Construction</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .login-section {
+            min-height: calc(100vh - var(--header-height) - 40px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background-color: #0F0F0F;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 5;
+            transition: var(--transition-smooth);
+        }
+
+        .login-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 25px rgba(255, 184, 0, 0.05);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-header h2 {
+            font-size: 28px;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .login-header p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-family: var(--font-technical);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+        }
+
+        .form-control {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            padding: 12px 16px;
+            color: var(--text-primary);
+            font-size: 15px;
+            transition: var(--transition-fast);
+            width: 100%;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            background-color: rgba(255, 184, 0, 0.02);
+        }
+
+        .alert {
+            padding: 12px 16px;
+            border-radius: var(--border-radius-sm);
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: none;
+            line-height: 1.4;
+        }
+
+        .alert-danger {
+            background-color: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: #EF4444;
+        }
+
+        .alert-success {
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            color: #10B981;
+        }
+
+        .login-footer {
+            margin-top: 24px;
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .login-footer a {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .password-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .password-input-wrapper .form-control {
+            padding-right: 50px;
+        }
+
+        .password-toggle-btn {
+            position: absolute;
+            right: 12px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-fast);
+        }
+
+        .password-toggle-btn:hover {
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W7J722MQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <!-- Announcement Bar -->
+    <div class="announcement-bar">
+        <div class="container bar-content">
+            <div class="bar-item">
+                <span class="pulse-dot"></span>
+                <span class="highlight-badge">BIS Standard Construction</span>
+            </div>
+            <div class="bar-item">
+                <span style="margin-right: 6px;">Hotline:</span>
+                <a href="tel:+918349886687" class="phone-link">+91 8349886687</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-symbol small-logo">
+                    <img src="assets/logo.webp" alt="Sketch Construction Logo" class="logo-img" width="1024" height="1024">
+                </div>
+                <div class="logo-text">
+                    <span class="logo-title">SKETCH</span>
+                    <span class="logo-subtitle">CONSTRUCTION</span>
+                </div>
+            </a>
+            <nav class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="login.html" class="nav-link active">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="login-section">
+        <div class="blueprint-grid"></div>
+        <div class="login-card">
+            <div class="login-header">
+                <h2>Portal Access</h2>
+                <p>Sign in to manage projects & blog posts</p>
+            </div>
+
+            <div class="alert alert-danger" id="errorAlert"></div>
+            <div class="alert alert-success" id="successAlert"></div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Gmail Address</label>
+                    <input type="email" id="email" class="form-control" placeholder="yourname@gmail.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+                        <button type="button" class="password-toggle-btn" id="passwordToggleBtn" aria-label="Toggle Password Visibility">
+                            <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" style="margin-top: 10px;" id="loginBtn">
+                    <span>Sign In</span>
+                </button>
+            </form>
+
+            <div class="login-footer">
+                <p id="toggleModeText">Don't have an account? <a href="#" id="toggleModeBtn" style="color: var(--primary); font-weight: 600;">Create Account</a></p>
+                <p style="margin-top: 12px; font-size: 11px; opacity: 0.6;">Access issues? Contact <a href="mailto:sketchconstruction.in@gmail.com">Site Support</a></p>
+            </div>
+        </div>
+    </main>
+
+    <!-- JS Logic -->
+    <script type="module">
+        import { supabase } from './supabase-config.js';
+
+        const loginForm = document.getElementById('loginForm');
+        const errorAlert = document.getElementById('errorAlert');
+        const successAlert = document.getElementById('successAlert');
+        const loginBtn = document.getElementById('loginBtn');
+        
+        // Mode toggle variables
+        const toggleModeBtn = document.getElementById('toggleModeBtn');
+        const toggleModeText = document.getElementById('toggleModeText');
+        const cardHeaderTitle = document.querySelector('.login-header h2');
+        const cardHeaderDesc = document.querySelector('.login-header p');
+        const loginBtnText = loginBtn.querySelector('span');
+        let isSignUpMode = false;
+
+        toggleModeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            isSignUpMode = !isSignUpMode;
+            
+            // Clear alerts
+            errorAlert.style.display = 'none';
+            successAlert.style.display = 'none';
+
+            if (isSignUpMode) {
+                cardHeaderTitle.textContent = "Create Account";
+                cardHeaderDesc.textContent = "Register a new administrative or user ID";
+                loginBtnText.textContent = "Create Account";
+                toggleModeBtn.textContent = "Sign In";
+                toggleModeText.firstChild.textContent = "Already have an account? ";
+            } else {
+                cardHeaderTitle.textContent = "Portal Access";
+                cardHeaderDesc.textContent = "Sign in to manage projects & blog posts";
+                loginBtnText.textContent = "Sign In";
+                toggleModeBtn.textContent = "Create Account";
+                toggleModeText.firstChild.textContent = "Don't have an account? ";
+            }
+        });
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            errorAlert.style.display = 'none';
+            successAlert.style.display = 'none';
+            loginBtn.disabled = true;
+
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            if (isSignUpMode) {
+                // SignUp/Registration mode
+                loginBtnText.textContent = 'Registering...';
+                try {
+                    const { data, error } = await supabase.auth.signUp({
+                        email,
+                        password
+                    });
+
+                    if (error) throw error;
+
+                    successAlert.textContent = 'Registration successful! Checking administrative access...';
+                    successAlert.style.display = 'block';
+
+                    const user = data.user;
+                    setTimeout(async () => {
+                        const { data: profile, error: profileErr } = await supabase
+                            .from('profiles')
+                            .select('role')
+                            .eq('id', user.id)
+                            .single();
+                        
+                        if (profile && profile.role === 'admin') {
+                            window.location.href = 'admin.html';
+                        } else {
+                            successAlert.textContent = 'Account created successfully! Admin approval or SQL promotion required to log in.';
+                            loginBtn.disabled = false;
+                            loginBtnText.textContent = 'Create Account';
+                        }
+                    }, 1500);
+
+                } catch (err) {
+                    console.error(err);
+                    errorAlert.textContent = err.message || 'Registration failed.';
+                    errorAlert.style.display = 'block';
+                    loginBtn.disabled = false;
+                    loginBtnText.textContent = 'Create Account';
+                }
+            } else {
+                // Login/SignIn Mode
+                loginBtnText.textContent = 'Authenticating...';
+                try {
+                    const { data, error } = await supabase.auth.signInWithPassword({
+                        email,
+                        password
+                    });
+
+                    if (error) throw error;
+
+                    successAlert.textContent = 'Login successful! Checking dashboard access...';
+                    successAlert.style.display = 'block';
+
+                    const user = data.user;
+                    const { data: profile } = await supabase
+                        .from('profiles')
+                        .select('role')
+                        .eq('id', user.id)
+                        .single();
+
+                    setTimeout(() => {
+                        if (profile && profile.role === 'admin') {
+                            window.location.href = 'admin.html';
+                        } else {
+                            window.location.href = 'index.html';
+                        }
+                    }, 1000);
+
+                } catch (err) {
+                    console.error(err);
+                    errorAlert.textContent = err.message || 'Authentication failed. Please verify credentials.';
+                    errorAlert.style.display = 'block';
+                    loginBtn.disabled = false;
+                    loginBtnText.textContent = 'Sign In';
+                }
+            }
+        });
+
+        // Show/Hide Password Toggle
+        const passwordInput = document.getElementById('password');
+        const passwordToggleBtn = document.getElementById('passwordToggleBtn');
+
+        passwordToggleBtn.addEventListener('click', () => {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordToggleBtn.innerHTML = `<svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;"><path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.82l2.92 2.92c1.51-1.44 2.63-3.23 3.25-5.24-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.34-2.78l1.54 1.54c-.45-.33-.97-.56-1.54-.56 0 .01 0 .02 0 .02z"/></svg>`;
+            } else {
+                passwordInput.type = 'password';
+                passwordToggleBtn.innerHTML = `<svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>`;
+            }
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) - Google Consent Mode v2 -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+
+      // Set default consent for all regions by default
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'analytics_storage': 'denied'
+      });
+    </script>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-W7J722MQ');</script>
+    <!-- End Google Tag Manager -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GQHE8B3NTT"></script>
+    <script>
+      gtag('js', new Date());
+      gtag('config', 'G-GQHE8B3NTT');
+    </script>
+
+    <!-- Sourcepoint CMP Code Template -->
+    <script>
+      window._sp_queue = [];
+      window._sp_ = {
+        config: {
+          accountId: 9999, // Replace with your Sourcepoint Account ID
+          baseEndpoint: 'https://cdn.privacy-mgmt.com',
+          gdpr: { },
+          events: {
+            onMessageReady: function() {
+              console.log('[event] onMessageReady', arguments);
+            }
+          }
+        }
+      }
+    </script>
+    <script src='https://cdn.privacy-mgmt.com/unified/wrapperMessagingWithoutDetection.js' async></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Blueprint Inspector | Sketch Construction Raipur</title>
+    <!-- Preconnect to Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Preload Outfit and Space Grotesk Fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"></noscript>
+    <!-- Main Style Link -->
+    <link rel="stylesheet" href="style.min.css?v=1.0.2">
+    <style>
+        body {
+            background-color: #0F0F0F;
+            color: #FFFFFF;
+            padding: 30px 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .viewer-header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 24px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .viewer-title h1 {
+            font-size: 28px;
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+            margin-bottom: 4px;
+        }
+
+        .viewer-meta-tag {
+            display: inline-block;
+            font-family: var(--font-technical);
+            font-size: 11px;
+            background-color: rgba(255, 184, 0, 0.1);
+            color: var(--primary);
+            border: 1px solid var(--border-accent);
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-technical);
+            font-size: 13px;
+            color: var(--text-secondary);
+            transition: var(--transition-fast);
+            margin-bottom: 16px;
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+        }
+
+        .back-link svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+            transform: scaleX(-1);
+        }
+
+        /* Layout Grid */
+        .viewer-grid {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 30px;
+            flex: 1;
+        }
+
+        @media (max-width: 1024px) {
+            .viewer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Interactive Canvas Area */
+        .canvas-container {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-surface);
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+            height: 600px;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .canvas-container {
+                height: 450px;
+            }
+        }
+
+        /* Controls Bar */
+        .canvas-toolbar {
+            background-color: #141414;
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            z-index: 10;
+        }
+
+        .toolbar-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tool-btn {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-family: var(--font-technical);
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition-fast);
+            color: var(--text-secondary);
+        }
+
+        .tool-btn:hover {
+            background-color: rgba(255, 184, 0, 0.08);
+            border-color: var(--border-accent);
+            color: #FFFFFF;
+        }
+
+        .tool-btn.active {
+            background-color: var(--primary);
+            color: #000000;
+            border-color: var(--primary);
+        }
+
+        .tool-btn svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        .zoom-display {
+            font-family: var(--font-technical);
+            font-size: 12px;
+            color: var(--text-secondary);
+            min-width: 50px;
+            text-align: center;
+        }
+
+        /* Viewport Canvas */
+        .viewport-wrapper {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            background-color: #080D16; /* Blueprint Dark Blue */
+            cursor: grab;
+            user-select: none;
+        }
+
+        .viewport-wrapper:active {
+            cursor: grabbing;
+        }
+
+        /* Blueprint Grid Lines Overlay */
+        .blueprint-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            background-image: 
+                linear-gradient(rgba(0, 180, 216, 0.07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 180, 216, 0.07) 1px, transparent 1px);
+            background-size: 24px 24px;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .blueprint-lines.hidden {
+            opacity: 0;
+        }
+
+        /* Blueprint content frame */
+        .blueprint-content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform-origin: center;
+            transition: transform 0.1s ease-out;
+            z-index: 1;
+        }
+
+        .blueprint-img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            /* Enhance structural drawings visual contrast */
+            filter: contrast(1.1) brightness(0.95);
+            pointer-events: none;
+        }
+
+        /* Coordinate Crosshair Trackers */
+        .crosshair-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 3;
+            display: none;
+        }
+
+        .crosshair-container.active {
+            display: block;
+        }
+
+        .crosshair-h, .crosshair-v {
+            position: absolute;
+            background-color: rgba(255, 184, 0, 0.25);
+        }
+
+        .crosshair-h {
+            left: 0;
+            width: 100%;
+            height: 1px;
+            border-top: 1px dashed rgba(255, 184, 0, 0.4);
+        }
+
+        .crosshair-v {
+            top: 0;
+            width: 1px;
+            height: 100%;
+            border-left: 1px dashed rgba(255, 184, 0, 0.4);
+        }
+
+        /* HUD Status Details */
+        .canvas-hud {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            background-color: rgba(13, 13, 13, 0.85);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border-color);
+            padding: 8px 14px;
+            border-radius: 4px;
+            z-index: 4;
+            font-family: var(--font-technical);
+            font-size: 11px;
+            color: var(--text-secondary);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            pointer-events: none;
+        }
+
+        .hud-item span {
+            color: #FFFFFF;
+            font-weight: 500;
+        }
+
+        /* Sidebar spec card */
+        .spec-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .legend-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            padding: 24px;
+        }
+
+        .legend-card h3 {
+            font-size: 16px;
+            text-transform: uppercase;
+            color: var(--primary);
+            border-left: 3px solid var(--primary);
+            padding-left: 10px;
+            margin-bottom: 20px;
+            letter-spacing: 0.05em;
+        }
+
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .specs-table tr {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .specs-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .specs-table td {
+            padding: 10px 0;
+            color: var(--text-primary);
+        }
+
+        .specs-table td.label-td {
+            font-family: var(--font-technical);
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 0.05em;
+            width: 40%;
+        }
+
+        .notes-box {
+            background-color: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 14px;
+            font-size: 12px;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            margin-top: 15px;
+        }
+
+        .notes-box strong {
+            color: #FFFFFF;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* Engineering Stamps */
+        .approval-stamp {
+            border: 2px dashed rgba(255, 184, 0, 0.4);
+            padding: 16px;
+            border-radius: var(--border-radius-sm);
+            background-color: rgba(255, 184, 0, 0.01);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 24px;
+        }
+
+        .stamp-seal {
+            position: absolute;
+            right: -10px;
+            bottom: -10px;
+            width: 80px;
+            height: 80px;
+            border: 1px dashed rgba(255, 184, 0, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(-15deg);
+            pointer-events: none;
+        }
+
+        .stamp-seal-inner {
+            font-family: var(--font-technical);
+            font-size: 8px;
+            color: rgba(255, 184, 0, 0.15);
+            text-transform: uppercase;
+            text-align: center;
+            line-height: 1;
+            font-weight: 700;
+        }
+
+        .stamp-lbl {
+            font-family: var(--font-technical);
+            font-size: 9px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .stamp-val {
+            font-size: 15px;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        .stamp-status {
+            font-family: var(--font-technical);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--primary);
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stamp-status::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background-color: var(--primary);
+            border-radius: 50%;
+        }
+
+        .layer-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .layer-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            cursor: pointer;
+            user-select: none;
+            color: var(--text-secondary);
+        }
+
+        .layer-option input {
+            accent-color: var(--primary);
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .layer-option:hover {
+            color: #FFFFFF;
+        }
+
+        /* Action Buttons */
+        .actions-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* Print Media Styles */
+        @media print {
+            body {
+                background-color: #FFFFFF;
+                color: #000000;
+                padding: 10px;
+            }
+            .viewer-header, .back-link, .canvas-toolbar, .actions-card, .canvas-hud, .floating-contact-btn {
+                display: none !important;
+            }
+            .canvas-container {
+                height: auto;
+                border: 2px solid #000000 !important;
+                background-color: #FFFFFF !important;
+                border-radius: 0;
+            }
+            .viewport-wrapper {
+                background-color: #FFFFFF !important;
+                height: 650px;
+            }
+            .blueprint-lines {
+                display: none !important;
+            }
+            .blueprint-img {
+                filter: invert(1) contrast(1.3) brightness(1.1) !important;
+                max-width: 100%;
+                max-height: 100%;
+            }
+            .viewer-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .legend-card {
+                background-color: #FFFFFF !important;
+                border: 1px solid #000000 !important;
+                color: #000000 !important;
+                border-radius: 0;
+            }
+            .specs-table td {
+                color: #000000 !important;
+                border-bottom-color: #000000 !important;
+            }
+            .specs-table td.label-td {
+                color: #555555 !important;
+            }
+            .approval-stamp {
+                border-color: #000000 !important;
+                background-color: transparent !important;
+            }
+            .stamp-val, .stamp-status {
+                color: #000000 !important;
+            }
+            .notes-box {
+                border-color: #000000 !important;
+                background-color: transparent !important;
+                color: #333333 !important;
+            }
+            .notes-box strong {
+                color: #000000 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W7J722MQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="container" style="flex: 1; display: flex; flex-direction: column;">
+        
+        <!-- Back navigation link -->
+        <a href="index.html#portfolio" class="back-link">
+            <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+            Back to Site Portfolio
+        </a>
+
+        <!-- Header -->
+        <header class="viewer-header">
+            <div class="viewer-title">
+                <span class="viewer-meta-tag" id="metaCategory">Structural Drafting</span>
+                <h1 style="margin-top: 10px;" id="projectTitle">Sector 12 Elevation Blueprint</h1>
+                <p style="color: var(--text-secondary);" id="projectSubtitle">Naya Raipur Duplex Villa - Structural Elevation</p>
+            </div>
+            
+            <div class="stamp-box" style="border: 2px dashed var(--border-accent); padding: 12px 20px; border-radius: var(--border-radius-sm); background-color: rgba(255, 184, 0, 0.02); text-align: right; font-family: var(--font-technical);">
+                <div class="stamp-title" style="font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px;">Blueprint Authority</div>
+                <div class="stamp-name" style="font-size: 15px; color: #FFFFFF; font-weight: 700;">Vikky Sharma</div>
+                <div class="stamp-status" style="font-size: 12px; color: var(--primary); font-weight: 600; text-transform: uppercase;">Approved & IS Standard</div>
+            </div>
+        </header>
+
+        <!-- Main Viewer Grid -->
+        <div class="viewer-grid">
+            
+            <!-- Left Side: Interactive Canvas -->
+            <main class="canvas-container">
+                <!-- Toolbar controls -->
+                <div class="canvas-toolbar">
+                    <div class="toolbar-group">
+                        <button class="tool-btn" id="zoomOutBtn" title="Zoom Out">
+                            <svg viewBox="0 0 24 24"><path d="M19 13H5v-2h14v2z"/></svg>
+                        </button>
+                        <span class="zoom-display" id="zoomVal">100%</span>
+                        <button class="tool-btn" id="zoomInBtn" title="Zoom In">
+                            <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                        </button>
+                        <button class="tool-btn" id="zoomResetBtn" style="margin-left: 8px;">Reset View</button>
+                    </div>
+
+                    <div class="toolbar-group">
+                        <button class="tool-btn active" id="toggleGridBtn">
+                            <svg viewBox="0 0 24 24"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zM10 8h4V4h-4v4zm6-4v4h4V4h-4zm0 10h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg>
+                            Grid Lines
+                        </button>
+                        <button class="tool-btn" id="toggleCrosshairBtn">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7.5-7.93H7v-2H5.5c.5-4.08 3.55-7.44 7.5-7.93V5h2v-1.07c3.95.49 7 3.85 7.5 7.93H21v2h-1.5c-.5 4.08-3.55 7.44-7.5 7.93V19h-2v.93zM12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                            Crosshair
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Canvas Viewport -->
+                <div class="viewport-wrapper" id="viewport">
+                    <!-- Blueprint Grid lines overlay -->
+                    <div class="blueprint-lines" id="gridLines"></div>
+
+                    <!-- Crosshair tracking overlays -->
+                    <div class="crosshair-container" id="crosshair">
+                        <div class="crosshair-h" id="crosshairH"></div>
+                        <div class="crosshair-v" id="crosshairV"></div>
+                    </div>
+
+                    <!-- HUD Data Panel -->
+                    <div class="canvas-hud">
+                        <div class="hud-item">Viewport: <span id="hudProject">Sector 12 Elevation</span></div>
+                        <div class="hud-item">Cursor: <span id="hudCoords">X: --.-m, Y: --.-m</span></div>
+                        <div class="hud-item">Status: <span style="color: #4ade80;">Calibrated</span></div>
+                    </div>
+
+                    <!-- Movable image content frame -->
+                    <div class="blueprint-content" id="blueprintContent">
+                        <img src="assets/sector12_drawing.webp" alt="Engineering Site Blueprint Draft" class="blueprint-img" id="blueprintImg" width="715" height="800">
+                    </div>
+                </div>
+            </main>
+
+            <!-- Right Side: Legend specs and action cards -->
+            <aside class="spec-sidebar">
+                
+                <!-- Spec Detail Legend Card -->
+                <div class="legend-card">
+                    <h3>Drawing Title Block</h3>
+                    <table class="specs-table">
+                        <tbody>
+                            <tr>
+                                <td class="label-td">Drawing No.</td>
+                                <td id="specDrawingNo">SK-RPR-SEC12-EL-04</td>
+                            </tr>
+                            <tr>
+                                <td class="label-td">Scale</td>
+                                <td id="specScale">1:50 (A3)</td>
+                            </tr>
+                            <tr>
+                                <td class="label-td">Site Zone</td>
+                                <td id="specZone">Zone II (Seismic Standard)</td>
+                            </tr>
+                            <tr>
+                                <td class="label-td">Issue Date</td>
+                                <td id="specDate">May 20, 2026</td>
+                            </tr>
+                            <tr>
+                                <td class="label-td">Lead Inspector</td>
+                                <td>Vikky Sharma</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="notes-box">
+                        <strong>Engineering Notes:</strong>
+                        <span id="specNotes">Verified boundary levels and FFL (Finished Floor Level) at +0'-0". Structural frame utilizes Fe 550D TMT reinforcement. Foundations set to 1.8m below natural ground level to address local silty-clay properties.</span>
+                    </div>
+
+                    <!-- Seal stamp -->
+                    <div class="approval-stamp">
+                        <div class="stamp-lbl">Verification Status</div>
+                        <div class="stamp-val">Vikky Sharma</div>
+                        <div class="stamp-status" id="stampStatus">Approved for Construction</div>
+                        
+                        <div class="stamp-seal">
+                            <div class="stamp-seal-inner">SKETCH<br>CONSTRUCTION<br>RAIPUR</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Layer and Filter Controls Card -->
+                <div class="legend-card">
+                    <h3>Blueprint Layers</h3>
+                    <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.4;">
+                        Select active schematics overlays (visual emulation).
+                    </p>
+                    <div class="layer-selector">
+                        <label class="layer-option">
+                            <input type="checkbox" checked id="chkLayerGrid">
+                            Column Layout Lines
+                        </label>
+                        <label class="layer-option">
+                            <input type="checkbox" checked id="chkLayerDimensions">
+                            Dimensions & FFL Markings
+                        </label>
+                        <label class="layer-option">
+                            <input type="checkbox" id="chkFilterBlueprint">
+                            Simulate Blueprint Filter (Cyan tint)
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Action Button Card -->
+                <div class="actions-card">
+                    <button onclick="window.print();" class="btn btn-primary btn-block">
+                        <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: #000000;"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+                        Print Site Copy
+                    </button>
+                    <button id="dlDrawingBtn" class="btn btn-outline btn-block">
+                        <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: currentColor;"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+                        Download DWG CAD File
+                    </button>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Client-side Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Project Data
+            const projectsData = {
+                sector12: {
+                    title: "Sector 12 Elevation Blueprint",
+                    subtitle: "Naya Raipur Duplex Villa - Structural Elevation",
+                    image: "assets/sector12_drawing.webp",
+                    drawingNo: "SK-RPR-SEC12-EL-04",
+                    scale: "1:50 (A3)",
+                    zone: "Zone II (Seismic Standard)",
+                    date: "May 20, 2026",
+                    notes: "Verified boundary levels and FFL (Finished Floor Level) at +0'-0\". Structural frame utilizes Fe 550D TMT reinforcement. Foundations set to 1.8m below natural ground level to address local silty-clay properties."
+                },
+                sadarbazar: {
+                    title: "Sadar Bazar Centerline Layout",
+                    subtitle: "Commercial Complex Centerline Grid Marking Plan",
+                    image: "assets/blueprint_schematic.webp",
+                    drawingNo: "SK-RPR-SB-CL-01",
+                    scale: "1:100 (A2)",
+                    zone: "Zone II (Sadar Bazar Commercial Area)",
+                    date: "April 15, 2026",
+                    notes: "Grid markers aligned with local municipal boundary walls. Excavation footing sizes 1.5m x 1.5m. Centerline tolerance limit ±2mm. Column orientations mapped to accommodate maximum shop floor area."
+                }
+            };
+
+            // 1. URL Query Parameter Parsing
+            const urlParams = new URLSearchParams(window.location.search);
+            const projectKey = urlParams.get('project') || 'sector12';
+            
+            // Get selected project or fallback
+            const project = projectsData[projectKey] || projectsData.sector12;
+
+            // Update DOM Elements with project details
+            document.getElementById('projectTitle').textContent = project.title;
+            document.getElementById('projectSubtitle').textContent = project.subtitle;
+            document.getElementById('hudProject').textContent = project.title;
+            document.getElementById('blueprintImg').src = project.image;
+            document.getElementById('blueprintImg').alt = project.title + " draft";
+            document.getElementById('specDrawingNo').textContent = project.drawingNo;
+            document.getElementById('specScale').textContent = project.scale;
+            document.getElementById('specZone').textContent = project.zone;
+            document.getElementById('specDate').textContent = project.date;
+            document.getElementById('specNotes').textContent = project.notes;
+
+            // 2. Interactive Pan and Zoom Logic
+            const viewport = document.getElementById('viewport');
+            const content = document.getElementById('blueprintContent');
+            const img = document.getElementById('blueprintImg');
+            const zoomValText = document.getElementById('zoomVal');
+
+            let scale = 1.0;
+            let startX = 0, startY = 0;
+            let translateX = 0, translateY = 0;
+            let isDragging = false;
+
+            // Zoom bounds
+            const MIN_SCALE = 0.5;
+            const MAX_SCALE = 4.0;
+            const ZOOM_STEP = 0.25;
+
+            const updateTransform = () => {
+                content.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+                zoomValText.textContent = `${Math.round(scale * 100)}%`;
+            };
+
+            // Zoom in
+            const zoomIn = () => {
+                if (scale < MAX_SCALE) {
+                    scale += ZOOM_STEP;
+                    updateTransform();
+                }
+            };
+
+            // Zoom out
+            const zoomOut = () => {
+                if (scale > MIN_SCALE) {
+                    scale -= ZOOM_STEP;
+                    updateTransform();
+                }
+            };
+
+            // Reset view
+            const resetView = () => {
+                scale = 1.0;
+                translateX = 0;
+                translateY = 0;
+                updateTransform();
+            };
+
+            // Setup Zoom Button events
+            document.getElementById('zoomInBtn').addEventListener('click', zoomIn);
+            document.getElementById('zoomOutBtn').addEventListener('click', zoomOut);
+            document.getElementById('zoomResetBtn').addEventListener('click', resetView);
+
+            // Double click to zoom / reset
+            viewport.addEventListener('dblclick', (e) => {
+                if (scale !== 1.0) {
+                    resetView();
+                } else {
+                    scale = 2.0;
+                    // Center zoom near cursor
+                    const rect = viewport.getBoundingClientRect();
+                    const mouseX = e.clientX - rect.left;
+                    const mouseY = e.clientY - rect.top;
+                    translateX = -(mouseX - rect.width / 2);
+                    translateY = -(mouseY - rect.height / 2);
+                    updateTransform();
+                }
+            });
+
+            // Wheel zoom support
+            viewport.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const delta = e.deltaY;
+                if (delta < 0 && scale < MAX_SCALE) {
+                    scale += 0.1;
+                } else if (delta > 0 && scale > MIN_SCALE) {
+                    scale -= 0.1;
+                }
+                updateTransform();
+            }, { passive: false });
+
+            // Drag Panning Events
+            viewport.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                viewport.style.cursor = 'grabbing';
+                startX = e.clientX - translateX;
+                startY = e.clientY - translateY;
+            });
+
+            window.addEventListener('mouseup', () => {
+                isDragging = false;
+                viewport.style.cursor = 'grab';
+            });
+
+            viewport.addEventListener('mousemove', (e) => {
+                const rect = viewport.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                const mouseY = e.clientY - rect.top;
+
+                // Update dynamic coordinates HUD
+                const widthPercent = (mouseX / rect.width).toFixed(3);
+                const heightPercent = (mouseY / rect.height).toFixed(3);
+                // Convert percentage to mock civil layout meters (e.g. 50m width, 30m height)
+                const mockX = (widthPercent * 50).toFixed(1);
+                const mockY = ((1 - heightPercent) * 30).toFixed(1); // Y starts from bottom up in engineering layouts
+                
+                document.getElementById('hudCoords').textContent = `X: ${mockX}m, Y: ${mockY}m`;
+
+                // Update crosshair lines positions
+                if (crosshair.classList.contains('active')) {
+                    document.getElementById('crosshairH').style.top = `${mouseY}px`;
+                    document.getElementById('crosshairV').style.left = `${mouseX}px`;
+                }
+
+                if (!isDragging) return;
+
+                translateX = e.clientX - startX;
+                translateY = e.clientY - startY;
+                updateTransform();
+            });
+
+            // Touch support for Mobile Panning
+            viewport.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 1) {
+                    isDragging = true;
+                    startX = e.touches[0].clientX - translateX;
+                    startY = e.touches[0].clientY - translateY;
+                }
+            });
+
+            viewport.addEventListener('touchend', () => {
+                isDragging = false;
+            });
+
+            viewport.addEventListener('touchmove', (e) => {
+                if (!isDragging || e.touches.length !== 1) return;
+                translateX = e.touches[0].clientX - startX;
+                translateY = e.touches[0].clientY - startY;
+                updateTransform();
+            });
+
+            // 3. Grid Lines Toggle
+            const toggleGridBtn = document.getElementById('toggleGridBtn');
+            const gridLines = document.getElementById('gridLines');
+            toggleGridBtn.addEventListener('click', () => {
+                gridLines.classList.toggle('hidden');
+                toggleGridBtn.classList.toggle('active');
+            });
+
+            // 4. Crosshair Coordinate Tracker Toggle
+            const toggleCrosshairBtn = document.getElementById('toggleCrosshairBtn');
+            const crosshair = document.getElementById('crosshair');
+            toggleCrosshairBtn.addEventListener('click', () => {
+                crosshair.classList.toggle('active');
+                toggleCrosshairBtn.classList.toggle('active');
+            });
+
+            // 5. Layer Overlay Visual Controls (Simulation)
+            const chkLayerGrid = document.getElementById('chkLayerGrid');
+            const chkLayerDimensions = document.getElementById('chkLayerDimensions');
+            const chkFilterBlueprint = document.getElementById('chkFilterBlueprint');
+
+            const applyLayerFilters = () => {
+                let filterString = '';
+                
+                if (chkFilterBlueprint.checked) {
+                    // Blueprint effect: cyan tint, high contrast
+                    filterString += 'hue-rotate(180deg) brightness(0.9) contrast(1.3) saturate(1.2)';
+                } else {
+                    filterString += 'contrast(1.1) brightness(0.95)';
+                }
+
+                // Simulate layer visibility by adding opacity to image based on toggles
+                let imgOpacity = 1.0;
+                if (!chkLayerGrid.checked && !chkLayerDimensions.checked) {
+                    imgOpacity = 0.55; // faded state
+                } else if (!chkLayerGrid.checked || !chkLayerDimensions.checked) {
+                    imgOpacity = 0.8;
+                }
+
+                img.style.filter = filterString;
+                img.style.opacity = imgOpacity;
+            };
+
+            chkLayerGrid.addEventListener('change', applyLayerFilters);
+            chkLayerDimensions.addEventListener('change', applyLayerFilters);
+            chkFilterBlueprint.addEventListener('change', applyLayerFilters);
+
+            // 6. Download DWG Alert Mock
+            document.getElementById('dlDrawingBtn').addEventListener('click', () => {
+                alert(`Preparing original CAD DWG/DXF files for: ${project.drawingNo}\nDownload package contains full coordinate layers.\n\nSent download token to lead engineer Vikky Sharma.`);
+            });
+        });
+    </script>
+</body>
+</html>

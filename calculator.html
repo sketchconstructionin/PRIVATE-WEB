@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) - Google Consent Mode v2 -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+
+      // Set default consent for all regions by default
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'analytics_storage': 'denied'
+      });
+    </script>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-W7J722MQ');</script>
+    <!-- End Google Tag Manager -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GQHE8B3NTT"></script>
+    <script>
+      gtag('js', new Date());
+      gtag('config', 'G-GQHE8B3NTT');
+    </script>
+
+    <!-- Sourcepoint CMP Code Template -->
+    <script>
+      window._sp_queue = [];
+      window._sp_ = {
+        config: {
+          accountId: 9999, // Replace with your Sourcepoint Account ID
+          baseEndpoint: 'https://cdn.privacy-mgmt.com',
+          gdpr: { },
+          events: {
+            onMessageReady: function() {
+              console.log('[event] onMessageReady', arguments);
+            }
+          }
+        }
+      }
+    </script>
+    <script src='https://cdn.privacy-mgmt.com/unified/wrapperMessagingWithoutDetection.js' async></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sketch Construction | Advanced Estimator & PDF Takeoff</title>
+    <meta name="description" content="Calculate concrete, brick, tiling, steel, and paint requirements for your home or commercial construction project in Raipur. Auto-extract from architectural PDFs.">
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Sketch Construction | Advanced Estimator & PDF Takeoff">
+    <meta property="og:description" content="Estimate concrete, bricks, tiling, steel, and paint requirements. Free professional calculator for Raipur construction projects.">
+    <meta property="og:type" content="website">
+    <!-- Preconnect to Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Preload Outfit and Inter Fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"></noscript>
+    
+    <!-- Preload FontAwesome for Premium Icons -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.min.css?v=1.0.5">
+    <!-- Defer PDF.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W7J722MQ"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo-area">
+                <img src="assets/logo.webp" alt="Sketch Logo" class="logo-icon" width="1024" height="1024" style="height: 32px; width: auto; object-fit: contain; filter: drop-shadow(0 0 4px var(--primary-glow));" loading="lazy">
+                <div class="logo-text">
+                    <h2>SKETCH</h2><span>CONSTRUCTION</span>
+                </div>
+            </div>
+            <nav class="nav-links">
+                <button class="nav-btn active" data-tab="dashboard">
+                    <i class="fa-solid fa-chart-line"></i> Dashboard
+                </button>
+                <div class="nav-separator">CALCULATORS</div>
+                <button class="nav-btn" data-tab="concrete">
+                    <i class="fa-solid fa-cubes"></i> Concrete & Slab
+                </button>
+                <button class="nav-btn" data-tab="footing">
+                    <i class="fa-solid fa-stairs"></i> Footing & Foundation
+                </button>
+                <button class="nav-btn" data-tab="bricks">
+                    <i class="fa-solid fa-trowel-bricks"></i> Bricks & Mortar
+                </button>
+                <button class="nav-btn" data-tab="tiling">
+                    <i class="fa-solid fa-border-all"></i> Flooring & Tiles
+                </button>
+                <button class="nav-btn" data-tab="steel">
+                    <i class="fa-solid fa-bars-staggered"></i> Rebar Steel
+                </button>
+                <button class="nav-btn" data-tab="paint">
+                    <i class="fa-solid fa-paint-roller"></i> Paint & Primer
+                </button>
+                <div class="nav-separator">SMART TOOLS</div>
+                <button class="nav-btn" data-tab="pdf-analyzer">
+                    <i class="fa-solid fa-file-pdf"></i> PDF Specification Analyzer
+                </button>
+            </nav>
+            <div class="sidebar-footer">
+                <p>&copy; 2026 Sketch Construction</p>
+                <span>v1.0.0 (Sketch Dashboard)</span>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Area -->
+        <main class="main-content">
+            <!-- Top Navigation / Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h1 id="page-title">Dashboard Overview</h1>
+                    <p id="page-desc">Comprehensive estimation and data extraction tools at your fingertips.</p>
+                </div>
+                <div class="header-actions"><a href="index.html" class="action-btn secondary" style="display: inline-flex; align-items: center; justify-content: center; text-decoration: none; font-weight:600;"><i class="fa-solid fa-arrow-left" style="margin-right:8px;"></i> Back to Home</a>
+                    <button class="action-btn" id="export-sheet-btn">
+                        <i class="fa-solid fa-file-arrow-down"></i> Export Estimation Sheet
+                    </button>
+                    <button class="action-btn secondary" id="clear-all-btn">
+                        <i class="fa-solid fa-rotate-left"></i> Clear Session
+                    </button>
+                </div>
+            </header>
+
+            <!-- Active Content Panels -->
+            <div class="content-body">
+                
+                <!-- DASHBOARD PANEL -->
+                <section class="tab-panel active" id="dashboard-panel">
+                    <div class="welcome-banner">
+                        <div class="welcome-text">
+                            <h3>Welcome to Sketch Construction</h3>
+                            <p>Estimate structural elements with pinpoint accuracy or scan architectural bills of quantities and PDFs to generate detailed material requirements list in seconds.</p>
+                        </div>
+                        <div class="welcome-badge">
+                            <i class="fa-solid fa-hard-hat"></i> Professional Grade
+                        </div>
+                    </div>
+
+                    <div class="grid-layout cols-3">
+                        <div class="stat-card">
+                            <div class="stat-icon concrete-accent"><i class="fa-solid fa-cubes"></i></div>
+                            <div class="stat-info">
+                                <span class="stat-label">Concrete Calculated</span>
+                                <h3 id="dash-concrete-vol">0.00 m&sup3;</h3>
+                                <p id="dash-concrete-sub">Slabs, footing, and columns combined</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon brick-accent"><i class="fa-solid fa-trowel-bricks"></i></div>
+                            <div class="stat-info">
+                                <span class="stat-label">Total Bricks / Tiles</span>
+                                <h3 id="dash-brick-count">0 pcs</h3>
+                                <p id="dash-brick-sub">Walls & flooring estimations</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon steel-accent"><i class="fa-solid fa-bars-staggered"></i></div>
+                            <div class="stat-info">
+                                <span class="stat-label">Steel Weight</span>
+                                <h3 id="dash-steel-weight">0.00 kg</h3>
+                                <p id="dash-steel-sub">Structural rebar reinforcement</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-layout cols-2 margin-top">
+                        <!-- Quick Tool Finder -->
+                        <div class="dashboard-box">
+                            <h3>Quick Start Calculators</h3>
+                            <p class="section-desc">Jump straight to individual material modules</p>
+                            <div class="quick-links-grid">
+                                <a href="#" class="quick-link-item" onclick="switchTab('concrete')">
+                                    <i class="fa-solid fa-cubes"></i>
+                                    <span>Concrete Slab</span>
+                                </a>
+                                <a href="#" class="quick-link-item" onclick="switchTab('bricks')">
+                                    <i class="fa-solid fa-trowel-bricks"></i>
+                                    <span>Brick Walls</span>
+                                </a>
+                                <a href="#" class="quick-link-item" onclick="switchTab('tiling')">
+                                    <i class="fa-solid fa-border-all"></i>
+                                    <span>Floor Tiles</span>
+                                </a>
+                                <a href="#" class="quick-link-item" onclick="switchTab('steel')">
+                                    <i class="fa-solid fa-bars-staggered"></i>
+                                    <span>Rebar Weight</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- PDF Feature Callout -->
+                        <div class="dashboard-box highlight-box">
+                            <div class="badge-tag">NEW FEATURE</div>
+                            <h3>Auto-Extract from Blueprint & Specifications PDF</h3>
+                            <p>Upload your architectural PDF, blueprint schedule, or BOQ table. Our intelligent parser scans materials, identifies volume/area declarations, and instantly projects real sand, cement, rebar, or tile counts required.</p>
+                            <button class="primary-btn" onclick="switchTab('pdf-analyzer')">
+                                Launch PDF Analyzer <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CONCRETE CALCULATOR -->
+                <section class="tab-panel" id="concrete-panel">
+                    <div class="calculator-container">
+                        <div class="calculator-inputs">
+                            <h3>Element Specifications</h3>
+                            <form id="concrete-form">
+                                <div class="form-group">
+                                    <label for="concrete-type">Structure Type</label>
+                                    <select id="concrete-type">
+                                        <option value="slab">Slab / Rectangular Area</option>
+                                        <option value="column-rect">Rectangular Column</option>
+                                        <option value="column-round">Round Column</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="dimensions-inputs">
+                                    <!-- Dynamic dimensions based on select -->
+                                    <div class="form-row" id="dim-length-row">
+                                        <div class="form-group">
+                                            <label for="concrete-length">Length (meters)</label>
+                                            <input type="number" id="concrete-length" value="10" step="0.01" min="0">
+                                        </div>
+                                        <div class="form-group" id="dim-width-group">
+                                            <label for="concrete-width">Width (meters)</label>
+                                            <input type="number" id="concrete-width" value="5" step="0.01" min="0">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group" id="dim-thickness-group">
+                                            <label for="concrete-thickness" id="label-thickness">Thickness / Depth (meters)</label>
+                                            <input type="number" id="concrete-thickness" value="0.15" step="0.01" min="0">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="concrete-quantity">Quantity / Elements</label>
+                                            <input type="number" id="concrete-quantity" value="1" min="1">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="concrete-ratio">Concrete Mix Design (Cement : Sand : Aggregate)</label>
+                                    <select id="concrete-ratio">
+                                        <option value="1:1.5:3" data-label="M20 (1 : 1.5 : 3) - Standard Slab">M20 (1 : 1.5 : 3) - Slabs / Beams</option>
+                                        <option value="1:1:2" data-label="M25 (1 : 1 : 2) - Columns / Heavy Load">M25 (1 : 1 : 2) - Columns / Foundation</option>
+                                        <option value="1:2:4" data-label="M15 (1 : 2 : 4) - General Works">M15 (1 : 2 : 4) - Lean Concrete</option>
+                                        <option value="1:3:6" data-label="M10 (1 : 3 : 6) - Sub-base">M10 (1 : 3 : 6) - Foundations / Pathways</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="concrete-wastage">Wastage Buffer (%)</label>
+                                    <input type="number" id="concrete-wastage" value="5" min="0" max="50">
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <div class="calculator-visuals">
+                            <h3>Real-time Interactive Guide</h3>
+                            <div class="visual-preview-box">
+                                <div class="slab-3d-model" id="concrete-model-container">
+                                    <div class="model-face top"></div>
+                                    <div class="model-face front"></div>
+                                    <div class="model-face side"></div>
+                                    <span class="dimension-label l-lbl">L: 10m</span>
+                                    <span class="dimension-label w-lbl">W: 5m</span>
+                                    <span class="dimension-label t-lbl">T: 0.15m</span>
+                                </div>
+                            </div>
+                            <div class="results-box">
+                                <h4>Material Requirements Projection</h4>
+                                <div class="result-row">
+                                    <span>Total Wet Volume:</span>
+                                    <strong id="concrete-wet-vol">7.50 m&sup3;</strong>
+                                </div>
+                                <div class="result-row highlight">
+                                    <span>Total Dry Volume (with wastage):</span>
+                                    <strong id="concrete-dry-vol">12.13 m&sup3;</strong>
+                                </div>
+                                <div class="result-grid">
+                                    <div class="res-item">
+                                        <i class="fa-solid fa-bag-shopping"></i>
+                                        <span>Cement Required</span>
+                                        <h4 id="concrete-cement-bags">98 Bags</h4>
+                                        <p>(50 kg bags)</p>
+                                    </div>
+                                    <div class="res-item">
+                                        <i class="fa-solid fa-dumpster"></i>
+                                        <span>Sand Volume</span>
+                                        <h4 id="concrete-sand-vol">4.13 m&sup3;</h4>
+                                        <p>(146 cu ft)</p>
+                                    </div>
+                                    <div class="res-item">
+                                        <i class="fa-solid fa-mountain"></i>
+                                        <span>Coarse Aggregate</span>
+                                        <h4 id="concrete-aggregate-vol">8.26 m&sup3;</h4>
+                                        <p>(292 cu ft)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FOOTING & FOUNDATION CALCULATOR -->
+                <section class="tab-panel" id="footing-panel">
+                    <div class="calculator-container">
+                        <div class="calculator-inputs">
+                            <h3>Footing Configurations</h3>
+                            <form id="footing-form">
+                                <div class="form-group">
+                                    <label for="footing-type">Foundation Type</label>
+                                    <select id="footing-type">
+                                        <option value="pad">Standard Pad Footing (Flat rectangular block)</option>
+                                        <option value="trapezoidal">Trapezoidal / Sloped Footing (Tapered top)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="footing-length">Base Length (meters)</label>
+                                        <input type="number" id="footing-length" value="1.8" step="0.1" min="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="footing-width">Base Width (meters)</label>
+                                        <input type="number" id="footing-width" value="1.8" step="0.1" min="0">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="footing-depth">Base Pad Depth / Thickness (d) (meters)</label>
+                                        <input type="number" id="footing-depth" value="0.3" step="0.05" min="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="footing-qty">Number of Footings</label>
+                                        <input type="number" id="footing-qty" value="6" min="1">
+                                    </div>
+                                </div>
+
+                                <!-- Trapezoidal Sloped Top Parameters (only active when sloped type selected) -->
+                                <div id="footing-trapezoid-params" style="display: none;">
+                                    <h4>Tapered Slope Details</h4>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="footing-slope-height">Slope Height (D) (meters)</label>
+                                            <input type="number" id="footing-slope-height" value="0.4" step="0.05" min="0">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="footing-ratio">Concrete Mix Ratio</label>
+                                            <select id="footing-ratio">
+                                                <option value="1:1.5:3" selected>M20 (1 : 1.5 : 3) - Standard Footing</option>
+                                                <option value="1:1:2">M25 (1 : 1 : 2) - Heavy Foundation</option>
+                                                <option value="1:2:4">M15 (1 : 2 : 4) - General Foundation</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="footing-top-length">Top Column Area Length (a) (meters)</label>
+                                            <input type="number" id="footing-top-length" value="0.3" step="0.05" min="0">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="footing-top-width">Top Column Area Width (b) (meters)</label>
+                                            <input type="number" id="footing-top-width" value="0.3" step="0.05" min="0">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h4>Rebar Steel Mat Details</h4>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="footing-steel-dia">Main Bar Diameter (mm)</label>
+                                        <select id="footing-steel-dia">
+                                            <option value="10">10 mm</option>
+                                            <option value="12" selected>12 mm</option>
+                                            <option value="16">16 mm</option>
+                                            <option value="20">20 mm</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="footing-steel-spacing">Bar Spacing (mm)</label>
+                                        <input type="number" id="footing-steel-spacing" value="150" min="50">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="footing-steel-cover">Concrete Cover (mm)</label>
+                                        <input type="number" id="footing-steel-cover" value="50" min="20">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="footing-steel-hook">Upward Hook Height (mm)</label>
+                                        <input type="number" id="footing-steel-hook" value="150" min="0">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="footing-wastage">Wastage Buffer (%)</label>
+                                    <input type="number" id="footing-wastage" value="10" min="0" max="50">
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <div class="calculator-visuals">
+                            <h3>Footing Structure Visualizer</h3>
+                            <div class="visual-preview-box">
+                                <div class="slab-3d-model" id="footing-model" style="transform: rotateX(60deg) rotateZ(-30deg); width: 100px; height: 100px;">
+                                    <div class="model-face top" style="width: 100px; height: 100px; transform: translateZ(30px); background: #CBD5E1;"></div>
+                                    <div class="model-face front" style="width: 100px; height: 30px; transform: rotateX(-90deg) translateY(-30px); background: #94A3B8;"></div>
+                                    <div class="model-face side" style="width: 30px; height: 100px; transform: rotateY(90deg) translateX(-30px); background: #64748B;"></div>
+                                </div>
+                            </div>
+                            <div class="results-box">
+                                <h4>Footing Materials Projection</h4>
+                                <div class="result-row">
+                                    <span>Total Concrete Volume:</span>
+                                    <strong id="footing-concrete-vol">5.83 m&sup3;</strong>
+                                </div>
+                                <div class="result-row">
+                                    <span>Total Rebar Mat Weight:</span>
+                                    <strong id="footing-steel-weight">164.2 kg</strong>
+                                </div>
+                                <div class="result-grid">
+                                    <div class="res-item">
+                                        <i class="fa-solid fa-bag-shopping"></i>
+                                        <span>Cement Required</span>
+                                        <h4 id="footing-cement-bags">76 Bags</h4>
+                                        <p>(50 kg bags)</p>
+                                    </div>
+                                    <div class="res-item">
+                                        <i class="fa-solid fa-dumpster"></i>
+                                        <span>Sand Volume</span>
+                                        <h4 id="footing-sand-vol">3.21 m&sup3;</h4>
+                                        <p>Clean sand</p>
+                                    </div>
+                                    <div class="res-item">
+                                        <i class="fa-solid fa-mountain"></i>
+                                        <span>Aggregate</span>
+                                        <h4 id="footing-aggregate-vol">6.42 m&sup3;</h4>
+                                        <p>Stone gravel</p>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 16px;">
+                                    <button class="primary-btn" id="add-footing-steel-btn" type="button" style="width: 100%; justify-content: center; margin-top: 0;">
+                                        <i class="fa-solid fa-plus"></i> Add Footing Rebar to Schedule
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- BRICK CALCULATOR -->
+                <section class="tab-panel" id="bricks-panel">
+                    <div class="calculator-container">
+                        <div class="calculator-inputs">
+                            <h3>Wall Dimensions</h3>
+                            <form id="bricks-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="brick-wall-length">Wall Length (meters)</label>
+                                        <input type="number" id="brick-wall-length" value="12" step="0.01" min="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="brick-wall-height">Wall Height (meters)</label>
+                                        <input type="number" id="brick-wall-height" value="3" step="0.01" min="0">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="brick-thickness">Wall Thickness (meters)</label>
+                                        <select id="brick-thickness">
+                                            <option value="0.115">115mm (Single Brick / Partition)</option>
+                                            <option value="0.230" selected>230mm (Double Brick / Load-bearing)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="brick-wastage">Wastage Buffer (%)</label>
+                                        <input type="number" id="brick-wastage" value="5" min="0" max="50">
+                                    </div>
+                                </div>
+
+                                <h4>Deductions (Doors & Windows)</h4>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="brick-doors">Number of Doors</label>
+                                        <input type="number" id="brick-doors" value="1" min="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="brick-windows">Number of Windows</label>
+                                        <input type="number" id="brick-windows" value="2" min="0">
+                                    </div>
+                                </div>
+
+                                <h4>Standard Brick Size</h4>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="brick-l">Brick Length (mm)</label>
+                                        <input type="number" id="brick-l" value="190" min="50">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="brick-w">Brick Width (mm)</label>
+                                        <input type="number" id="brick-w" value="90" min="50">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="brick-h">Brick Height (mm)</label>
+                                        <input type="number" id="brick-h" value="90" min="50">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="brick-mortar-joint">Mortar Joint Thickness (mm)</label>
+                                        <input type="number" id="brick-mortar-joint" value="10" min="2" max="30">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="brick-mortar-ratio">Mortar Mix Ratio</label>
+                                        <select id="brick-mortar-ratio">
+                                            <option value="1:4">1 : 4 (Strong / External Walls)</option>
+                                            <option value="1:6" selected>1 : 6 (Standard / Interior Partition)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <div class="calculator-visuals">
+                            <h3>Wall Structure Visualizer</h3>
+                            <div class="visual-preview-box">
+                                <div class="brick-wall-render">
+                                    <div class="brick-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+                                    <div class="brick-row offset"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+                                    <div class="brick-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+                                    <div class="brick-row offset"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+                                    <div class="brick-row"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+                                </div>
+                            </div>
+                            <div class="results-box">
+                                <h4>Material Requirements Projection</h4>
+                                <div class="result-row">
+                                    <span>Net Wall Area:</span>
+                                    <strong id="brick-net-area">30.80 m&sup2;</strong>
+                                </div>
+                                <div class="result-row">
+                                    <span>Mortar Volume:</span>
+                                    <strong id="brick-mortar-vol">1.75 m&sup3;</strong>
+                                </div>
+                                <div class="result-grid">
+                                    <div class="res-item">
+                                        <i class="fa-solid fa-layer-group"></i>
+                                        <span>Total Bricks</span>
+                                        <h4 id="brick-total-count">3,745 pcs</h4>
+                                        <p>(Including Wastage)</p>
+                                    </div>
+                                    <div class="res-item">
+                                        <i class="fa-solid fa-bag-shopping"></i>
+                                        <span>Cement Needed</span>
+                                        <h4 id="brick-cement-bags">9 Bags</h4>
+                                        <p>For mortar joints</p>
+                                    </div>
+                                    <div class="res-item">
+                                        <i class="fa-solid fa-dumpster"></i>
+                                        <span>Sand Needed</span>
+                                        <h4 id="brick-sand-vol">1.92 m&sup3;</h4>
+                                        <p>Clean construction sand</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TILING CALCULATOR -->
+                <section class="tab-panel" id="tiling-panel">
+                    <div class="calculator-container">
+                        <div class="calculator-inputs">
+                            <h3>Room & Floor Elements</h3>
+                            <form id="tiling-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="tile-room-length">Floor Length (meters)</label>
+                                        <input type="number" id="tile-room-length" value="6" step="0.01" min="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tile-room-width">Floor Width (meters)</label>
+                                        <input type="number" id="tile-room-width" value="4" step="0.01" min="0">
+                                    </div>
+                                </div>
+
+                                <h4>Tile Configurations</h4>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="tile-length">Tile Size - Length (cm)</label>
+                                        <input type="number" id="tile-length" value="60" min="5">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tile-width">Tile Size - Width (cm)</label>
+                                        <input type="number" id="tile-width" value="60" min="5">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="tile-joint">Tile Joint Gap (mm)</label>
+                                        <input type="number" id="tile-joint" value="3" step="0.5" min="0" max="20">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tile-wastage">Wastage / Cutting Allowance (%)</label>
+                                        <input type="number" id="tile-wastage" value="10" min="0" max="50">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <div class="calculator-visuals">
+                            <h3>Tiled Layout Visualizer</h3>
+                            <div class="visual-preview-box">
+                                <div class="tile-grid-render">
+                                    <div class="tile-cell"></div><div class="tile-cell"></div><div class="tile-cell"></div><div class="tile-cell"></div>
+                                    <div class="tile-cell"></div><div class="tile-cell"></div><div class="tile-cell"></div><div class="tile-cell"></div>
+                                    <div class="tile-cell"></div><div class="tile-cell"></div><div class="tile-cell"></div><div class="tile-cell"></div>
+                                </div>
+                            </div>
+                            <div class="results-box">
+                                <h4>Tiling Estimation Summary</h4>
+                                <div class="result-row">
+                                    <span>Total Floor Area:</span>
+                                    <strong id="tile-total-area">24.00 m&sup2;</strong>
+                                </div>
+                                <div class="result-grid">
+                                    <div class="res-item">
+                                        <i class="fa-solid fa-border-all"></i>
+                                        <span>Tiles Required</span>
+                                        <h4 id="tile-count-calc">74 pcs</h4>
+                                        <p>(60x60 cm tiles)</p>
+                                    </div>
+                                    <div class="res-item">
+                                        <i class="fa-solid fa-tint"></i>
+                                        <span>Adhesive (kg)</span>
+                                        <h4 id="tile-adhesive-calc">96 kg</h4>
+                                        <p>(approx. 4 kg/m&sup2;)</p>
+                                    </div>
+                                    <div class="res-item">
+                                        <i class="fa-solid fa-fill-drip"></i>
+                                        <span>Tile Grout</span>
+                                        <h4 id="tile-grout-calc">8.4 kg</h4>
+                                        <p>For grout seams</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- REBAR STEEL WEIGHT CALCULATOR -->
+                <section class="tab-panel" id="steel-panel">
+                    <div class="calculator-container">
+                        <div class="calculator-inputs">
+                            <h3>Rebar Estimation Mode</h3>
+                            <form id="steel-form">
+                                <div class="form-group">
+                                    <label for="steel-calc-mode">Calculation Mode</label>
+                                    <select id="steel-calc-mode">
+                                        <option value="simple">Simple Count & Length (Direct Input)</option>
+                                        <option value="slab-grid">Slab Reinforcement Grid (Auto-Calculate)</option>
+                                        <option value="column-cage">Column Reinforcement Cage (Verticals & Rings)</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group" id="steel-diameter-container">
+                                    <label for="steel-diameter">Bar Diameter (mm)</label>
+                                    <select id="steel-diameter">
+                                        <option value="8">8 mm (Stirrups / Ties / Stirrup rods)</option>
+                                        <option value="10">10 mm (Slab Mesh / Distribution)</option>
+                                        <option value="12" selected>12 mm (Slab Main / Light Columns)</option>
+                                        <option value="16">16 mm (Beams / Standard Columns)</option>
+                                        <option value="20">20 mm (Heavy Load Beams)</option>
+                                        <option value="25">25 mm (Heavy Foundations)</option>
+                                    </select>
+                                </div>
+
+                                <!-- Simple Mode Inputs -->
+                                <div id="steel-simple-inputs">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="steel-length">Length of One Bar (meters)</label>
+                                            <input type="number" id="steel-length" value="12" step="0.1" min="0">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="steel-count">Total Quantity of Bars</label>
+                                            <input type="number" id="steel-count" value="50" min="1">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Auto-Grid Slab Inputs -->
+                                <div id="steel-grid-inputs" style="display: none;">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="steel-slab-length">Slab Length (meters)</label>
+                                            <input type="number" id="steel-slab-length" value="6" step="0.1" min="0">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="steel-slab-width">Slab Width (meters)</label>
+                                            <input type="number" id="steel-slab-width" value="4" step="0.1" min="0">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="steel-spacing">Bar Spacing (mm)</label>
+                                            <input type="number" id="steel-spacing" value="150" min="50" max="1000">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="steel-layers">Mesh Layers</label>
+                                            <select id="steel-layers">
+                                                <option value="1">Single Mesh Layer (Bottom)</option>
+                                                <option value="2">Double Mesh Layer (Top & Bottom)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Column Cage Inputs -->
+                                <div id="steel-column-inputs" style="display: none;">
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="steel-col-height">Column Height (meters)</label>
+                                            <input type="number" id="steel-col-height" value="3" step="0.1" min="0">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="steel-col-qty">Number of Columns</label>
+                                            <input type="number" id="steel-col-qty" value="4" min="1">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="steel-col-main-count">Main Vertical Bars (per col)</label>
+                                            <input type="number" id="steel-col-main-count" value="6" min="4">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="steel-col-main-diameter">Main Bar Diameter (mm)</label>
+                                            <select id="steel-col-main-diameter">
+                                                <option value="12">12 mm</option>
+                                                <option value="16" selected>16 mm</option>
+                                                <option value="20">20 mm</option>
+                                                <option value="25">25 mm</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="steel-col-width">Col Width / Depth (mm)</label>
+                                            <input type="number" id="steel-col-width" value="300" min="100">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="steel-col-breadth">Col Breadth / Thickness (mm)</label>
+                                            <input type="number" id="steel-col-breadth" value="300" min="100">
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="steel-ring-spacing">Ring Spacing (mm)</label>
+                                            <input type="number" id="steel-ring-spacing" value="150" min="50">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="steel-ring-diameter">Ring Bar Diameter (mm)</label>
+                                            <select id="steel-ring-diameter">
+                                                <option value="8" selected>8 mm</option>
+                                                <option value="10">10 mm</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="steel-col-cover">Clear Concrete Cover (mm)</label>
+                                        <input type="number" id="steel-col-cover" value="40" min="15" max="75">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="steel-wastage">Wastage / Scrap Buffer (%)</label>
+                                    <input type="number" id="steel-wastage" value="10" min="0" max="50">
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <div class="calculator-visuals">
+                            <h3>Rebar Gauge Visualizer</h3>
+                            <div class="visual-preview-box">
+                                <div class="rebar-rod-render">
+                                    <div class="rebar-texture"></div>
+                                </div>
+                            </div>
+                            <div class="results-box">
+                                <h4>Reinforcement Steel Projection</h4>
+                                <div class="result-row" id="steel-bars-detail-row" style="display: none;">
+                                    <span>Calculated Layout:</span>
+                                    <strong id="steel-bars-detail">N/A</strong>
+                                </div>
+                                <div class="result-row">
+                                    <span>Unit Weight:</span>
+                                    <strong id="steel-unit-weight">0.89 kg/m</strong>
+                                </div>
+                                <div class="result-row">
+                                    <span>Total Linear Length:</span>
+                                    <strong id="steel-total-length">600.00 m</strong>
+                                </div>
+                                <div class="result-row">
+                                    <span>Standard 12m Bars:</span>
+                                    <strong id="steel-stock-bars">50 Bars</strong>
+                                </div>
+                                <div class="result-grid">
+                                    <div class="res-item" style="grid-column: span 3;">
+                                        <i class="fa-solid fa-weight-hanging"></i>
+                                        <span>Estimated Total Weight</span>
+                                        <h4 id="steel-calc-weight">532.8 kg</h4>
+                                        <p id="steel-calc-tons">(0.53 Metric Tons)</p>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 16px;">
+                                    <button class="primary-btn" id="add-steel-item-btn" type="button" style="width: 100%; justify-content: center; margin-top: 0;">
+                                        <i class="fa-solid fa-plus"></i> Add to Rebar List
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Combined Material List Schedule -->
+                    <div class="pdf-results-box margin-top">
+                        <div class="pdf-results-header" style="padding: 12px 18px; border: none; margin-bottom: 12px; background: rgba(255,255,255,0.02);">
+                            <div>
+                                <h3>Rebar Estimation Schedule (Combined Material List)</h3>
+                                <p style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Calculate multiple sizes/lengths of bars together</p>
+                            </div>
+                            <button class="action-btn secondary" id="clear-steel-list-btn" type="button">
+                                <i class="fa-solid fa-trash-can"></i> Clear List
+                            </button>
+                        </div>
+                        <div class="extracted-table-container">
+                            <table class="data-table" id="steel-list-table">
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Diameter</th>
+                                        <th>Specifications / Formula Details</th>
+                                        <th>Total Length</th>
+                                        <th>Total Weight (kg)</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr id="steel-list-placeholder">
+                                        <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 24px;">
+                                            No rebars added to the list. Use inputs above and click "Add to Rebar List".
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr style="border-top: 2px solid var(--primary); font-weight: 700; font-size: 14px;">
+                                        <td colspan="4" style="text-align: right; padding: 12px;">Grand Total Weight:</td>
+                                        <td id="steel-list-grand-weight" style="padding: 12px; color: var(--primary);">0.0 kg (0.00 Metric Tons)</td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PAINT CALCULATOR -->
+                <section class="tab-panel" id="paint-panel">
+                    <div class="calculator-container">
+                        <div class="calculator-inputs">
+                            <h3>Wall Surface Area Details</h3>
+                            <form id="paint-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="paint-length">Total Wall Length (meters)</label>
+                                        <input type="number" id="paint-length" value="15" step="0.1" min="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="paint-height">Wall Height (meters)</label>
+                                        <input type="number" id="paint-height" value="3.1" step="0.1" min="0">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="paint-coats">Number of Coats</label>
+                                        <select id="paint-coats">
+                                            <option value="1">1 Coat (Touchup)</option>
+                                            <option value="2" selected>2 Coats (Standard)</option>
+                                            <option value="3">3 Coats (Heavy coverage)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="paint-coverage">Paint Coverage Ratio (sq ft per Liter)</label>
+                                        <input type="number" id="paint-coverage" value="100" min="10">
+                                    </div>
+                                </div>
+
+                                <h4>Deductions (Unpainted Area)</h4>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="paint-deduct-doors">Doors (Qty)</label>
+                                        <input type="number" id="paint-deduct-doors" value="1" min="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="paint-deduct-windows">Windows (Qty)</label>
+                                        <input type="number" id="paint-deduct-windows" value="2" min="0">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <div class="calculator-visuals">
+                            <h3>Paint Roller Simulator</h3>
+                            <div class="visual-preview-box">
+                                <div class="paint-visual-render">
+                                    <div class="paint-swatch"></div>
+                                    <i class="fa-solid fa-paint-roller roller-icon"></i>
+                                </div>
+                            </div>
+                            <div class="results-box">
+                                <h4>Paint & Coating Summary</h4>
+                                <div class="result-row">
+                                    <span>Net Painted Area:</span>
+                                    <strong id="paint-net-area">41.90 m&sup2; (451 sq ft)</strong>
+                                </div>
+                                <div class="result-grid">
+                                    <div class="res-item">
+                                        <i class="fa-solid fa-fill"></i>
+                                        <span>Paint Needed</span>
+                                        <h4 id="paint-gallons-calc">9.0 Liters</h4>
+                                        <p>Based on coats & coverage</p>
+                                    </div>
+                                    <div class="res-item">
+                                        <i class="fa-solid fa-brush"></i>
+                                        <span>Wall Primer</span>
+                                        <h4 id="paint-primer-calc">4.5 Liters</h4>
+                                        <p>1 coat recommended</p>
+                                    </div>
+                                    <div class="res-item">
+                                        <i class="fa-solid fa-box-open"></i>
+                                        <span>Wall Putty</span>
+                                        <h4 id="paint-putty-calc">83.8 kg</h4>
+                                        <p>(approx 2 kg/m&sup2;)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PDF ANALYZER PANEL -->
+                <section class="tab-panel" id="pdf-analyzer-panel">
+                    <div class="pdf-container">
+                        <div class="pdf-uploader-box" id="drop-zone">
+                            <i class="fa-solid fa-file-pdf pdf-upload-icon"></i>
+                            <h3>Upload Construction Document / BOQ Specification PDF</h3>
+                            <p>Drag and drop a PDF file here, or click to browse</p>
+                            <input type="file" id="pdf-input" accept=".pdf" style="display: none;">
+                            <span class="privacy-notice"><i class="fa-solid fa-shield-halved"></i> 100% Client-Side Processing. No files are uploaded to any server.</span>
+                        </div>
+
+                        <!-- Parsing Feedback -->
+                        <div class="pdf-processing-status" id="pdf-status" style="display: none;">
+                            <div class="spinner"></div>
+                            <span id="pdf-status-text">Parsing specification file ...</span>
+                        </div>
+
+                        <!-- Results Dashboard -->
+                        <div class="pdf-results-dashboard" id="pdf-results" style="display: none;">
+                            <div class="pdf-results-header">
+                                <div class="doc-meta">
+                                    <h4 id="pdf-doc-name">file_specification.pdf</h4>
+                                    <p><span id="pdf-doc-pages">0</span> pages parsed successfully</p>
+                                </div>
+                                <button class="action-btn" id="save-pdf-takeoff">
+                                    <i class="fa-solid fa-square-plus"></i> Import Quantities to Session
+                                </button>
+                            </div>
+
+                            <div class="grid-layout cols-2">
+                                <!-- Identified Declarations -->
+                                <div class="pdf-results-box">
+                                    <h3>Extracted Structural Quantities</h3>
+                                    <p class="section-desc">Identified areas, volumes, and weights from document pages</p>
+                                    
+                                    <div class="extracted-table-container">
+                                        <table class="data-table" id="extracted-quantities-table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Description / Context</th>
+                                                    <th>Value</th>
+                                                    <th>Confidence</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Dynamic content -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <!-- Material Projections -->
+                                <div class="pdf-results-box">
+                                    <h3>Projected Resource Requirements</h3>
+                                    <p class="section-desc">Extrapolated raw materials based on parsed volumes/areas</p>
+                                    
+                                    <div class="projected-materials-grid" id="pdf-material-projection">
+                                        <!-- Dynamic projection results -->
+                                        <div class="no-data-placeholder">
+                                            <p>No materials projected. Select or verify extracted parameters on the left.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+        <!-- Lead Capture Modal for Quotation Downloads -->
+    <div id="quotation-lead-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-file-invoice-dollar" style="color: var(--primary); margin-right: 8px;"></i> Get Estimation Quote</h3>
+                <button class="close-modal-btn" id="close-lead-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p class="modal-desc">Enter your contact details to instantly download your detailed material checklist and save it to your project portfolio.</p>
+            <form id="lead-capture-form">
+                <div class="form-group">
+                    <label for="lead-name">Your Name</label>
+                    <input type="text" id="lead-name" required placeholder="e.g. Rahul Sharma">
+                </div>
+                <div class="form-group">
+                    <label for="lead-phone">Phone Number</label>
+                    <input type="tel" id="lead-phone" required placeholder="e.g. +91 98765 43210">
+                </div>
+                <div class="form-group">
+                    <label for="lead-email">Email Address</label>
+                    <input type="email" id="lead-email" required placeholder="e.g. rahul@example.com">
+                </div>
+                <button type="submit" class="primary-btn" style="width: 100%; justify-content: center; margin-top: 10px;">
+                    <i class="fa-solid fa-download"></i> Submit & Download Quotation
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Script File -->
+    <script src="calculator.js?v=1.0.4"></script>
+</body>
+</html>
+
+
