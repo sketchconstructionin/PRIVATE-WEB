@@ -322,39 +322,49 @@ document.addEventListener('DOMContentLoaded', () => {
                 "file": attachmentValue
             };
 
+            // 1. Submit to Google Sheets (legacy webhook)
             if (GOOGLE_SHEET_URL) {
                 const params = new URLSearchParams(formData);
                 const uploadUrl = `${GOOGLE_SHEET_URL}?${params.toString()}`;
 
-                // Webhook submit to Google Sheet
                 fetch(uploadUrl, {
                     method: 'POST',
-                    mode: 'no-cors', 
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
-                })
-                .then(() => {
-                    formSuccess.classList.add('active');
-                    submitBtn.disabled = false;
-                    submitText.textContent = 'Get in Touch';
-                })
-                .catch(error => {
-                    console.error('Submission error:', error);
-                    // fallback to show success on network error for preview purposes
-                    formSuccess.classList.add('active');
-                    submitBtn.disabled = false;
-                    submitText.textContent = 'Get in Touch';
-                });
-            } else {
-                // Simulate server verification delay
-                setTimeout(() => {
-                    formSuccess.classList.add('active');
-                    submitBtn.disabled = false;
-                    submitText.textContent = 'Get in Touch';
-                }, 1500);
+                    mode: 'no-cors'
+                }).catch(error => console.error('Google Sheets submission error:', error));
             }
+
+            // 2. Submit to WhatsApp & Supabase Integration API
+            const apiPayload = {
+                name: nameValue,
+                email: emailValue,
+                phone: phoneValue,
+                project_type: projectTypeValue,
+                budget: budgetValue,
+                description: descriptionValue,
+                attachment_url: attachmentValue
+            };
+
+            fetch('http://localhost:5000/api/lead', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(apiPayload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log('WhatsApp API Success:', data);
+                formSuccess.classList.add('active');
+                submitBtn.disabled = false;
+                submitText.textContent = 'Get in Touch';
+            })
+            .catch(error => {
+                console.warn('WhatsApp API Server Offline, falling back to client-only success display. Error:', error);
+                // Fallback display to prevent UX block
+                formSuccess.classList.add('active');
+                submitBtn.disabled = false;
+                submitText.textContent = 'Get in Touch';
+            });
         });
 
         if (resetFormBtn) {
