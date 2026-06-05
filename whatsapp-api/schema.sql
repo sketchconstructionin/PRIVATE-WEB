@@ -12,11 +12,15 @@ CREATE TABLE IF NOT EXISTS public.leads (
     budget TEXT,
     description TEXT,
     attachment_url TEXT,
-    whatsapp_status TEXT DEFAULT 'pending' -- 'pending', 'sent', 'failed'
+    whatsapp_status TEXT DEFAULT 'pending'
 );
 
 -- Enable Row Level Security (RLS) for Leads
 ALTER TABLE public.leads ENABLE ROW LEVEL SECURITY;
+
+-- Drop existing policies if they already exist to prevent duplicate creation errors
+DROP POLICY IF EXISTS "Allow anonymous insert access" ON public.leads;
+DROP POLICY IF EXISTS "Allow authenticated read/write access" ON public.leads;
 
 -- Allow anonymous inserts (from frontend website form)
 CREATE POLICY "Allow anonymous insert access" 
@@ -45,6 +49,10 @@ CREATE TABLE IF NOT EXISTS public.whatsapp_logs (
 
 -- Enable RLS for WhatsApp Logs
 ALTER TABLE public.whatsapp_logs ENABLE ROW LEVEL SECURITY;
+
+-- Drop existing policies if they already exist to prevent duplicate creation errors
+DROP POLICY IF EXISTS "Allow service role full access" ON public.whatsapp_logs;
+DROP POLICY IF EXISTS "Allow authenticated read access" ON public.whatsapp_logs;
 
 -- Only authenticated users (or the API server service role) can view logs
 CREATE POLICY "Allow service role full access" 
