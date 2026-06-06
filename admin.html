@@ -13,6 +13,9 @@
     <title>Admin Dashboard - Sketch Construction</title>
     <meta name="robots" content="noindex, nofollow">
     <link rel="stylesheet" href="style.min.css?v=1.0.6">
+    <!-- Quill.js Editor Assets -->
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
     <style>
         .admin-wrapper {
             min-height: calc(100vh - var(--header-height) - 40px);
@@ -303,6 +306,80 @@
             font-size: 18px;
             color: var(--primary);
         }
+
+        /* Quill Dark Theme Overrides */
+        .ql-toolbar.ql-snow {
+            border: 1px solid var(--border-color) !important;
+            border-bottom: none !important;
+            border-top-left-radius: var(--border-radius-sm);
+            border-top-right-radius: var(--border-radius-sm);
+            background-color: rgba(255, 255, 255, 0.01);
+            padding: 8px 12px;
+        }
+        .ql-container.ql-snow {
+            border: 1px solid var(--border-color) !important;
+            border-bottom-left-radius: var(--border-radius-sm);
+            border-bottom-right-radius: var(--border-radius-sm);
+            background-color: rgba(255, 255, 255, 0.02);
+            font-family: inherit;
+        }
+        .ql-editor {
+            font-size: 15px;
+            color: var(--text-primary);
+            min-height: 280px;
+            line-height: 1.6;
+        }
+        .ql-editor.ql-blank::before {
+            color: var(--text-muted) !important;
+            font-style: normal;
+            opacity: 0.5;
+        }
+        .ql-snow .ql-stroke {
+            stroke: var(--text-secondary) !important;
+            stroke-width: 1.5px;
+        }
+        .ql-snow .ql-fill {
+            fill: var(--text-secondary) !important;
+        }
+        .ql-snow .ql-picker {
+            color: var(--text-secondary) !important;
+        }
+        .ql-snow .ql-picker-options {
+            background-color: var(--bg-surface) !important;
+            border-color: var(--border-color) !important;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border-radius: var(--border-radius-sm);
+        }
+        .ql-snow .ql-picker-item {
+            color: var(--text-secondary) !important;
+        }
+        .ql-snow .ql-picker-item:hover, .ql-snow .ql-picker-item.ql-selected {
+            color: var(--primary) !important;
+        }
+        .ql-snow.ql-toolbar button:hover, .ql-snow.ql-toolbar button.ql-active,
+        .ql-snow.ql-toolbar .ql-picker-label:hover, .ql-snow.ql-toolbar .ql-picker-label.ql-active {
+            color: var(--primary) !important;
+        }
+        .ql-snow.ql-toolbar button:hover .ql-stroke, .ql-snow.ql-toolbar button.ql-active .ql-stroke,
+        .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke {
+            stroke: var(--primary) !important;
+        }
+        .ql-snow.ql-toolbar button:hover .ql-fill, .ql-snow.ql-toolbar button.ql-active .ql-fill {
+            fill: var(--primary) !important;
+        }
+        .ql-tooltip {
+            background-color: var(--bg-surface) !important;
+            border: 1px solid var(--border-color) !important;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4) !important;
+            color: var(--text-primary) !important;
+            border-radius: var(--border-radius-sm) !important;
+        }
+        .ql-tooltip input[type=text] {
+            background-color: rgba(255, 255, 255, 0.03) !important;
+            border: 1px solid var(--border-color) !important;
+            color: var(--text-primary) !important;
+            border-radius: 4px !important;
+        }
     </style>
 </head>
 <body>
@@ -445,8 +522,9 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="postContent">Full Post Body (HTML or Plain Text allowed)</label>
-                                <textarea id="postContent" class="form-control" rows="12" placeholder="Write your full structural construction post content here..." required></textarea>
+                                <label style="margin-bottom: 8px; display: block;">Full Post Body (Formatted Text & Layout)</label>
+                                <div id="editor-container" style="min-height: 300px;"></div>
+                                <input type="hidden" id="postContent">
                             </div>
 
                             <div class="btn-group" style="justify-content: flex-start; margin-top: 40px;">
@@ -472,9 +550,25 @@
         // Globals
         let activeTab = 'blogs';
         let blogsList = [];
+        let quill;
 
         // Check Authentication and Role on Load
         document.addEventListener('DOMContentLoaded', async () => {
+            // Initialize Quill Editor
+            quill = new Quill('#editor-container', {
+                theme: 'snow',
+                placeholder: 'Write your full structural construction post content here...',
+                modules: {
+                    toolbar: [
+                        [{ 'header': [1, 2, 3, false] }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['link', 'image', 'code-block'],
+                        ['clean']
+                    ]
+                }
+            });
+
             try {
                 // Get session
                 const { data: { session }, error } = await supabase.auth.getSession();
@@ -541,6 +635,7 @@
         window.cancelEditor = function() {
             document.getElementById('postForm').reset();
             document.getElementById('postId').value = '';
+            if (quill) quill.root.innerHTML = '';
             document.getElementById('editorTitle').textContent = 'Write New Blog Post';
             switchTab('blogs');
         }
@@ -666,7 +761,13 @@
             const slug = document.getElementById('postSlug').value.trim();
             const author = document.getElementById('postAuthor').value.trim();
             const excerpt = document.getElementById('postExcerpt').value.trim();
-            const content = document.getElementById('postContent').value.trim();
+            
+            // Sync Quill contents to hidden input field
+            const contentInput = document.getElementById('postContent');
+            if (quill) {
+                contentInput.value = quill.getText().trim() === '' ? '' : quill.root.innerHTML;
+            }
+            const content = contentInput.value.trim();
 
             if (!title || !slug || !author || !excerpt || !content) {
                 showAlert('error', 'Please fill in all required fields (Title, Slug, Author, Excerpt, Content).');
@@ -741,6 +842,7 @@
             document.getElementById('postImage').value = blog.image_url;
             document.getElementById('postExcerpt').value = blog.excerpt;
             document.getElementById('postContent').value = blog.content;
+            if (quill) quill.root.innerHTML = blog.content || '';
 
             document.getElementById('editorTitle').textContent = 'Edit Blog Post';
             switchTab('editor');
