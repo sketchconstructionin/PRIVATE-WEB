@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: sketch-whatsapp-api
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: NODE_ENV
+        value: production
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: META_ACCESS_TOKEN
+        sync: false
+      - key: META_PHONE_NUMBER_ID
+        sync: false
+      - key: META_VERIFY_TOKEN
+        sync: false
+      - key: BUSINESS_OWNER_NUMBER
+        sync: false
+      - key: GOOGLE_GA4_PROPERTY_ID
+        sync: false
+      - key: GOOGLE_SEARCH_CONSOLE_SITE_URL
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_REFRESH_TOKEN
+        sync: false

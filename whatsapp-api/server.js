@@ -15,6 +15,11 @@ import path from 'path';
 // Load environment variables
 dotenv.config();
 
+// Dynamic OAuth2 redirect URI: uses Render's auto-set URL in production
+const REDIRECT_URI = process.env.RENDER_EXTERNAL_URL
+  ? `${process.env.RENDER_EXTERNAL_URL}/oauth2callback`
+  : (process.env.APP_URL ? `${process.env.APP_URL}/oauth2callback` : 'http://localhost:5000/oauth2callback');
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -115,7 +120,7 @@ app.get('/api/analytics', async (req, res) => {
     const oauth2Client = new google.auth.OAuth2(
       clientId,
       clientSecret,
-      'http://localhost:5000/oauth2callback'
+      REDIRECT_URI
     );
     oauth2Client.setCredentials({ refresh_token: refreshToken });
     auth = oauth2Client;
@@ -392,7 +397,7 @@ app.get('/api/auth/google', (req, res) => {
   const oauth2Client = new google.auth.OAuth2(
     clientId,
     clientSecret,
-    'http://localhost:5000/oauth2callback'
+    REDIRECT_URI
   );
 
   const scopes = [
@@ -425,7 +430,7 @@ app.get('/oauth2callback', async (req, res) => {
     const oauth2Client = new google.auth.OAuth2(
       clientId,
       clientSecret,
-      'http://localhost:5000/oauth2callback'
+      REDIRECT_URI
     );
 
     const { tokens } = await oauth2Client.getToken(code);

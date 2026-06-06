@@ -1014,7 +1014,11 @@
             
             try {
                 // Fetch dynamic analytics from the Node.js proxy server
-                const response = await fetch('http://localhost:5000/api/analytics');
+                // Use live Render.com backend in production, fallback to localhost in dev
+                const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                    ? 'http://localhost:5000'
+                    : 'https://sketch-whatsapp-api.onrender.com';
+                const response = await fetch(`${API_BASE}/api/analytics`);
                 if (!response.ok) {
                     throw new Error('API server returned status: ' + response.status);
                 }
