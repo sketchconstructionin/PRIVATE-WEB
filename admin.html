@@ -484,8 +484,8 @@
                     <div id="viewAnalytics" style="display: none;">
                         <div class="content-header">
                             <h2>Analytics & Search Performance</h2>
-                            <div style="font-family: var(--font-technical); font-size: 11px; background-color: rgba(255,184,0,0.1); color: var(--primary); border: 1px solid var(--border-accent); padding: 6px 12px; border-radius: 4px; display: inline-flex; align-items: center; gap: 8px;">
-                                <span class="pulse-dot"></span> Live GA4 & GSC Pipeline
+                            <div id="pipelineStatusBadge" style="font-family: var(--font-technical); font-size: 11px; background-color: rgba(255,184,0,0.1); color: var(--primary); border: 1px solid var(--border-accent); padding: 6px 12px; border-radius: 4px; display: inline-flex; align-items: center; gap: 8px;">
+                                <span class="pulse-dot"></span> Loading Pipeline...
                             </div>
                         </div>
 
@@ -1010,7 +1010,164 @@
         let myChart;
 
         async function loadAnalytics() {
-            // Populate Tables
+            const statusBadge = document.getElementById('pipelineStatusBadge');
+            
+            try {
+                // Fetch dynamic analytics from the Node.js proxy server
+                const response = await fetch('http://localhost:5000/api/analytics');
+                if (!response.ok) {
+                    throw new Error('API server returned status: ' + response.status);
+                }
+                const data = await response.json();
+                
+                // Update Pipeline Status indicator
+                if (statusBadge) {
+                    if (data.isSimulated) {
+                        statusBadge.style.backgroundColor = 'rgba(245, 158, 11, 0.1)';
+                        statusBadge.style.color = '#F59E0B';
+                        statusBadge.style.borderColor = 'rgba(245, 158, 11, 0.3)';
+                        statusBadge.innerHTML = `<span class="pulse-dot" style="background-color:#F59E0B;"></span> Sandbox Mode (Simulation Data)`;
+                    } else {
+                        statusBadge.style.backgroundColor = 'rgba(16, 185, 129, 0.1)';
+                        statusBadge.style.color = '#10B981';
+                        statusBadge.style.borderColor = 'rgba(16, 185, 129, 0.3)';
+                        statusBadge.innerHTML = `<span class="pulse-dot" style="background-color:#10B981;"></span> Live GA4 & GSC Pipeline`;
+                    }
+                }
+
+                // Render metrics summaries
+                document.getElementById('statTotalUsers').textContent = data.summary.totalUsers.toLocaleString();
+                document.getElementById('statPageViews').textContent = data.summary.pageViews.toLocaleString();
+                document.getElementById('statImpressions').textContent = data.summary.impressions.toLocaleString();
+                document.getElementById('statAvgPosition').textContent = data.summary.avgPosition;
+
+                // Render Queries Table
+                const queriesTable = document.getElementById('searchQueriesTableBody');
+                queriesTable.innerHTML = '';
+                data.queries.forEach(q => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td style="font-weight:600; color:#FFF;">${escapeHtml(q.keyword)}</td>
+                        <td style="font-family:var(--font-technical); color:var(--text-secondary);">${q.imp.toLocaleString()}</td>
+                        <td style="font-family:var(--font-technical); color:var(--text-secondary);">${q.clicks.toLocaleString()}</td>
+                        <td style="font-family:var(--font-technical); color:var(--primary); font-weight:600;">${q.pos}</td>
+                    `;
+                    queriesTable.appendChild(tr);
+                });
+
+                // Render Blog Views Table
+                const viewsTable = document.getElementById('blogViewsTableBody');
+                viewsTable.innerHTML = '';
+                data.pages.forEach(v => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td style="font-size:13px; font-family:var(--font-technical); max-width:240px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:#FFF;" title="${escapeHtml(v.page)}">${escapeHtml(v.page)}</td>
+                        <td style="font-family:var(--font-technical); color:var(--text-secondary);">${v.views.toLocaleString()}</td>
+                        <td style="font-family:var(--font-technical); color:var(--text-secondary);">${v.time}</td>
+                        <td style="font-family:var(--font-technical); color:var(--text-secondary);">${v.bounce}</td>
+                    `;
+                    viewsTable.appendChild(tr);
+                });
+
+                // Render Trend Line Chart
+                const canvasEl = document.getElementById('analyticsChart');
+                if (!canvasEl) return;
+                const ctx = canvasEl.getContext('2d');
+                
+                if (myChart) {
+                    myChart.destroy();
+                }
+
+                const labels = data.trend.map(t => t.date);
+                const impressionsData = data.trend.map(t => t.impressions);
+                const pageViewsData = data.trend.map(t => t.pageViews);
+
+                myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Google Search Impressions',
+                                data: impressionsData,
+                                borderColor: '#ffb800',
+                                backgroundColor: 'rgba(255, 184, 0, 0.05)',
+                                borderWidth: 2,
+                                fill: true,
+                                tension: 0.4
+                            },
+                            {
+                                label: 'Blog Page Views',
+                                data: pageViewsData,
+                                borderColor: '#00e1c3',
+                                backgroundColor: 'rgba(0, 225, 195, 0.05)',
+                                borderWidth: 2,
+                                fill: true,
+                                tension: 0.4
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: '#a0a0a0',
+                                    font: {
+                                        family: 'Space Grotesk'
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                grid: {
+                                    color: 'rgba(255,255,255,0.05)'
+                                },
+                                ticks: {
+                                    color: '#808080',
+                                    font: {
+                                        size: 10
+                                    }
+                                }
+                            },
+                            y: {
+                                grid: {
+                                    color: 'rgba(255,255,255,0.05)'
+                                },
+                                ticks: {
+                                    color: '#808080',
+                                    font: {
+                                        size: 10
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+
+            } catch (err) {
+                console.warn('Could not contact API proxy, running with local simulation fallback:', err.message);
+                if (statusBadge) {
+                    statusBadge.style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
+                    statusBadge.style.color = '#EF4444';
+                    statusBadge.style.borderColor = 'rgba(239, 68, 68, 0.3)';
+                    statusBadge.innerHTML = `<span class="pulse-dot" style="background-color:#EF4444;"></span> Offline Fallback Mode (Cached Data)`;
+                }
+                
+                // Load default client-side fallback data if server is completely offline
+                renderLocalFallbackData();
+            }
+        }
+
+        // Sub-function to render local fallback mock data when server is down
+        function renderLocalFallbackData() {
+            document.getElementById('statTotalUsers').textContent = "1,240";
+            document.getElementById('statPageViews').textContent = "3,850";
+            document.getElementById('statImpressions').textContent = "12,480";
+            document.getElementById('statAvgPosition').textContent = "14.2";
+
             const queriesTable = document.getElementById('searchQueriesTableBody');
             const queriesData = [
                 { keyword: 'best civil contractors in raipur', imp: 4200, clicks: 280, pos: '2.1' },
@@ -1025,8 +1182,8 @@
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td style="font-weight:600; color:#FFF;">${q.keyword}</td>
-                    <td style="font-family:var(--font-technical); color:var(--text-secondary);">${q.imp}</td>
-                    <td style="font-family:var(--font-technical); color:var(--text-secondary);">${q.clicks}</td>
+                    <td style="font-family:var(--font-technical); color:var(--text-secondary);">${q.imp.toLocaleString()}</td>
+                    <td style="font-family:var(--font-technical); color:var(--text-secondary);">${q.clicks.toLocaleString()}</td>
                     <td style="font-family:var(--font-technical); color:var(--primary); font-weight:600;">${q.pos}</td>
                 `;
                 queriesTable.appendChild(tr);
@@ -1045,18 +1202,16 @@
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td style="font-size:13px; font-family:var(--font-technical); max-width:240px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:#FFF;" title="${v.page}">${v.page}</td>
-                    <td style="font-family:var(--font-technical); color:var(--text-secondary);">${v.views}</td>
+                    <td style="font-family:var(--font-technical); color:var(--text-secondary);">${v.views.toLocaleString()}</td>
                     <td style="font-family:var(--font-technical); color:var(--text-secondary);">${v.time}</td>
                     <td style="font-family:var(--font-technical); color:var(--text-secondary);">${v.bounce}</td>
                 `;
                 viewsTable.appendChild(tr);
             });
 
-            // Initialize/Update Chart
             const canvasEl = document.getElementById('analyticsChart');
             if (!canvasEl) return;
             const ctx = canvasEl.getContext('2d');
-            
             if (myChart) {
                 myChart.destroy();
             }
@@ -1067,7 +1222,6 @@
                 return d.toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
             });
 
-            // Generate upward trend curves
             const impressionsTrend = [
                 280, 290, 310, 305, 340, 360, 350, 380, 410, 400,
                 420, 450, 430, 460, 490, 480, 500, 520, 510, 530,
@@ -1110,37 +1264,12 @@
                     maintainAspectRatio: false,
                     plugins: {
                         legend: {
-                            labels: {
-                                color: '#a0a0a0',
-                                font: {
-                                    family: 'Space Grotesk'
-                                }
-                            }
+                            labels: { color: '#a0a0a0', font: { family: 'Space Grotesk' } }
                         }
                     },
                     scales: {
-                        x: {
-                            grid: {
-                                color: 'rgba(255,255,255,0.05)'
-                            },
-                            ticks: {
-                                color: '#808080',
-                                font: {
-                                    size: 10
-                                }
-                            }
-                        },
-                        y: {
-                            grid: {
-                                color: 'rgba(255,255,255,0.05)'
-                            },
-                            ticks: {
-                                color: '#808080',
-                                font: {
-                                    size: 10
-                                }
-                            }
-                        }
+                        x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#808080', font: { size: 10 } } },
+                        y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#808080', font: { size: 10 } } }
                     }
                 }
             });
