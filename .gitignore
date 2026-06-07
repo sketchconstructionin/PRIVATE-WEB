@@ -6,6 +6,7 @@ yarn-error.log*
 
 # Local environment variables
 .env
+whatsapp-api/app.yaml
 .env.local
 .env.development.local
 .env.test.local
