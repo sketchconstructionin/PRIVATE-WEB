@@ -305,7 +305,7 @@
 
                 // Populate elements
                 document.getElementById('postTitle').textContent = post.title;
-                document.title = `${post.title} - Sketch Construction`;
+                document.title = `${post.title} - Raipur Construction Insights | Sketch Construction`;
                 document.getElementById('postAuthor').textContent = `By ${post.author}`;
                 document.getElementById('postDate').textContent = new Date(post.published_at).toLocaleDateString(undefined, { 
                     year: 'numeric', 
@@ -314,6 +314,44 @@
                 });
                 document.getElementById('postImage').src = post.image_url;
                 document.getElementById('postImage').alt = post.title;
+
+                // Update meta tags dynamically
+                const metaDesc = document.querySelector('meta[name="description"]');
+                if (metaDesc) {
+                    metaDesc.setAttribute('content', post.excerpt || `${post.title} - Read detailed civil construction standards and building guidelines in Raipur.`);
+                }
+                const ogTitle = document.querySelector('meta[property="og:title"]');
+                if (ogTitle) ogTitle.setAttribute('content', `${post.title} - Sketch Construction`);
+                const ogDesc = document.querySelector('meta[property="og:description"]');
+                if (ogDesc) ogDesc.setAttribute('content', post.excerpt || `${post.title} - Read detailed civil construction standards and building guidelines.`);
+
+                // Dynamically inject BlogPosting Schema Markup
+                const schemaData = {
+                    "@context": "https://schema.org",
+                    "@type": "BlogPosting",
+                    "headline": post.title,
+                    "image": post.image_url,
+                    "datePublished": post.published_at || post.created_at,
+                    "dateModified": post.updated_at || post.published_at || post.created_at,
+                    "author": {
+                        "@type": "Person",
+                        "name": post.author || "Vikky Sharma"
+                    },
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "Sketch Construction",
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": "https://sketchconstruction.in/assets/logo.webp"
+                        }
+                    },
+                    "description": post.excerpt || `${post.title} - Detailed guide by Sketch Construction.`,
+                    "articleBody": post.content
+                };
+                const scriptNode = document.createElement('script');
+                scriptNode.type = 'application/ld+json';
+                scriptNode.text = JSON.stringify(schemaData);
+                document.head.appendChild(scriptNode);
 
                 // Support HTML rendering safely, replacing standard newlines with double breaks if plain text is written
                 const contentHtml = formatContent(post.content);

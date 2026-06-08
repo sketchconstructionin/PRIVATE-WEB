@@ -487,4 +487,23 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.addEventListener('scroll', handleFloatingBtns);
+
+    // ==========================================
+    // 9. FAQ ACCORDION TOGGLE
+    // ==========================================
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const questionBtn = item.querySelector('.faq-question');
+        if (questionBtn) {
+            questionBtn.addEventListener('click', () => {
+                const isOpen = item.classList.contains('active');
+                // Close all items
+                faqItems.forEach(i => i.classList.remove('active'));
+                // Toggle current item
+                if (!isOpen) {
+                    item.classList.add('active');
+                }
+            });
+        }
+    });
 });
