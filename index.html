@@ -65,7 +65,8 @@
     <link rel="icon" type="image/webp" href="assets/logo.webp">
     <link rel="apple-touch-icon" href="assets/logo.webp">
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.min.css?v=1.0.6">
+    <link rel="stylesheet" href="style.css?v=1.1.0">
+
     <!-- Preload FontAwesome for Premium Icons -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
@@ -1928,7 +1929,7 @@
             
             <div class="faq-accordion-container reveal reveal-delay-1">
                 <div class="faq-item">
-                    <button class="faq-question">
+                    <button class="faq-question" type="button" onclick="this.parentElement.classList.toggle('active')">
                         <span>Who is the best civil contractor in Raipur for home construction?</span>
                         <span class="faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
                     </button>
@@ -1938,17 +1939,17 @@
                 </div>
                 
                 <div class="faq-item">
-                    <button class="faq-question">
+                    <button class="faq-question" type="button" onclick="this.parentElement.classList.toggle('active')">
                         <span>What is the average house construction cost per sq ft in Raipur?</span>
                         <span class="faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
                     </button>
                     <div class="faq-answer">
-                        <p>The average house construction cost in Raipur ranges from <strong>₹1,400 to ₹1,900 per sq. ft.</strong>, depending on the quality of finishes and specifications chosen. We provide fully transparent, itemized bills of quantities (BOQ). Use our interactive <a href="calculator.html" target="_blank" style="color: var(--primary); text-decoration: underline;">House Construction Cost Calculator</a> to estimate cement bags, TMT steel weight, sand volumes, and overall budget.</p>
+                        <p>The average house construction cost in Raipur ranges from <strong>₹1,400 to ₹1,900 per sq. ft.</strong>, depending on the quality of finishes and specifications chosen. We provide fully transparent, itemized bills of quantities (BOQ). Use our interactive <a href="quotation.html" style="color: var(--primary); text-decoration: underline;">House Construction Cost Calculator</a> to estimate cement bags, TMT steel weight, sand volumes, and overall budget.</p>
                     </div>
                 </div>
                 
                 <div class="faq-item">
-                    <button class="faq-question">
+                    <button class="faq-question" type="button" onclick="this.parentElement.classList.toggle('active')">
                         <span>Do you offer turnkey home construction services in Raipur?</span>
                         <span class="faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
                     </button>
@@ -1958,7 +1959,7 @@
                 </div>
                 
                 <div class="faq-item">
-                    <button class="faq-question">
+                    <button class="faq-question" type="button" onclick="this.parentElement.classList.toggle('active')">
                         <span>How does Sketch Construction handle Raipur's black cotton clay soil?</span>
                         <span class="faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
                     </button>
@@ -1968,7 +1969,7 @@
                 </div>
                 
                 <div class="faq-item">
-                    <button class="faq-question">
+                    <button class="faq-question" type="button" onclick="this.parentElement.classList.toggle('active')">
                         <span>Which concrete and steel standards do you implement on-site?</span>
                         <span class="faq-icon"><i class="fa-solid fa-chevron-down"></i></span>
                     </button>
@@ -2232,6 +2233,9 @@
         </svg>
         <span>Get in Touch</span>
     </a>
+
+    <!-- Application Script -->
+    <script src="app.js"></script>
 </body>
 </html>
 

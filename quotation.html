@@ -61,7 +61,8 @@
     <link rel="icon" type="image/webp" href="assets/logo.webp">
     <link rel="apple-touch-icon" href="assets/logo.webp">
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.min.css?v=1.0.6">
+    <link rel="stylesheet" href="style.css?v=1.1.0">
+
 
     <!-- Structured Data Schema Markup (Service & Pricing) -->
     <script type="application/ld+json">
@@ -214,14 +215,14 @@
     </header>
 
     <!-- Page Hero Section -->
-    <section class="page-hero">
-        <div class="container">
-            <span class="tagline-badge">Construction Rates 2026</span>
-            <h1 class="reveal">Detailed <span class="accent-text">Specifications Sheet</span></h1>
-            <div class="section-line"></div>
-            <p class="hero-lead">Fully transparent pricing tiers optimized for Raipur building indexes. Unlock the printable A4 rate sheet with structural codes, brand matrices, and engineering warranties below.</p>
-            <div style="margin-top: 24px; display: flex; justify-content: center; gap: 16px;">
-                <button id="unlockPrintBtn" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+    <section class="page-hero" style="text-align: center; display: flex; justify-content: center; width: 100%; padding: 40px 0 20px 0;">
+        <div class="container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 100%;">
+            <span class="tagline-badge" style="margin: 0 auto 16px auto;">Construction Rates 2026</span>
+            <h1 class="reveal" style="text-align: center; width: 100%;">Detailed <span class="accent-text">Specifications Sheet</span></h1>
+            <div class="section-line" style="margin: 16px auto;"></div>
+            <p class="hero-lead" style="text-align: center; max-width: 680px; margin: 0 auto; color: var(--text-secondary);">Fully transparent pricing tiers optimized for Raipur building indexes. Unlock the printable A4 rate sheet with structural codes, brand matrices, and engineering warranties below.</p>
+            <div style="margin-top: 24px; display: flex; justify-content: center; gap: 16px; width: 100%;">
+                <button id="unlockPrintBtn" class="btn btn-primary" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
                     <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:#000;"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
                     Print / Download Quotation
                 </button>
@@ -229,141 +230,66 @@
         </div>
     </section>
 
-    <!-- Rates Table & Specification Sheet -->
-    <section class="rates-table-section">
-        <div class="container">
-            <div class="rates-table-container">
-                <table class="rates-spec-table">
-                    <thead>
-                        <tr>
-                            <th>Category & Structural Code</th>
-                            <th class="pkg-col structural-pkg">
-                                <span class="pkg-badge">Structural Only</span>
-                                <span class="pkg-price">â‚¹999 <span class="unit">/ sq.ft.</span></span>
-                            </th>
-                            <th class="pkg-col standard-pkg">
-                                <span class="pkg-badge">Standard Package</span>
-                                <span class="pkg-price">â‚¹1,550 <span class="unit">/ sq.ft.</span></span>
-                            </th>
-                            <th class="pkg-col premium-pkg featured-pkg">
-                                <span class="pkg-badge">Premium Package</span>
-                                <span class="pkg-price">â‚¹1,950 <span class="unit">/ sq.ft.</span></span>
-                                <span class="featured-tag">Raipur's Choice</span>
-                            </th>
-                            <th class="pkg-col luxury-pkg">
-                                <span class="pkg-badge">Luxury Package</span>
-                                <span class="pkg-price">â‚¹2,550 <span class="unit">/ sq.ft.</span></span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Structural Specs -->
-                        <tr style="background: rgba(255,184,0,0.02);"><td colspan="5" style="font-family: var(--font-technical); font-size: 11px; font-weight: 700; color: var(--primary); letter-spacing: 0.1em; text-transform: uppercase;">1. Structural Elements (IS 456 Compliance)</td></tr>
-                        <tr>
-                            <td class="cat-label">Cement Brand & Grade</td>
-                            <td>OPC Grade 43 / PPC<br><span class="brand-sub">UltraTech / ACC</span></td>
-                            <td>OPC/PPC Grade 43<br><span class="brand-sub">CCI / ACC / UltraTech</span></td>
-                            <td class="highlight-spec">OPC Grade 53 (Premium Strength)<br><span class="brand-sub">UltraTech / ACC Gold</span></td>
-                            <td>OPC Grade 53 Premium Sourcing<br><span class="brand-sub">UltraTech Premium / Lafarge Concreto</span></td>
-                        </tr>
-                        <tr>
-                            <td class="cat-label">Steel TMT Bars</td>
-                            <td>Fe 500 Grade TMT<br><span class="brand-sub">Local TMT (Goel / Sarda)</span></td>
-                            <td>Fe 500 Grade TMT<br><span class="brand-sub">Standard TMT (Goel / Sarda)</span></td>
-                            <td class="highlight-spec">Fe 550D High Ductility (Seismic resistant)<br><span class="brand-sub">Jindal Panther / Tata Tiscon</span></td>
-                            <td>Fe 550D Primary Steel TMT<br><span class="brand-sub">Tata Tiscon / Jindal Panther</span></td>
-                        </tr>
-                        <tr>
-                            <td class="cat-label">Foundation & Footing</td>
-                            <td>Excavation depth up to 4 feet<br><span class="brand-sub">Standard civil footings</span></td>
-                            <td>Excavation depth up to 4 feet<br><span class="brand-sub">Standard civil footings</span></td>
-                            <td class="highlight-spec">Excavation depth 5 to 6 feet<br><span class="brand-sub">Reinforced column concrete base</span></td>
-                            <td>Excavation depth 6 to 8 feet + Double Plinth Beams<br><span class="brand-sub">Heavy earthquake-resistant base</span></td>
-                        </tr>
-                        <tr>
-                            <td class="cat-label">Binding Wire & Checks</td>
-                            <td>Standard binding wire<br><span class="brand-sub">Manual ring bending</span></td>
-                            <td>Standard binding wire<br><span class="brand-sub">Manual ring bending</span></td>
-                            <td class="highlight-spec">Ring hooks bent at 135 degrees (anti-seismic)<br><span class="brand-sub">Cover blocks used throughout layout</span></td>
-                            <td>Machine-bent links (135 deg) + Heavy Cover Blocks<br><span class="brand-sub">100% strict spacing verification</span></td>
-                        </tr>
-                        <tr>
-                            <td class="cat-label">Coarse Aggregate & Sand</td>
-                            <td>Raipur local river sand<br><span class="brand-sub">Standard 20mm aggregate</span></td>
-                            <td>Raipur local river sand<br><span class="brand-sub">Standard 20mm crushed stone</span></td>
-                            <td class="highlight-spec">Coarse river sand (plaster grade)<br><span class="brand-sub">Black granite aggregate metal (10/20mm)</span></td>
-                            <td>Washed/double-filtered sand (premium)<br><span class="brand-sub">Pure black trap aggregate (graded)</span></td>
-                        </tr>
-                        
-                        <!-- Masonry & Finishes -->
-                        <tr style="background: rgba(255,184,0,0.02);"><td colspan="5" style="font-family: var(--font-technical); font-size: 11px; font-weight: 700; color: var(--primary); letter-spacing: 0.1em; text-transform: uppercase;">2. Brickwork & Finishes</td></tr>
-                        <tr>
-                            <td class="cat-label">Structural Masonry</td>
-                            <td>Fly Ash Bricks<br><span class="brand-sub">Local Raipur Kilns (8" & 4" partition)</span></td>
-                            <td>Standard Fly Ash Bricks<br><span class="brand-sub">Local Raipur Kilns (8-inch thickness)</span></td>
-                            <td class="highlight-spec">High-density Fly Ash / Premium Red Clay Bricks<br><span class="brand-sub">1st Class Quality (Outer 9" / Inner 4.5")</span></td>
-                            <td>Autoclaved Aerated Concrete (AAC) Blocks<br><span class="brand-sub">High thermal insulation (9" / 4.5")</span></td>
-                        </tr>
-                        <tr>
-                            <td class="cat-label">Plastering Works</td>
-                            <td>Single-coat plaster on brickwork<br><span class="brand-sub">Rough finish structural plaster</span></td>
-                            <td>1 coat cement plaster (inner)<br><span class="brand-sub">Finished standard thickness</span></td>
-                            <td class="highlight-spec">2-coat smooth sand-faced plaster (outer)<br><span class="brand-sub">12mm inner plaster + ceiling plaster</span></td>
-                            <td>Double-coat waterproof external plaster<br><span class="brand-sub">Premium plaster compound mixed</span></td>
-                        </tr>
-                        <tr>
-                            <td class="cat-label">Flooring Finishes</td>
-                            <td style="color: var(--text-muted); font-style: italic;">Excluded<br><span class="brand-sub">Raw concrete flooring slab only</span></td>
-                            <td>Vitrified Tiles (24" x 24")<br><span class="brand-sub">Double Charge (Kajaria / Somany)</span></td>
-                            <td class="highlight-spec">Premium Vitrified Tiles (32" x 32" / 4ft x 2ft)<br><span class="brand-sub">Premium Kajaria / Somany vitrified</span></td>
-                            <td>Imported Italian Marble / Engineered Wooden Planks<br><span class="brand-sub">Living Rooms & Master Bedrooms</span></td>
-                        </tr>
-                        
-                        <!-- Interior Systems -->
-                        <tr style="background: rgba(255,184,0,0.02);"><td colspan="5" style="font-family: var(--font-technical); font-size: 11px; font-weight: 700; color: var(--primary); letter-spacing: 0.1em; text-transform: uppercase;">3. Plumbing, Electrical & Utility Systems</td></tr>
-                        <tr>
-                            <td class="cat-label">Plumbing Lines & Pipes</td>
-                            <td>Internal drainage pipes only<br><span class="brand-sub">Local PVC pipes</span></td>
-                            <td>Standard PVC piping<br><span class="brand-sub">Supreme / Local brand</span></td>
-                            <td class="highlight-spec">CPVC hot & cold lines (conceded)<br><span class="brand-sub">Astral / Ashirvad flow guard</span></td>
-                            <td>Noise-canceling SWR drainage + CPVC hot-cold<br><span class="brand-sub">Premium Astral / Ashirvad SWR</span></td>
-                        </tr>
-                        <tr>
-                            <td class="cat-label">Sanitaryware & Bath</td>
-                            <td style="color: var(--text-muted); font-style: italic;">Excluded<br><span class="brand-sub">No fixtures or tiling provided</span></td>
-                            <td>Standard Ceramic Ware<br><span class="brand-sub">Cera / Parryware</span></td>
-                            <td class="highlight-spec">Wall-hung WC & Premium CP fittings<br><span class="brand-sub">Jaquar (Premium Series) / Hindware</span></td>
-                            <td>Concealed Diverters & Luxury Fixtures<br><span class="brand-sub">Kohler / Grohe / Toto</span></td>
-                        </tr>
-                        <tr>
-                            <td class="cat-label">Waterproofing Works</td>
-                            <td style="color: var(--text-muted); font-style: italic;">Excluded<br><span class="brand-sub">Standard civil structure only</span></td>
-                            <td>Standard bathroom base coat<br><span class="brand-sub">Cement slurry coat</span></td>
-                            <td class="highlight-spec">2-coat chemical waterproofing<br><span class="brand-sub">Balconies, terrace & bathroom (Dr. Fixit)</span></td>
-                            <td>Multi-layer polyurethane (PU) waterproofing<br><span class="brand-sub">Premium Fosroc / Dr. Fixit 10-year lock</span></td>
-                        </tr>
-                        <tr>
-                            <td class="cat-label">Wiring & Switchgear</td>
-                            <td>Conduit PVC pipes laid inside slabs/walls<br><span class="brand-sub">No wires or switchboards</span></td>
-                            <td>FR Copper Wiring<br><span class="brand-sub">Finolex / Anchor switches</span></td>
-                            <td class="highlight-spec">FRLS Copper Wiring + Modular Switches<br><span class="brand-sub">Polycab / Havells / Roma switchboards</span></td>
-                            <td>FRLSH Copper Wiring + Smart Touch Automation panels<br><span class="brand-sub">Finolex / Legrand / Schneider Electric</span></td>
-                        </tr>
-                        
-                        <!-- Warranty & Verification -->
-                        <tr style="background: rgba(255,184,0,0.02);"><td colspan="5" style="font-family: var(--font-technical); font-size: 11px; font-weight: 700; color: var(--primary); letter-spacing: 0.1em; text-transform: uppercase;">4. Verification & Testing</td></tr>
-                        <tr>
-                            <td class="cat-label">Civil Laboratory Testing</td>
-                            <td>Standard visual structural checks<br><span class="brand-sub">Concrete checks</span></td>
-                            <td>Standard slump test<br><span class="brand-sub">On-site visually verified</span></td>
-                            <td class="highlight-spec">Concrete cube compressive test (3/7/14/28d)<br><span class="brand-sub">Official laboratory validation logs</span></td>
-                            <td>NDT (Non-Destructive Testing) + Core concrete tests<br><span class="brand-sub">Complete structural tracking folder</span></td>
-                        </tr>
-                    </tbody>
-                </table>
+    <!-- Rates Packages Section (Reverted 4-Cards Grid Centered with Big Buttons) -->
+    <section class="rates-table-section" style="width: 100%; display: flex; justify-content: center; align-items: center; padding: 20px 0 40px 0;">
+        <div class="container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%;">
+            <div class="rates-cards-grid" style="display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 600px; margin: 0 auto; gap: 28px;">
+                <!-- Card 1: Structural Only -->
+                <div class="rate-package-card" style="width: 100%; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <span class="pkg-badge" style="text-align: center; display: block; width: 100%;">Structural Framework</span>
+                    <h3 class="pkg-title" style="text-align: center; width: 100%;">Structural Only</h3>
+                    <div class="pkg-price-box" style="display: flex; justify-content: center; align-items: baseline; width: 100%;">
+                        <span class="currency">₹</span>
+                        <span class="amount">999</span>
+                        <span class="unit">/ sq.ft.</span>
+                    </div>
+                    <a href="index.html#tender" class="btn btn-primary pkg-cta enquire-btn btn-lg" style="margin: 0 auto;">ENQUIRE NOW</a>
+                </div>
+
+                <!-- Card 2: Standard Package -->
+                <div class="rate-package-card" style="width: 100%; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <span class="pkg-badge" style="text-align: center; display: block; width: 100%;">Turnkey Construction</span>
+                    <h3 class="pkg-title" style="text-align: center; width: 100%;">Standard Package</h3>
+                    <div class="pkg-price-box" style="display: flex; justify-content: center; align-items: baseline; width: 100%;">
+                        <span class="currency">₹</span>
+                        <span class="amount">1,550</span>
+                        <span class="unit">/ sq.ft.</span>
+                    </div>
+                    <a href="index.html#tender" class="btn btn-primary pkg-cta enquire-btn btn-lg" style="margin: 0 auto;">ENQUIRE NOW</a>
+                </div>
+
+                <!-- Card 3: Premium Package (Featured) -->
+                <div class="rate-package-card featured-card" style="width: 100%; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <span class="featured-badge">RAIPUR'S CHOICE</span>
+                    <span class="pkg-badge accent-color" style="text-align: center; display: block; width: 100%;">Most Popular Tier</span>
+                    <h3 class="pkg-title" style="text-align: center; width: 100%;">Premium Package</h3>
+                    <div class="pkg-price-box" style="display: flex; justify-content: center; align-items: baseline; width: 100%;">
+                        <span class="currency accent-color">₹</span>
+                        <span class="amount highlight-amount">1,950</span>
+                        <span class="unit">/ sq.ft.</span>
+                    </div>
+                    <a href="index.html#tender" class="btn btn-primary pkg-cta enquire-btn btn-lg" style="margin: 0 auto;">ENQUIRE NOW</a>
+                </div>
+
+                <!-- Card 4: Luxury Package -->
+                <div class="rate-package-card" style="width: 100%; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <span class="pkg-badge" style="text-align: center; display: block; width: 100%;">Architectural Grade</span>
+                    <h3 class="pkg-title" style="text-align: center; width: 100%;">Luxury Package</h3>
+                    <div class="pkg-price-box" style="display: flex; justify-content: center; align-items: baseline; width: 100%;">
+                        <span class="currency">₹</span>
+                        <span class="amount">2,550</span>
+                        <span class="unit">/ sq.ft.</span>
+                    </div>
+                    <a href="index.html#tender" class="btn btn-primary pkg-cta enquire-btn btn-lg" style="margin: 0 auto;">ENQUIRE NOW</a>
+                </div>
             </div>
         </div>
     </section>
+
+
+
+
+
 
     <!-- Estimator Section -->
     <section class="calculator-section" id="estimator-section">
@@ -391,10 +317,10 @@
                     <div class="calc-group">
                         <label>Select Construction Tier</label>
                         <div class="floor-selector">
-                            <button type="button" class="floor-btn" data-tier="structural" data-rate="999">Structural Only (â‚¹999)</button>
-                            <button type="button" class="floor-btn" data-tier="standard" data-rate="1550">Standard (â‚¹1,550)</button>
-                            <button type="button" class="floor-btn active" data-tier="premium" data-rate="1950">Premium (â‚¹1,950)</button>
-                            <button type="button" class="floor-btn" data-tier="luxury" data-rate="2550">Luxury (â‚¹2,550)</button>
+                            <button type="button" class="floor-btn" data-tier="structural" data-rate="999">Structural Only (₹999)</button>
+                            <button type="button" class="floor-btn" data-tier="standard" data-rate="1550">Standard (₹1,550)</button>
+                            <button type="button" class="floor-btn active" data-tier="premium" data-rate="1950">Premium (₹1,950)</button>
+                            <button type="button" class="floor-btn" data-tier="luxury" data-rate="2550">Luxury (₹2,550)</button>
                         </div>
                     </div>
 
@@ -413,7 +339,7 @@
                 <div class="calc-outputs">
                     <div class="output-item font-highlight">
                         <span class="out-label">Estimated Civil & Finishing Budget</span>
-                        <div class="highlight-val">â‚¹ <span id="totalCostDisplay">35,10,000</span>*</div>
+                        <div class="highlight-val">₹ <span id="totalCostDisplay">35,10,000</span>*</div>
                         <span class="out-brand">Includes material procurement, excavation, concrete curing, structural labor, and initial paint coat.</span>
                     </div>
 
@@ -441,7 +367,7 @@
                     </div>
 
                     <div class="calc-cta" style="margin-top: 24px;">
-                        <a href="index.html#tender" class="btn btn-primary" style="width: 100%; display: block; text-align: center;">Book Engineering Feasibility Study â†’</a>
+                        <a href="index.html#tender" class="btn btn-primary" style="width: 100%; display: block; text-align: center;">Book Engineering Feasibility Study →</a>
                     </div>
                     <p style="font-size: 10px; color: var(--text-muted); margin-top: 12px; text-align: center;">*Disclaimer: Estimates are based on current Raipur material indexes. Final rates depend on structural design files.</p>
                 </div>
@@ -458,8 +384,9 @@
                     <circle cx="70" cy="70" r="54" fill="none" stroke="rgba(255, 184, 0, 0.8)" stroke-width="3" />
                     <path id="sealTextPath" d="M 70,70 m -44,0 a 44,44 0 1,1 88,0 a 44,44 0 1,1 -88,0" fill="none" />
                     <text font-family="Space Grotesk" font-size="7.5" font-weight="700" fill="var(--primary)" letter-spacing="1">
-                        <textPath href="#sealTextPath" startOffset="0%">SKETCH CONSTRUCTION â€¢ RAIPUR CHHATTISGARH â€¢ </textPath>
+                        <textPath href="#sealTextPath" startOffset="0%">SKETCH CONSTRUCTION • RAIPUR CHHATTISGARH • </textPath>
                     </text>
+
                     <path d="M45,70 L95,70 M70,45 L70,95" stroke="rgba(255, 184, 0, 0.2)" stroke-width="1.5" />
                     <rect x="53" y="58" width="34" height="24" rx="2" fill="#121212" stroke="var(--primary)" stroke-width="1.5" />
                     <text x="70" y="69" font-family="Space Grotesk" font-size="7" font-weight="700" fill="#FFF" text-anchor="middle">APPROVED</text>
@@ -815,20 +742,34 @@
                 }, 300);
             };
 
-            // Mobile toggle
-            const mobileToggle = document.getElementById('mobileToggle');
-            const navMenu = document.getElementById('navMenu');
-            if (mobileToggle && navMenu) {
-                mobileToggle.addEventListener('click', () => {
-                    navMenu.classList.toggle('mobile-active');
-                    mobileToggle.classList.toggle('active');
+            // Enquire Now Buttons
+            const enquireBtns = document.querySelectorAll('.enquire-btn');
+            enquireBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const pkgName = btn.getAttribute('data-package');
+                    const tierName = btn.getAttribute('data-tier');
+                    
+                    // Activate corresponding tier in estimator
+                    const matchingFloorBtn = document.querySelector(`.floor-btn[data-tier="${tierName}"]`);
+                    if (matchingFloorBtn) {
+                        matchingFloorBtn.click();
+                    }
+                    
+                    // Open inquiry modal
+                    if (printGateModal) {
+                        const modalTag = printGateModal.querySelector('.modal-tag');
+                        if (modalTag) modalTag.textContent = `Enquiry for: ${pkgName}`;
+                        printGateModal.classList.remove('hidden');
+                    }
                 });
-            }
+            });
 
             calculateCost();
         });
     </script>
+    <script src="app.js"></script>
 </body>
 </html>
+
 
 

@@ -446,6 +446,34 @@ document.addEventListener('DOMContentLoaded', () => {
     calculateMaterials();
 
     // ==========================================
+    // FAQ ACCORDION DROPDOWN TOGGLE LOGIC
+    // ==========================================
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const questionBtn = item.querySelector('.faq-question');
+        if (questionBtn) {
+            questionBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const isActive = item.classList.contains('active');
+                
+                // Close all other open FAQ accordion items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                // Toggle clicked item
+                if (isActive) {
+                    item.classList.remove('active');
+                } else {
+                    item.classList.add('active');
+                }
+            });
+        }
+    });
+
+    // ==========================================
     // 7. SCROLL REVEAL (INTERSECTION OBSERVER)
     // ==========================================
     const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
@@ -489,21 +517,28 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', handleFloatingBtns);
 
     // ==========================================
-    // 9. FAQ ACCORDION TOGGLE
+    // 10. 3D CARD MOUSEMOVE TILT MICRO-INTERACTION
     // ==========================================
-    const faqItems = document.querySelectorAll('.faq-item');
-    faqItems.forEach(item => {
-        const questionBtn = item.querySelector('.faq-question');
-        if (questionBtn) {
-            questionBtn.addEventListener('click', () => {
-                const isOpen = item.classList.contains('active');
-                // Close all items
-                faqItems.forEach(i => i.classList.remove('active'));
-                // Toggle current item
-                if (!isOpen) {
-                    item.classList.add('active');
-                }
-            });
-        }
+    const tiltCards = document.querySelectorAll('.service-card, .pillar-card, .compliance-card, .testimonial-card, .portfolio-item');
+    
+    tiltCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left; // x position within the element
+            const y = e.clientY - rect.top;  // y position within the element
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 25;
+            const rotateY = (centerX - x) / 25;
+            
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+        });
     });
 });
+
