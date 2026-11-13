@@ -108,37 +108,55 @@ export const DEFAULT_PROJECTS = [
 ];
 
 const LOCAL_STORAGE_KEY = 'sketch_construction_projects_v1';
+const API_SYNC_URL = 'https://sketch-whatsapp-api.onrender.com/api/projects';
 
 /**
- * Get all project galleries from Supabase or LocalStorage fallback
+ * Get all project galleries from Render Cloud Sync, Supabase, or LocalStorage fallback
  */
 export async function getProjects() {
+    // 1. Fetch live projects from Render Cloud Sync API (so public visitors see new photos)
     try {
-        if (supabase) {
-            const { data, error } = await supabase
-                .from('projects')
-                .select('*')
-                .order('created_at', { ascending: false });
-
-            if (!error && data && data.length > 0) {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 2500);
+        const res = await fetch(API_SYNC_URL, { signal: controller.signal });
+        clearTimeout(timeoutId);
+        if (res.ok) {
+            const data = await res.json();
+            if (data && Array.isArray(data) && data.length > 0) {
+                saveProjectsToLocal(data);
                 return data;
             }
         }
-    } catch (err) {
-        console.warn('Supabase fetch failed or table not setup yet, falling back to LocalStorage:', err);
+    } catch (apiErr) {
+        // Fallback to local
     }
 
-    // LocalStorage fallback
+    // 2. Static projects.json fallback (serves directly from GitHub Pages CDN)
+    try {
+        const jsonRes = await fetch('projects.json?v=' + Date.now());
+        if (jsonRes.ok) {
+            const jsonData = await jsonRes.json();
+            if (jsonData && Array.isArray(jsonData) && jsonData.length > 0) {
+                saveProjectsToLocal(jsonData);
+                return jsonData;
+            }
+        }
+    } catch (e) {}
+
+    // 3. LocalStorage fallback
     const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (saved) {
         try {
-            return JSON.parse(saved);
+            const parsed = JSON.parse(saved);
+            if (parsed && Array.isArray(parsed) && parsed.length > 0) {
+                return parsed;
+            }
         } catch (e) {
             console.error('Failed to parse local projects:', e);
         }
     }
 
-    // Return default seed data and save to localStorage
+    // 4. Default seed data
     saveProjectsToLocal(DEFAULT_PROJECTS);
     return DEFAULT_PROJECTS;
 }
@@ -155,7 +173,7 @@ export function saveProjectsToLocal(projects) {
 }
 
 /**
- * Save / Update a Project (Supabase + LocalStorage)
+ * Save / Update a Project (Render Cloud + Supabase + LocalStorage)
  */
 export async function saveProject(projectData) {
     let projects = await getProjects();
@@ -172,7 +190,16 @@ export async function saveProject(projectData) {
 
     saveProjectsToLocal(projects);
 
-    // Attempt Supabase sync
+    // Sync to Render cloud backend so all visitors immediately see updates
+    try {
+        fetch(API_SYNC_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(projects)
+        }).catch(err => console.warn('Render projects sync notice:', err));
+    } catch (e) {}
+
+    // Attempt Supabase sync if active
     try {
         if (supabase) {
             await supabase.from('projects').upsert([projectData]);
@@ -191,6 +218,14 @@ export async function deleteProject(projectId) {
     let projects = await getProjects();
     projects = projects.filter(p => p.id !== projectId);
     saveProjectsToLocal(projects);
+
+    try {
+        fetch(API_SYNC_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(projects)
+        }).catch(err => console.warn('Render delete sync notice:', err));
+    } catch (e) {}
 
     try {
         if (supabase) {
@@ -270,22 +305,30 @@ export async function compressImage(file, options = {}) {
 }
 
 /**
- * Upload Image to Cloud CDN (Method 1: ImgBB Cloud API / Supabase Storage with Local Fallback)
+ * Upload Image to Cloud CDN (Permanent Public CDN via Render API / ImgBB with Local Fallback)
  */
 export async function uploadImageToCloud(imageInput, fileName = 'site_photo.jpg', customApiKey = '') {
     const key = customApiKey || localStorage.getItem('sketch_imgbb_api_key') || '';
+
+    // Convert input to base64 dataUrl if needed
+    let dataUrl = '';
+    if (typeof imageInput === 'string' && imageInput.startsWith('data:')) {
+        dataUrl = imageInput;
+    } else if (imageInput instanceof Blob) {
+        dataUrl = await new Promise((resolve) => {
+            const r = new FileReader();
+            r.onload = e => resolve(e.target.result);
+            r.readAsDataURL(imageInput);
+        });
+    }
 
     // 1. If ImgBB key is configured, upload to ImgBB free permanent CDN
     if (key && key.trim().length > 5) {
         try {
             const formData = new FormData();
-            if (imageInput instanceof Blob) {
-                formData.append('image', imageInput, fileName);
-            } else if (typeof imageInput === 'string' && imageInput.startsWith('data:')) {
-                const base64Clean = imageInput.split(',')[1];
+            if (dataUrl) {
+                const base64Clean = dataUrl.split(',')[1];
                 formData.append('image', base64Clean);
-            } else if (typeof imageInput === 'string') {
-                formData.append('image', imageInput);
             }
 
             const response = await fetch(`https://api.imgbb.com/1/upload?key=${encodeURIComponent(key.trim())}`, {
@@ -302,31 +345,50 @@ export async function uploadImageToCloud(imageInput, fileName = 'site_photo.jpg'
                     provider: 'ImgBB Cloud CDN',
                     isCloud: true
                 };
-            } else {
-                const errMsg = data && data.error ? data.error.message : 'Cloud upload response error';
-                console.warn('ImgBB upload error:', errMsg);
             }
         } catch (netErr) {
             console.warn('ImgBB Network failed:', netErr);
         }
     }
 
-    // 2. Fallback to optimized compressed data URL
-    let dataUrl = '';
-    if (typeof imageInput === 'string' && imageInput.startsWith('data:')) {
-        dataUrl = imageInput;
-    } else if (imageInput instanceof Blob) {
-        dataUrl = await new Promise((resolve) => {
-            const r = new FileReader();
-            r.onload = e => resolve(e.target.result);
-            r.readAsDataURL(imageInput);
-        });
+    // 2. High-speed Permanent Public Cloud CDN via Render Backend API
+    if (dataUrl) {
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 18000); // 18s timeout
+
+            const res = await fetch('https://sketch-whatsapp-api.onrender.com/api/upload-photo', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    image: dataUrl,
+                    fileName: fileName
+                }),
+                signal: controller.signal
+            });
+            clearTimeout(timeoutId);
+
+            if (res.ok) {
+                const data = await res.json();
+                if (data && data.success && data.url) {
+                    return {
+                        success: true,
+                        url: data.url,
+                        provider: 'Permanent Public CDN',
+                        isCloud: true
+                    };
+                }
+            }
+        } catch (cdnErr) {
+            console.warn('Render Cloud Photo CDN upload notice:', cdnErr.message);
+        }
     }
 
+    // 3. Fallback to optimized compressed data URL if offline
     return {
         success: true,
         url: dataUrl,
-        provider: 'Optimized Compressed Image',
+        provider: 'Optimized Local Image',
         isCloud: false
     };
 }

@@ -1,4 +1,4 @@
-import { getProjects } from './projects-data.js';
+import { getProjects, DEFAULT_PROJECTS } from './projects-data.js';
 
 /**
  * SKETCH CONSTRUCTION - INTERACTIVE WEB LOGIC
@@ -169,7 +169,6 @@ function initApp() {
     // 4. PORTFOLIO FILTER CATEGORIES
     // ==========================================
     const filterButtons = document.querySelectorAll('.filter-btn');
-    const portfolioItems = document.querySelectorAll('.portfolio-item');
 
     filterButtons.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -178,25 +177,33 @@ function initApp() {
             btn.classList.add('active');
 
             const filterValue = btn.getAttribute('data-filter');
+            const currentItems = document.querySelectorAll('.portfolio-item');
 
-            portfolioItems.forEach(item => {
-                const category = item.getAttribute('data-category');
+            currentItems.forEach(item => {
+                const category = item.getAttribute('data-category') || '';
+                const classes = item.className || '';
                 
-                // Trigger transition animation scale
-                item.style.transform = 'scale(0.8)';
+                // Matches if "all", or category attribute contains filterValue, or class contains filterValue
+                const isMatch = filterValue === 'all' || 
+                    category.split(' ').includes(filterValue) || 
+                    classes.split(' ').includes(filterValue);
+
+                item.style.transform = 'scale(0.85)';
                 item.style.opacity = '0';
-                
+
                 setTimeout(() => {
-                    if (filterValue === 'all' || category === filterValue) {
+                    if (isMatch) {
                         item.classList.remove('hidden');
+                        item.style.display = '';
                         setTimeout(() => {
                             item.style.transform = 'scale(1)';
                             item.style.opacity = '1';
                         }, 50);
                     } else {
                         item.classList.add('hidden');
+                        item.style.display = 'none';
                     }
-                }, 300);
+                }, 200);
             });
         });
     });
@@ -541,13 +548,25 @@ function initApp() {
     // ==========================================
     // 11. DYNAMIC ONGOING PROJECT GALLERY & LIGHTBOX MODAL
     // ==========================================
-    let projectsData = [];
+    // 12. ONGOING PROJECTS & SITE PHOTO GALLERY MODAL
+    // ==========================================
+    let projectsData = Array.isArray(DEFAULT_PROJECTS) ? [...DEFAULT_PROJECTS] : [];
     let currentModalProject = null;
     let currentModalPhotoIdx = 0;
 
     async function initProjectsGallery() {
-        projectsData = await getProjects();
+        // First render synchronously with default projects so user sees content with zero wait
         renderOngoingProjectsCards();
+
+        try {
+            const liveData = await getProjects();
+            if (liveData && Array.isArray(liveData) && liveData.length > 0) {
+                projectsData = liveData;
+                renderOngoingProjectsCards();
+            }
+        } catch (e) {
+            console.warn('Projects gallery background sync note:', e);
+        }
     }
 
     function renderOngoingProjectsCards() {
@@ -558,57 +577,62 @@ function initApp() {
         const existingDynamic = grid.querySelectorAll('.dynamic-project-card');
         existingDynamic.forEach(el => el.remove());
 
-        // Render projects as interactive cards
+        // For any projects created dynamically that aren't hardcoded in the static HTML:
+        const hardcodedIds = ['proj-1', 'proj-2', 'proj-3'];
+
         projectsData.forEach(proj => {
-            const card = document.createElement('div');
-            card.className = `portfolio-item ${proj.category || 'ongoing'} dynamic-project-card reveal in-view`;
-            card.setAttribute('data-category', proj.category || 'ongoing');
-            card.style.cursor = 'pointer';
+            if (!hardcodedIds.includes(proj.id)) {
+                const card = document.createElement('div');
+                card.className = `portfolio-item ongoing ${proj.category || ''} dynamic-project-card reveal in-view`;
+                card.setAttribute('data-category', `ongoing ${proj.category || 'residential'}`);
+                card.style.cursor = 'pointer';
 
-            const photoCount = proj.photos ? proj.photos.length : 1;
-            const isOngoing = proj.category === 'ongoing' || proj.progress < 100;
+                const photoCount = proj.photos ? proj.photos.length : 1;
+                const isOngoing = proj.category === 'ongoing' || proj.progress < 100;
 
-            card.innerHTML = `
-                <div class="portfolio-image-box" onclick="window.openSitePhotoModal('${proj.id}')">
-                    <img src="${proj.coverImage || (proj.photos && proj.photos[0] ? proj.photos[0].url : 'assets/hero_luxury.webp')}" alt="${proj.title}" width="1024" height="1024" loading="lazy">
-                    <div class="portfolio-overlay">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                            <span class="project-tag" style="${isOngoing ? 'background: rgba(74, 222, 128, 0.15); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.3);' : ''}">
-                                ${isOngoing ? '<span class="pulse-dot" style="display:inline-block; margin-right:5px; background:#4ade80;"></span> LIVE ONGOING SITE' : 'COMPLETED SITE'}
-                            </span>
-                            <span style="font-family: var(--font-technical); font-size: 11px; color: var(--primary); background: rgba(0,0,0,0.6); padding: 2px 8px; border-radius: 10px;">
-                                📸 ${photoCount} Photo${photoCount > 1 ? 's' : ''}
+                card.innerHTML = `
+                    <div class="portfolio-image-box" onclick="window.openSitePhotoModal('${proj.id}')">
+                        <img src="${proj.coverImage || (proj.photos && proj.photos[0] ? proj.photos[0].url : 'assets/hero_luxury.webp')}" alt="${proj.title}" width="1024" height="1024" loading="lazy">
+                        <div class="portfolio-overlay">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                <span class="project-tag" style="${isOngoing ? 'background: rgba(74, 222, 128, 0.15); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.3);' : ''}">
+                                    ${isOngoing ? '<span class="pulse-dot" style="display:inline-block; margin-right:5px; background:#4ade80;"></span> LIVE ONGOING SITE' : 'COMPLETED SITE'}
+                                </span>
+                                <span style="font-family: var(--font-technical); font-size: 11px; color: var(--primary); background: rgba(0,0,0,0.6); padding: 2px 8px; border-radius: 10px;">
+                                    📸 ${photoCount} Photo${photoCount > 1 ? 's' : ''}
+                                </span>
+                            </div>
+                            <h3>${proj.title}</h3>
+                            <p class="project-desc">${proj.description}</p>
+                            
+                            <!-- Progress Track -->
+                            <div style="margin: 12px 0 16px 0;">
+                                <div style="display:flex; justify-content:space-between; font-size:11px; font-family:var(--font-technical); color:#FFF; margin-bottom:4px;">
+                                    <span>${proj.stage || 'Construction Progress'}</span>
+                                    <strong style="color:var(--primary);">${proj.progress || 0}%</strong>
+                                </div>
+                                <div style="height: 4px; background: rgba(255,255,255,0.15); border-radius: 2px; overflow: hidden;">
+                                    <div style="width: ${proj.progress || 0}%; height: 100%; background: linear-gradient(90deg, #4ade80, var(--primary)); border-radius: 2px;"></div>
+                                </div>
+                            </div>
+
+                            <span class="project-more">
+                                View Site Photos & Inspection Log
+                                <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
                             </span>
                         </div>
-                        <h3>${proj.title}</h3>
-                        <p class="project-desc">${proj.description}</p>
-                        
-                        <!-- Progress Track -->
-                        <div style="margin: 12px 0 16px 0;">
-                            <div style="display:flex; justify-content:space-between; font-size:11px; font-family:var(--font-technical); color:#FFF; margin-bottom:4px;">
-                                <span>${proj.stage || 'Construction Progress'}</span>
-                                <strong style="color:var(--primary);">${proj.progress || 0}%</strong>
-                            </div>
-                            <div style="height: 4px; background: rgba(255,255,255,0.15); border-radius: 2px; overflow: hidden;">
-                                <div style="width: ${proj.progress || 0}%; height: 100%; background: linear-gradient(90deg, #4ade80, var(--primary)); border-radius: 2px;"></div>
-                            </div>
-                        </div>
-
-                        <span class="project-more">
-                            View Site Photos & Inspection Log
-                            <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
-                        </span>
                     </div>
-                </div>
-            `;
+                `;
 
-            grid.insertBefore(card, grid.firstChild);
+                grid.insertBefore(card, grid.firstChild);
+            }
         });
     }
 
     // Lightbox modal methods exposed globally
     window.openSitePhotoModal = function(projectId) {
-        currentModalProject = projectsData.find(p => p.id === projectId);
+        currentModalProject = (projectsData && projectsData.find(p => p.id === projectId)) ||
+                              (DEFAULT_PROJECTS && DEFAULT_PROJECTS.find(p => p.id === projectId));
         if (!currentModalProject) return;
 
         currentModalPhotoIdx = 0;

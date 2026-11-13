@@ -1762,16 +1762,18 @@
             <div class="portfolio-grid" id="portfolioGrid">
                 
 
-                <!-- Project Card 2 (Residential) -->
-                <div class="portfolio-item residential reveal reveal-delay-2" data-category="residential">
+                <!-- Project Card 2 (Residential / Ongoing Live Site) -->
+                <div class="portfolio-item ongoing residential reveal reveal-delay-2" data-category="ongoing residential" onclick="window.openSitePhotoModal('proj-3')" style="cursor: pointer;">
                     <div class="portfolio-image-box">
                         <img src="assets/hero_luxury.webp" alt="G+2 Duplex Villa framework casting Shivanand Nagar Raipur" width="1024" height="1024" loading="lazy">
                         <div class="portfolio-overlay">
-                            <span class="project-tag">Residential Duplex</span>
+                            <span class="project-tag" style="background: rgba(74, 222, 128, 0.15); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.3);">
+                                <span class="pulse-dot" style="display:inline-block; margin-right:5px; background:#4ade80;"></span> LIVE ONGOING SITE
+                            </span>
                             <h3>G+2 Duplex at Shivanand Nagar</h3>
                             <p class="project-desc">3,200 sq.ft. duplex civil frame built on specialized deep piles to withstand Raipur's heavy black cotton clay soils.</p>
                             <span class="project-more">
-                                View Foundation Framing
+                                View Foundation Framing & Site Photos
                                 <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
                             </span>
                         </div>
@@ -1794,24 +1796,26 @@
                     </div>
                 </a>
 
-                <!-- Project Card 4 (Materials / Concrete Engineering) -->
-                <a href="curing-log.html" target="_blank" class="portfolio-item engineering reveal reveal-delay-4" data-category="engineering">
+                <!-- Project Card 4 (Materials / Concrete Engineering & Ongoing Site Photos) -->
+                <div class="portfolio-item ongoing engineering reveal reveal-delay-4" data-category="ongoing engineering" onclick="window.openSitePhotoModal('proj-2')" style="cursor: pointer;">
                     <div class="portfolio-image-box">
                         <img src="assets/concrete_material.webp" alt="OPC 53 concrete slab casting VIP Road Raipur" width="1024" height="1024" loading="lazy">
                         <div class="portfolio-overlay">
-                            <span class="project-tag">Casting Execution</span>
+                            <span class="project-tag" style="background: rgba(74, 222, 128, 0.15); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.3);">
+                                <span class="pulse-dot" style="display:inline-block; margin-right:5px; background:#4ade80;"></span> LIVE ONGOING SITE
+                            </span>
                             <h3>VIP Road Duplex Slab Casting</h3>
                             <p class="project-desc">Slab casting monitoring using M25 grade concrete and Fe 550 stirrups. Strict 14-day wet moisture curing cycle verified on-site.</p>
                             <span class="project-more">
-                                View Curing Log
+                                View Site Inspection Photos
                                 <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
                             </span>
                         </div>
                     </div>
-                </a>
+                </div>
 
                 <!-- Project Card 5 (Structural / Ongoing) -->
-                <a href="blueprint-viewer.html?project=sector12" target="_blank" class="portfolio-item engineering reveal reveal-delay-1" data-category="engineering">
+                <a href="blueprint-viewer.html?project=sector12" target="_blank" class="portfolio-item ongoing engineering reveal reveal-delay-1" data-category="ongoing engineering">
                     <div class="portfolio-image-box">
                         <img src="assets/sector12_drawing.webp" alt="Sector 12 elevation plan Naya Raipur duplex layout blueprint" width="715" height="800" loading="lazy">
                         <div class="portfolio-overlay">
@@ -1826,16 +1830,18 @@
                     </div>
                 </a>
 
-                <!-- Project Card 6 (Residential / Ongoing) -->
-                <div class="portfolio-item residential reveal reveal-delay-2" data-category="residential">
+                <!-- Project Card 6 (Residential / Ongoing Live Site) -->
+                <div class="portfolio-item ongoing residential reveal reveal-delay-2" data-category="ongoing residential" onclick="window.openSitePhotoModal('proj-1')" style="cursor: pointer;">
                     <div class="portfolio-image-box">
                         <img src="assets/sector12_duplex.webp" alt="Sector 12 ongoing duplex villa construction Naya Raipur" width="796" height="815" loading="lazy">
                         <div class="portfolio-overlay">
-                            <span class="project-tag">Ongoing Site / Residential</span>
+                            <span class="project-tag" style="background: rgba(74, 222, 128, 0.15); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.3);">
+                                <span class="pulse-dot" style="display:inline-block; margin-right:5px; background:#4ade80;"></span> LIVE ONGOING SITE
+                            </span>
                             <h3>Sector 12 Duplex Villa (Naya Raipur)</h3>
                             <p class="project-desc">Ongoing site supervision of a 3-story luxury duplex villa featuring wood framing facades, cantilever balconies, and modern lighting.</p>
                             <span class="project-more">
-                                View Site Gallery
+                                View Site Photos & Inspection Log
                                 <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
                             </span>
                         </div>
@@ -2221,9 +2227,6 @@
             </div>
         </div>
     </footer>
-
-    <!-- App Logic -->
-    <script src="app.js?v=1.0.4"></script>
 
     <!-- Floating WhatsApp Button -->
     <a href="https://wa.me/918349886687?text=Hello%20Sketch%20Construction%2C%20I%20need%20a%20quote%20for%20my%20project." target="_blank" class="floating-whatsapp-btn" id="floatingWhatsappBtn" aria-label="Chat on WhatsApp">

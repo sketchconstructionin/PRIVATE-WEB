@@ -25,8 +25,8 @@ const PORT = process.env.PORT || 5000;
 
 // Setup Middleware
 app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 const {
   SUPABASE_URL,
@@ -40,6 +40,92 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'UP', message: 'Sketch Construction API is running.' });
+});
+
+// Projects & Ongoing Site Photos Cloud Sync API
+let projectsCache = null;
+
+app.get('/api/projects', (req, res) => {
+  if (projectsCache && Array.isArray(projectsCache) && projectsCache.length > 0) {
+    return res.json(projectsCache);
+  }
+  try {
+    const cacheFile = path.join(process.cwd(), 'projects_data.json');
+    if (fs.existsSync(cacheFile)) {
+      projectsCache = JSON.parse(fs.readFileSync(cacheFile, 'utf8'));
+      return res.json(projectsCache);
+    }
+  } catch (e) {}
+
+  res.json(null);
+});
+
+app.post('/api/projects', (req, res) => {
+  if (req.body && (Array.isArray(req.body) || req.body.projects)) {
+    projectsCache = Array.isArray(req.body) ? req.body : req.body.projects;
+    try {
+      const cacheFile = path.join(process.cwd(), 'projects_data.json');
+      fs.writeFileSync(cacheFile, JSON.stringify(projectsCache, null, 2));
+    } catch (e) {}
+    return res.json({ success: true, count: projectsCache.length });
+  }
+  res.status(400).json({ error: 'Expected JSON array of projects' });
+});
+
+// Cloud Photo Uploader API (Permanent Public CDN via Node Server)
+app.post('/api/upload-photo', async (req, res) => {
+  try {
+    const { image, fileName } = req.body || {};
+    if (!image) {
+      return res.status(400).json({ error: 'No image data provided' });
+    }
+
+    let buffer;
+    let mimeType = 'image/jpeg';
+    if (typeof image === 'string' && image.startsWith('data:')) {
+      const parts = image.split(';base64,');
+      mimeType = parts[0].replace('data:', '') || 'image/jpeg';
+      buffer = Buffer.from(parts[1], 'base64');
+    } else if (typeof image === 'string') {
+      buffer = Buffer.from(image, 'base64');
+    } else {
+      buffer = Buffer.from(image);
+    }
+
+    const cleanName = fileName ? (fileName.endsWith('.jpg') || fileName.endsWith('.png') || fileName.endsWith('.webp') ? fileName : `${fileName}.jpg`) : `site_photo_${Date.now()}.jpg`;
+
+    // 1. Upload to Catbox via Node FormData (fast, permanent, public CDN)
+    try {
+      const blob = new Blob([buffer], { type: mimeType });
+      const fd = new FormData();
+      fd.append('reqtype', 'fileupload');
+      fd.append('fileToUpload', blob, cleanName);
+
+      const catboxRes = await fetch('https://catbox.moe/user/api.php', {
+        method: 'POST',
+        body: fd
+      });
+
+      if (catboxRes.ok) {
+        const publicUrl = (await catboxRes.text()).trim();
+        if (publicUrl.startsWith('http')) {
+          return res.json({
+            success: true,
+            url: publicUrl,
+            provider: 'Permanent Public CDN',
+            isCloud: true
+          });
+        }
+      }
+    } catch (cErr) {
+      console.warn('Catbox upload warning:', cErr.message);
+    }
+
+    return res.status(500).json({ error: 'Cloud upload to CDN failed' });
+  } catch (err) {
+    console.error('Upload photo handler error:', err);
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // Helper function to return simulated Raipur-local SEO analytics data

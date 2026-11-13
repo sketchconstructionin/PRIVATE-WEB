@@ -1,0 +1,100 @@
+[
+  {
+    "id": "proj-1",
+    "title": "Sector 12 Luxury Duplex Villa",
+    "location": "Sector 12, Naya Raipur, CG",
+    "category": "ongoing",
+    "progress": 75,
+    "stage": "Slab & Column Casting",
+    "date": "October 2026",
+    "engineer": "Er. Vikky Sharma",
+    "description": "3-story luxury duplex villa construction featuring G+2 structural frame, cantilever balconies, and deep foundation engineered for local clay soils.",
+    "coverImage": "assets/sector12_duplex.webp",
+    "photos": [
+      {
+        "id": "photo-1-1",
+        "url": "assets/sector12_duplex.webp",
+        "stageName": "G+2 Structural Frame Scaffolding",
+        "date": "Oct 02, 2026",
+        "caption": "Full shuttering and scaffolding setup prior to 2nd-floor slab casting. Centerline plumb-lines verified on-site.",
+        "verified": true
+      },
+      {
+        "id": "photo-1-2",
+        "url": "assets/sector12_drawing.webp",
+        "stageName": "Structural Elevation Blueprint Verification",
+        "date": "Sep 25, 2026",
+        "caption": "Technical level height mapping (LVL +0' to +42') and column alignment checked according to architectural blueprints.",
+        "verified": true
+      },
+      {
+        "id": "photo-1-3",
+        "url": "assets/hero_luxury.webp",
+        "stageName": "Upper Slab Concrete Casting & Vibration",
+        "date": "Sep 18, 2026",
+        "caption": "Monolithic slab pouring using M25 grade concrete mix and mechanical needle vibrators for zero honeycombing.",
+        "verified": true
+      },
+      {
+        "id": "photo-1-4",
+        "url": "assets/concrete_material.webp",
+        "stageName": "BIS 456 M25 Slump & Concrete Cube Strength Check",
+        "date": "Sep 10, 2026",
+        "caption": "Slump cone test performed on-site for workability, and sample test cubes cast for 28-day compression testing.",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "id": "proj-2",
+    "title": "VIP Road Residential Bungalow",
+    "location": "VIP Road, Khamtrai, Raipur, CG",
+    "category": "ongoing",
+    "progress": 60,
+    "stage": "Plinth Beam & Column Rebar",
+    "date": "September 2026",
+    "engineer": "Er. Vikky Sharma",
+    "description": "Premium residential bungalow with high-strength Fe 550D TMT reinforcement steel and raft foundation for maximum seismic resistance.",
+    "coverImage": "assets/concrete_material.webp",
+    "photos": [
+      {
+        "id": "photo-2-1",
+        "url": "assets/concrete_material.webp",
+        "stageName": "Column TMT Steel Cage Binding (IS 1786)",
+        "date": "Sep 28, 2026",
+        "caption": "Vertical rebar cages bound with 8mm stirrups at 150mm c/c spacing. Clear concrete cover of 40mm strictly maintained.",
+        "verified": true
+      },
+      {
+        "id": "photo-2-2",
+        "url": "assets/blueprint_schematic.webp",
+        "stageName": "Foundation Excavation & PCC Bedding",
+        "date": "Sep 05, 2026",
+        "caption": "1.5m deep footing excavation completed down to hard strata layer with 100mm PCC M10 lean concrete base.",
+        "verified": true
+      }
+    ]
+  },
+  {
+    "id": "proj-3",
+    "title": "Shivanand Nagar G+2 Duplex Frame",
+    "location": "Shivanand Nagar, Khamtrai, Raipur, CG",
+    "category": "completed",
+    "progress": 100,
+    "stage": "Turnkey Carcass Handover",
+    "date": "August 2026",
+    "engineer": "Er. Vikky Sharma",
+    "description": "3,200 sq.ft. duplex civil carcass complete with internal brick masonry, electrical wall conduits, and 21-day moisture curing.",
+    "coverImage": "assets/hero_luxury.webp",
+    "photos": [
+      {
+        "id": "photo-3-1",
+        "url": "assets/hero_luxury.webp",
+        "stageName": "Completed Structural Frame Handover",
+        "date": "Aug 20, 2026",
+        "caption": "Structural shell fully cast and moisture cured. Handed over to client on schedule with 100% BIS compliance certificate.",
+        "verified": true
+      }
+    ]
+  }
+]
