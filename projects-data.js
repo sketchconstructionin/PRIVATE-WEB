@@ -3,8 +3,6 @@
  * Author: Antigravity AI
  */
 
-import { supabase } from './supabase-config.js';
-
 // Default initial ongoing projects & site photos seed data
 export const DEFAULT_PROJECTS = [
     {
@@ -199,15 +197,6 @@ export async function saveProject(projectData) {
         }).catch(err => console.warn('Render projects sync notice:', err));
     } catch (e) {}
 
-    // Attempt Supabase sync if active
-    try {
-        if (supabase) {
-            await supabase.from('projects').upsert([projectData]);
-        }
-    } catch (err) {
-        console.warn('Supabase sync warning:', err);
-    }
-
     return projects;
 }
 
@@ -226,14 +215,6 @@ export async function deleteProject(projectId) {
             body: JSON.stringify(projects)
         }).catch(err => console.warn('Render delete sync notice:', err));
     } catch (e) {}
-
-    try {
-        if (supabase) {
-            await supabase.from('projects').delete().eq('id', projectId);
-        }
-    } catch (err) {
-        console.warn('Supabase delete warning:', err);
-    }
 
     return projects;
 }
@@ -458,8 +439,6 @@ export async function exportProjectsAsModule() {
  * SKETCH CONSTRUCTION - ONGOING PROJECTS & SITE PHOTO GALLERY DATA MODULE
  * Exported on ${new Date().toLocaleString()}
  */
-
-import { supabase } from './supabase-config.js';
 
 export const DEFAULT_PROJECTS = ${JSON.stringify(projects, null, 4)};
 `;

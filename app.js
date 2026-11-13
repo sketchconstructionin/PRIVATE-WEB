@@ -562,6 +562,7 @@ function initApp() {
             const liveData = await getProjects();
             if (liveData && Array.isArray(liveData) && liveData.length > 0) {
                 projectsData = liveData;
+                window.SKETCH_PROJECTS = liveData;
                 renderOngoingProjectsCards();
             }
         } catch (e) {
