@@ -4821,6 +4821,291 @@ button, input, select, textarea {
     }
 }
 
+/* ========================================================================
+   ONGOING SITE PROJECTS & LIGHTBOX PHOTO GALLERY STYLES
+   ======================================================================== */
+.site-photo-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.site-photo-modal .modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(5, 7, 10, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.site-photo-modal .modal-content-wrapper {
+    position: relative;
+    z-index: 10001;
+    width: 100%;
+    max-width: 1100px;
+    max-height: 90vh;
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-accent);
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 184, 0, 0.15);
+    overflow: hidden;
+}
+
+.site-photo-modal .modal-close-btn {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    z-index: 10005;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--border-color);
+    color: #FFFFFF;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 24px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.site-photo-modal .modal-close-btn:hover {
+    background: var(--primary);
+    color: #000;
+    transform: rotate(90deg);
+}
+
+.site-photo-modal .modal-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    min-height: 540px;
+    max-height: 85vh;
+}
+
+@media (max-width: 900px) {
+    .site-photo-modal .modal-grid {
+        grid-template-columns: 1fr;
+        overflow-y: auto;
+    }
+}
+
+.modal-photo-main {
+    background: #000000;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+.main-photo-container {
+    position: relative;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #050608;
+    overflow: hidden;
+    min-height: 380px;
+}
+
+.main-photo-container img {
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    transition: var(--transition-smooth);
+}
+
+.nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--border-color);
+    color: var(--primary);
+    font-size: 32px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: var(--transition-fast);
+}
+
+.nav-arrow:hover {
+    background: var(--primary);
+    color: #000;
+}
+
+.nav-prev { left: 16px; }
+.nav-next { right: 16px; }
+
+.photo-counter {
+    position: absolute;
+    bottom: 12px;
+    left: 16px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--border-color);
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-family: var(--font-technical);
+    font-size: 11px;
+    color: #FFF;
+}
+
+.modal-thumbnails-ribbon {
+    display: flex;
+    gap: 8px;
+    padding: 12px 16px;
+    background: #090B0E;
+    border-top: 1px solid var(--border-color);
+    overflow-x: auto;
+}
+
+.modal-thumb-item {
+    width: 60px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: var(--transition-fast);
+}
+
+.modal-thumb-item:hover, .modal-thumb-item.active {
+    opacity: 1;
+    border-color: var(--primary);
+    transform: scale(1.05);
+}
+
+.modal-photo-info {
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    background: var(--bg-surface);
+    overflow-y: auto;
+}
+
+.project-info-header .stage-badge {
+    display: inline-block;
+    background: rgba(255, 184, 0, 0.12);
+    border: 1px solid var(--border-accent);
+    color: var(--primary);
+    font-family: var(--font-technical);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.project-info-header h3 {
+    font-size: 22px;
+    color: #FFF;
+    margin-bottom: 4px;
+}
+
+.project-info-header .location-text {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.progress-box {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    padding: 14px 16px;
+    border-radius: var(--border-radius-sm);
+}
+
+.progress-label-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-family: var(--font-technical);
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+.progress-label-row strong {
+    color: var(--primary);
+}
+
+.progress-track {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4ade80, var(--primary));
+    border-radius: 3px;
+    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.inspection-card {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    padding: 16px;
+    border-radius: var(--border-radius-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.inspection-title {
+    font-family: var(--font-technical);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.inspection-card p {
+    font-size: 14px;
+    color: #E2E8F0;
+    line-height: 1.5;
+}
+
+.engineer-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border-color);
+    padding-top: 10px;
+    margin-top: 4px;
+}
+
+.photo-date-stamp {
+    font-family: var(--font-technical);
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
 
 
 

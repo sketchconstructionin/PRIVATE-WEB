@@ -281,7 +281,7 @@
     <script type="module">
         import { supabase } from './supabase-config.js';
 
-        document.addEventListener('DOMContentLoaded', async () => {
+        async function initBlogPost() {
             const urlParams = new URLSearchParams(window.location.search);
             const slug = urlParams.get('slug');
 
@@ -365,7 +365,13 @@
                 console.error(err);
                 showError(err.message || 'Error occurred while loading the article.');
             }
-        });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initBlogPost);
+        } else {
+            initBlogPost();
+        }
 
         function formatContent(text) {
             // Check if text already looks like HTML (contains brackets)

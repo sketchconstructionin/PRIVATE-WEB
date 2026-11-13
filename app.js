@@ -1,13 +1,14 @@
+import { getProjects } from './projects-data.js';
+
 /**
  * SKETCH CONSTRUCTION - INTERACTIVE WEB LOGIC
  * Author: Antigravity AI
  */
 
-// Google Sheets Webhook URL (Deploy Apps Script for sheet: https://docs.google.com/spreadsheets/d/1EEov3pz7k2qLEzBmRN42Gk9kiHzPIEtdbIh6_t4YBkI/edit)
-// Paste the generated deployment Web App URL below:
+// Google Sheets Webhook URL
 const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbwglzYMYtqKipDQYItFMRkx7fEwinL-FUQHx2Uo7FS6ZpQzF7GJcfQKTJSd6U4OdYiD7w/exec';
 
-document.addEventListener('DOMContentLoaded', () => {
+function initApp() {
 
     // ==========================================
     // 1. HEADER SCROLL EFFECT & MOBILE TOGGLE
@@ -524,21 +525,176 @@ document.addEventListener('DOMContentLoaded', () => {
     tiltCards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left; // x position within the element
-            const y = e.clientY - rect.top;  // y position within the element
-            
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
-            
             const rotateX = (y - centerY) / 25;
             const rotateY = (centerX - x) / 25;
-            
             card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
         });
-        
         card.addEventListener('mouseleave', () => {
             card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
         });
     });
-});
+
+    // ==========================================
+    // 11. DYNAMIC ONGOING PROJECT GALLERY & LIGHTBOX MODAL
+    // ==========================================
+    let projectsData = [];
+    let currentModalProject = null;
+    let currentModalPhotoIdx = 0;
+
+    async function initProjectsGallery() {
+        projectsData = await getProjects();
+        renderOngoingProjectsCards();
+    }
+
+    function renderOngoingProjectsCards() {
+        const grid = document.getElementById('portfolioGrid');
+        if (!grid) return;
+
+        // Find existing dynamically rendered ongoing cards and remove them to avoid duplicates
+        const existingDynamic = grid.querySelectorAll('.dynamic-project-card');
+        existingDynamic.forEach(el => el.remove());
+
+        // Render projects as interactive cards
+        projectsData.forEach(proj => {
+            const card = document.createElement('div');
+            card.className = `portfolio-item ${proj.category || 'ongoing'} dynamic-project-card reveal in-view`;
+            card.setAttribute('data-category', proj.category || 'ongoing');
+            card.style.cursor = 'pointer';
+
+            const photoCount = proj.photos ? proj.photos.length : 1;
+            const isOngoing = proj.category === 'ongoing' || proj.progress < 100;
+
+            card.innerHTML = `
+                <div class="portfolio-image-box" onclick="window.openSitePhotoModal('${proj.id}')">
+                    <img src="${proj.coverImage || (proj.photos && proj.photos[0] ? proj.photos[0].url : 'assets/hero_luxury.webp')}" alt="${proj.title}" width="1024" height="1024" loading="lazy">
+                    <div class="portfolio-overlay">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <span class="project-tag" style="${isOngoing ? 'background: rgba(74, 222, 128, 0.15); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.3);' : ''}">
+                                ${isOngoing ? '<span class="pulse-dot" style="display:inline-block; margin-right:5px; background:#4ade80;"></span> LIVE ONGOING SITE' : 'COMPLETED SITE'}
+                            </span>
+                            <span style="font-family: var(--font-technical); font-size: 11px; color: var(--primary); background: rgba(0,0,0,0.6); padding: 2px 8px; border-radius: 10px;">
+                                📸 ${photoCount} Photo${photoCount > 1 ? 's' : ''}
+                            </span>
+                        </div>
+                        <h3>${proj.title}</h3>
+                        <p class="project-desc">${proj.description}</p>
+                        
+                        <!-- Progress Track -->
+                        <div style="margin: 12px 0 16px 0;">
+                            <div style="display:flex; justify-content:space-between; font-size:11px; font-family:var(--font-technical); color:#FFF; margin-bottom:4px;">
+                                <span>${proj.stage || 'Construction Progress'}</span>
+                                <strong style="color:var(--primary);">${proj.progress || 0}%</strong>
+                            </div>
+                            <div style="height: 4px; background: rgba(255,255,255,0.15); border-radius: 2px; overflow: hidden;">
+                                <div style="width: ${proj.progress || 0}%; height: 100%; background: linear-gradient(90deg, #4ade80, var(--primary)); border-radius: 2px;"></div>
+                            </div>
+                        </div>
+
+                        <span class="project-more">
+                            View Site Photos & Inspection Log
+                            <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+                        </span>
+                    </div>
+                </div>
+            `;
+
+            grid.insertBefore(card, grid.firstChild);
+        });
+    }
+
+    // Lightbox modal methods exposed globally
+    window.openSitePhotoModal = function(projectId) {
+        currentModalProject = projectsData.find(p => p.id === projectId);
+        if (!currentModalProject) return;
+
+        currentModalPhotoIdx = 0;
+        const modal = document.getElementById('sitePhotoModal');
+        if (modal) {
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            updateModalPhotoDisplay();
+        }
+    };
+
+    window.closeSitePhotoModal = function() {
+        const modal = document.getElementById('sitePhotoModal');
+        if (modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+    };
+
+    window.selectSitePhoto = function(idx) {
+        currentModalPhotoIdx = idx;
+        updateModalPhotoDisplay();
+    };
+
+    window.prevSitePhoto = function() {
+        if (!currentModalProject || !currentModalProject.photos) return;
+        currentModalPhotoIdx = (currentModalPhotoIdx - 1 + currentModalProject.photos.length) % currentModalProject.photos.length;
+        updateModalPhotoDisplay();
+    };
+
+    window.nextSitePhoto = function() {
+        if (!currentModalProject || !currentModalProject.photos) return;
+        currentModalPhotoIdx = (currentModalPhotoIdx + 1) % currentModalProject.photos.length;
+        updateModalPhotoDisplay();
+    };
+
+    function updateModalPhotoDisplay() {
+        if (!currentModalProject) return;
+
+        const photos = currentModalProject.photos || [{ url: currentModalProject.coverImage, stageName: currentModalProject.stage, date: currentModalProject.date, caption: currentModalProject.description }];
+        const currentPhoto = photos[currentModalPhotoIdx] || photos[0];
+
+        document.getElementById('modalMainImg').src = currentPhoto.url;
+        document.getElementById('modalStageBadge').textContent = currentPhoto.stageName || currentModalProject.stage || 'Site Photo';
+        document.getElementById('modalProjectTitle').textContent = currentModalProject.title;
+        document.getElementById('modalProjectLocation').innerHTML = `<i class="fa-solid fa-location-dot" style="color: var(--primary);"></i> ${currentModalProject.location}`;
+        
+        document.getElementById('modalProgressVal').textContent = (currentModalProject.progress || 0) + '%';
+        document.getElementById('modalProgressBar').style.width = (currentModalProject.progress || 0) + '%';
+
+        document.getElementById('modalPhotoCaption').textContent = currentPhoto.caption || currentModalProject.description;
+        document.getElementById('modalEngineer').textContent = currentModalProject.engineer || 'Er. Vikky Sharma';
+        document.getElementById('modalPhotoDate').textContent = 'Date: ' + (currentPhoto.date || currentModalProject.date || 'Active');
+
+        document.getElementById('modalPhotoCounter').textContent = `${currentModalPhotoIdx + 1} / ${photos.length}`;
+
+        // WhatsApp inquiry deep link
+        const waMsg = encodeURIComponent(`Hello Er. Vikky Sharma, I saw your ongoing site photos for "${currentModalProject.title}" in ${currentModalProject.location}. I would like to inquire about a similar construction project.`);
+        document.getElementById('modalWhatsappBtn').href = `https://wa.me/918349886687?text=${waMsg}`;
+
+        // Thumbnails
+        const thumbContainer = document.getElementById('modalThumbnails');
+        thumbContainer.innerHTML = '';
+        photos.forEach((ph, i) => {
+            const thumb = document.createElement('img');
+            thumb.src = ph.url;
+            thumb.className = `modal-thumb-item ${i === currentModalPhotoIdx ? 'active' : ''}`;
+            thumb.onclick = () => window.selectSitePhoto(i);
+            thumbContainer.appendChild(thumb);
+        });
+    }
+
+    // ESC key closes modal
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            window.closeSitePhotoModal();
+        }
+    });
+
+    initProjectsGallery();
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
+}
+
 

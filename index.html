@@ -231,9 +231,10 @@
                 <a href="#about" class="nav-link">Core Expertise</a>
                 <a href="#calculator" class="nav-link">Material Estimation</a>
                 <a href="#workflow" class="nav-link">Project Workflow</a>
-                <a href="#portfolio" class="nav-link">Our Works</a>
+                <a href="#portfolio" class="nav-link">Our Works & Live Sites</a>
                 <a href="#tender" class="nav-link">Contact Engineering</a>
                 <a href="blog.html" class="nav-link">Blog</a>
+                <a href="login.html" class="nav-link">Login</a>
                 <a href="quotation.html" target="_blank" class="nav-link" style="color: var(--primary);">Quotation</a>
                 
                 <!-- Header Social Icons -->
@@ -1748,6 +1749,10 @@
                 <!-- Category Filter Buttons -->
                 <div class="portfolio-filters">
                     <button class="filter-btn active" data-filter="all">All Projects</button>
+                    <button class="filter-btn" data-filter="ongoing" style="border-color: rgba(255, 184, 0, 0.4);">
+                        <span class="pulse-dot" style="display:inline-block; margin-right:6px; background:#4ade80;"></span>
+                        Ongoing Site Photos
+                    </button>
                     <button class="filter-btn" data-filter="residential">Residential</button>
                     <button class="filter-btn" data-filter="engineering">Structural</button>
                 </div>
@@ -2190,6 +2195,8 @@
                     <li><a href="#portfolio">Selected Works</a></li>
                     <li><a href="#testimonials">Client Reviews</a></li>
                     <li><a href="#tender">Tender Submission</a></li>
+                    <li><a href="blog.html">Engineering Blog</a></li>
+                    <li><a href="login.html" style="color: var(--primary);">Admin Login Portal</a></li>
                     <li><a href="quotation.html" target="_blank" style="color: var(--primary);">Quotation &#8599;</a></li>
                 </ul>
             </div>
@@ -2234,8 +2241,71 @@
         <span>Get in Touch</span>
     </a>
 
-    <!-- Application Script -->
-    <script src="app.js"></script>
+    <!-- ===== ONGOING SITE PHOTO LIGHTBOX MODAL ===== -->
+    <div id="sitePhotoModal" class="site-photo-modal" style="display: none;">
+        <div class="modal-backdrop" onclick="closeSitePhotoModal()"></div>
+        <div class="modal-content-wrapper">
+            <button class="modal-close-btn" onclick="closeSitePhotoModal()" aria-label="Close Lightbox">&times;</button>
+            
+            <div class="modal-grid">
+                <!-- Left: Main Photo Stage Viewer -->
+                <div class="modal-photo-main">
+                    <div class="main-photo-container">
+                        <img id="modalMainImg" src="" alt="Ongoing Site Photo">
+                        <button class="nav-arrow nav-prev" onclick="prevSitePhoto()" aria-label="Previous Photo">&lsaquo;</button>
+                        <button class="nav-arrow nav-next" onclick="nextSitePhoto()" aria-label="Next Photo">&rsaquo;</button>
+                        <span id="modalPhotoCounter" class="photo-counter">1 / 1</span>
+                    </div>
+                    <!-- Thumbnail Ribbon -->
+                    <div id="modalThumbnails" class="modal-thumbnails-ribbon"></div>
+                </div>
+
+                <!-- Right: Stage Inspection & Details Sidebar -->
+                <div class="modal-photo-info">
+                    <div class="project-info-header">
+                        <span id="modalStageBadge" class="stage-badge">Slab & Column Casting</span>
+                        <h3 id="modalProjectTitle">Sector 12 Luxury Duplex Villa</h3>
+                        <p id="modalProjectLocation" class="location-text">
+                            <i class="fa-solid fa-location-dot"></i> Sector 12, Naya Raipur, CG
+                        </p>
+                    </div>
+
+                    <div class="progress-box">
+                        <div class="progress-label-row">
+                            <span>Overall Project Progress</span>
+                            <strong id="modalProgressVal">75%</strong>
+                        </div>
+                        <div class="progress-track">
+                            <div id="modalProgressBar" class="progress-fill" style="width: 75%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="inspection-card">
+                        <h4 class="inspection-title">
+                            <i class="fa-solid fa-clipboard-check" style="color: var(--primary);"></i>
+                            Site Inspection Log
+                        </h4>
+                        <p id="modalPhotoCaption">Column rebar alignment check according to IS 1786...</p>
+                        
+                        <div class="engineer-tag">
+                            <i class="fa-solid fa-shield-halved" style="color: #4ade80;"></i>
+                            <span>Supervised & Verified by <strong id="modalEngineer">Er. Vikky Sharma</strong></span>
+                        </div>
+                        <span id="modalPhotoDate" class="photo-date-stamp">Date: Oct 02, 2026</span>
+                    </div>
+
+                    <div class="modal-actions">
+                        <a id="modalWhatsappBtn" href="#" target="_blank" class="btn btn-primary btn-block">
+                            <i class="fa-brands fa-whatsapp"></i> Inquire About Site Visit
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Scripts -->
+    <script type="module" src="app.js?v=1.2.0"></script>
 </body>
 </html>
 

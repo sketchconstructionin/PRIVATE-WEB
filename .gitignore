@@ -11,10 +11,14 @@ whatsapp-api/app.yaml
 .env.development.local
 .env.test.local
 .env.production.local
+*token.json
+token.json
 
 # Operating System files
 .DS_Store
 Thumbs.db
+desktop.ini
+*.ini
 
 # Log files
 logs/

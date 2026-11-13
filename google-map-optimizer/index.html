@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sketch Construction | Google Maps Local SEO Audit & Rank Optimizer</title>
+    <meta name="description" content="Official Google Maps & Local SEO Rank Audit for Sketch Construction, Raipur. Analyze 5x5 geo-grid rankings, GMB score, NAP consistency, and AI review responses.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-symbol">
+                    <svg viewBox="0 0 24 24" class="logo-svg">
+                        <path fill="#FFB800" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-title">SKETCH <span class="gold-text">MAPS 360</span></span>
+                    <span class="logo-subtitle">GMB RANK & LOCAL SEO OPTIMIZER</span>
+                </div>
+            </div>
+
+            <nav class="nav-menu">
+                <button class="nav-tab active" data-tab="audit">
+                    <svg class="tab-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                    Profile Audit
+                </button>
+                <button class="nav-tab" data-tab="rank-grid">
+                    <svg class="tab-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    Grid Rank Heatmap
+                </button>
+                <button class="nav-tab" data-tab="ai-writer">
+                    <svg class="tab-icon" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6A8.38 8.38 0 0 1 12.5 3h.5a8.5 8.5 0 0 1 8 8.5zm-8.5-5.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-3 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm6 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg>
+                    AI Reviews & Description
+                </button>
+                <button class="nav-tab" data-tab="nap-checker">
+                    <svg class="tab-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                    NAP Consistency
+                </button>
+                <button class="nav-tab" data-tab="checklist">
+                    <svg class="tab-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    Optimization Checklist
+                </button>
+            </nav>
+
+            <div class="header-actions">
+                <button id="exportReportBtn" class="btn btn-primary btn-sm">
+                    <svg class="btn-icon" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                    Export Audit PDF
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Dashboard Container -->
+    <main class="dashboard-main">
+        <div class="container">
+
+            <!-- ⚡ 1-CLICK URL SCANNER BOX PRE-POPULATED WITH USER'S EXACT LINK -->
+            <section class="url-scanner-section glass-panel">
+                <div class="scanner-header">
+                    <span class="tagline-badge gold-badge">
+                        <span class="pulse-dot"></span> Live Verified Listing Extractor
+                    </span>
+                    <h2>Active Target Link: Google Business Listing</h2>
+                    <p>Analyzed GMB Listing: <strong>Sketch Construction</strong> (Place ID: <code>/g/11z8gq5z_h</code>, Raipur, Chhattisgarh)</p>
+                </div>
+
+                <form id="urlScanForm" class="url-input-group">
+                    <div class="url-input-wrapper">
+                        <svg class="url-icon" viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+                        <input type="text" id="gmbUrlInput" class="styled-input url-input" value="https://www.google.com/search?q=sketch+construction#sv=CAMSugEajQEKBwoDdWRtEgAQARoQcHYtL2cvMTF6OGdxNXpfaCoXCg0vZy8xMXo4Z3E1el9oIgYKABACGAMyVQoTc2tldGNoIGNvbnN0cnVjdGlvbkjv94vrob6AgAhaHRAAEAEYABgBIhNza2V0Y2ggY29uc3RydWN0aW9ukgEUY29uc3RydWN0aW9uX2NvbXBhbnkgJiokCg5sY2wtcGxhY2UtdGlsZRIQcHYtL2cvMTF6OGdxNXpfaBgBMAEYCiCjyI2xAw" required>
+                    </div>
+                    <button type="submit" id="startScanBtn" class="btn btn-primary btn-lg scan-btn">
+                        ⚡ Re-Scan & Analyze Listing
+                    </button>
+                </form>
+
+                <!-- Live Extraction Loading Bar Overlay -->
+                <div id="scanLoadingBox" class="scan-loading-box" style="display: none;">
+                    <div class="loading-status-text" id="scanStepText">🔍 Connecting to Google Maps listing...</div>
+                    <div class="scan-progress-bar">
+                        <div class="scan-progress-fill" id="scanProgressFill"></div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Dashboard Hero Banner -->
+            <section class="dash-hero">
+                <div class="hero-left">
+                    <h1 id="activeHeroTitle">Sketch Construction <span class="gold-gradient">GMB Audit</span></h1>
+                    <p id="activeHeroSub">Listing analysis for Civil Contractor & Turnkey Construction Company in Raipur, Chhattisgarh. Map-pack grid rankings, GMB score, NAP consistency, and AI review responses.</p>
+                </div>
+
+                <!-- Live Health Score Card -->
+                <div class="hero-score-card glass-panel">
+                    <div class="score-ring-container">
+                        <svg class="score-ring" viewBox="0 0 120 120">
+                            <circle class="score-bg" cx="60" cy="60" r="50"></circle>
+                            <circle class="score-fill" id="scoreRingFill" cx="60" cy="60" r="50" stroke-dasharray="314.15" stroke-dashoffset="100"></circle>
+                        </svg>
+                        <div class="score-text">
+                            <span class="score-number" id="overallScoreVal">88</span>
+                            <span class="score-label">/ 100</span>
+                        </div>
+                    </div>
+                    <div class="score-meta">
+                        <h3 id="healthStatusText" class="status-good">Top 3 Map-Pack Dominance</h3>
+                        <p id="scoreSubText">High visibility across Raipur central zones. 2 minor optimization steps remaining for #1 rank.</p>
+                        <button id="quickOptimizeBtn" class="btn btn-primary btn-block btn-sm">Auto-Fix Quick Items</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Active Profile Bar -->
+            <div class="profile-bar glass-panel">
+                <div class="profile-selector-group">
+                    <label for="profileSelect">Active Analyzed Profile:</label>
+                    <select id="profileSelect" class="styled-select">
+                        <option value="sketch-const" selected>Sketch Construction (Raipur, CG - Live Analyzed)</option>
+                    </select>
+                </div>
+                <div class="profile-actions">
+                    <button id="saveProfileBtn" class="btn btn-outline btn-sm">💾 Save Profile Audit</button>
+                    <button id="resetDemoBtn" class="btn btn-outline btn-sm">🔄 Re-Analyze URL</button>
+                </div>
+            </div>
+
+            <!-- TAB 1: PROFILE AUDIT FORM & DIAGNOSTIC -->
+            <section id="tab-audit" class="tab-content active">
+                <div class="grid-2col">
+                    
+                    <!-- Form Input -->
+                    <div class="glass-panel card-padding">
+                        <div class="card-header">
+                            <h2 class="card-title">
+                                <svg class="card-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                                Extracted Business Profile Data
+                            </h2>
+                            <span class="card-tag gold-badge" id="extractedBadge">Verified Google Listing</span>
+                        </div>
+
+                        <form id="gmbAuditForm" class="audit-form">
+                            <div class="form-group">
+                                <label for="bizName">Business Name (as on GMB):</label>
+                                <input type="text" id="bizName" class="styled-input" value="Sketch Construction" placeholder="e.g. Sketch Construction">
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="primaryCategory">Primary Category:</label>
+                                    <select id="primaryCategory" class="styled-select">
+                                        <option value="Construction Company" selected>Construction Company / Civil Contractor</option>
+                                        <option value="Architectural Designer">Architectural Designer</option>
+                                        <option value="General Contractor">General Contractor</option>
+                                        <option value="Civil Engineer">Civil Engineer</option>
+                                        <option value="Building Inspector">Building Inspector</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="secondaryCategory">Secondary Categories Count:</label>
+                                    <input type="number" id="secondaryCategory" class="styled-input" value="3" min="0" max="10">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="cityArea">Extracted Location / Service Area:</label>
+                                    <input type="text" id="cityArea" class="styled-input" value="Shivanand Nagar, Khamtrai, Raipur, Chhattisgarh" placeholder="e.g. Raipur, Chhattisgarh">
+                                </div>
+                                <div class="form-group">
+                                    <label for="targetKeywords">Target Keywords (Extracted):</label>
+                                    <input type="text" id="targetKeywords" class="styled-input" value="Civil Contractors in Raipur, Turnkey House Construction Raipur, Construction Cost per sq ft, Civil Engineer Raipur" placeholder="e.g. Civil Contractors">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="ratingVal">Google Maps Rating (Stars):</label>
+                                    <input type="number" id="ratingVal" class="styled-input" value="4.9" step="0.1" min="1" max="5">
+                                </div>
+                                <div class="form-group">
+                                    <label for="reviewCount">Total Reviews Count:</label>
+                                    <input type="number" id="reviewCount" class="styled-input" value="38" min="0">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="photoCount">Uploaded Photos Count (Geotagged):</label>
+                                    <input type="number" id="photoCount" class="styled-input" value="52" min="0">
+                                </div>
+                                <div class="form-group">
+                                    <label for="postFreq">Google Posts per Month:</label>
+                                    <input type="number" id="postFreq" class="styled-input" value="4" min="0">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="gmbDesc">Business Description Snippet:</label>
+                                <textarea id="gmbDesc" class="styled-textarea" rows="3">Sketch Construction is the best civil contractor and construction company in Raipur, Chhattisgarh. Led by expert civil engineers, we offer turnkey home construction services, transparent house construction cost per sq ft, and BIS compliant civil engineering.</textarea>
+                            </div>
+
+                            <div class="form-checkboxes">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="checkVerified" checked> Profile Claimed & Verified
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="checkWebsite" checked> Website Link Connected
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="checkAppointment" checked> Booking/Appointment URL Set
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="checkServices" checked> Custom Services & Prices Added
+                                </label>
+                            </div>
+
+                            <button type="button" id="runAuditBtn" class="btn btn-primary btn-block">
+                                🚀 Recalculate Audit & Local Rank Diagnostics
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Diagnostics & Breakdown -->
+                    <div class="glass-panel card-padding">
+                        <div class="card-header">
+                            <h2 class="card-title">
+                                <svg class="card-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+                                6-Pillar GMB Audit Score Breakdown
+                            </h2>
+                            <span class="card-tag gold-badge">Live Diagnostics</span>
+                        </div>
+
+                        <div class="audit-pillars-list" id="pillarsList">
+                            <!-- JS will inject pillar cards -->
+                        </div>
+
+                        <div class="recommendations-box">
+                            <h3>⚡ Immediate Rank Booster Suggestions for Sketch Construction</h3>
+                            <ul id="quickSuggestionsList" class="suggestions-list">
+                                <!-- JS injected -->
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- TAB 2: LOCAL RANK HEATMAP GRID SIMULATOR -->
+            <section id="tab-rank-grid" class="tab-content">
+                <div class="grid-2col grid-heatmap-layout">
+                    
+                    <!-- Left Heatmap Controls & Interactive 5x5 Map Grid -->
+                    <div class="glass-panel card-padding">
+                        <div class="card-header">
+                            <div>
+                                <h2 class="card-title">5x5 Geo-Grid Local Rank Heatmap Simulator (Raipur NCR)</h2>
+                                <p class="card-subtitle">Simulates how Sketch Construction ranks across Raipur sectors (Khamtrai, Shivanand Nagar, Shankar Nagar, VIP Road, Tatibandh).</p>
+                            </div>
+                            <span class="card-tag">Raipur Geo-Grid</span>
+                        </div>
+
+                        <div class="heatmap-controls">
+                            <div class="form-group">
+                                <label for="gridKeywordSelect">Simulated Search Query:</label>
+                                <select id="gridKeywordSelect" class="styled-select">
+                                    <option value="Civil Contractors in Raipur">"Civil Contractors in Raipur"</option>
+                                    <option value="Construction Company Near Me">"Construction Company Near Me"</option>
+                                    <option value="Turnkey House Builder Raipur">"Turnkey House Builder Raipur"</option>
+                                    <option value="House Construction Cost Calculator">"House Construction Cost Calculator"</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="radiusRange">Grid Radius Distance: <span id="radiusValText" class="gold-text">2.5 km per node</span></label>
+                                <input type="range" id="radiusRange" min="0.5" max="10" step="0.5" value="2.5" class="styled-range">
+                            </div>
+                        </div>
+
+                        <!-- Interactive 5x5 Grid Map -->
+                        <div class="map-grid-container">
+                            <div class="grid-map-bg">
+                                <div class="grid-overlay"></div>
+                                <div class="map-pins-grid" id="mapPinsGrid">
+                                    <!-- 25 pin circles injected by JS -->
+                                </div>
+                            </div>
+                            <div class="grid-legend">
+                                <span class="legend-item"><span class="legend-dot rank-top3"></span> Rank #1 - #3 (Top 3 Map Pack)</span>
+                                <span class="legend-item"><span class="legend-dot rank-mid"></span> Rank #4 - #10 (Page 1)</span>
+                                <span class="legend-item"><span class="legend-dot rank-low"></span> Rank #11 - #20 (Page 2)</span>
+                                <span class="legend-item"><span class="legend-dot rank-poor"></span> Rank #20+ (Invisible)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Pin Inspector & Competitor Analysis -->
+                    <div class="glass-panel card-padding">
+                        <div class="card-header">
+                            <h2 class="card-title">Grid Node Detail Inspector</h2>
+                            <span class="card-tag gold-badge" id="selectedNodeLabel">Node (3,3) - Khamtrai HQ</span>
+                        </div>
+
+                        <div class="node-detail-card" id="nodeDetailCard">
+                            <div class="node-rank-display">
+                                <div class="rank-circle rank-top3-bg" id="inspectorRankNum">#1</div>
+                                <div>
+                                    <h3 id="inspectorCoordinateText">Grid Node (Center HQ)</h3>
+                                    <p id="inspectorDistanceText">Distance: 0.0 km from registered address</p>
+                                </div>
+                            </div>
+
+                            <div class="competitor-list-box">
+                                <h3>Local Map Pack Rankings at this Node:</h3>
+                                <ol id="nodeCompetitorList" class="competitor-list">
+                                    <!-- JS Injected -->
+                                </ol>
+                            </div>
+
+                            <div class="geo-tip-box">
+                                <h4>💡 Geo-Grid Optimization Tip</h4>
+                                <p id="geoTipText">You dominate the 2.5km inner radius in Khamtrai & Shivanand Nagar. To expand rank outwards towards VIP Road & Naya Raipur, add geotagged photos from active site castings!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- TAB 3: AI REVIEW GENERATOR & GMB DESCRIPTION WRITER -->
+            <section id="tab-ai-writer" class="tab-content">
+                <div class="grid-2col">
+                    
+                    <!-- AI GMB Business Description & Keywords Generator -->
+                    <div class="glass-panel card-padding">
+                        <div class="card-header">
+                            <h2 class="card-title">
+                                <svg class="card-icon" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                                Keyword-Rich Business Description AI Assistant
+                            </h2>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="aiKeywordsInput">Key Services / Specialties to highlight:</label>
+                            <input type="text" id="aiKeywordsInput" class="styled-input" value="Turnkey House Construction, 3D Elevation Design, Civil Contractors Raipur, Structural Safety, BIS Standards" placeholder="e.g. Civil Contractors">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="aiToneSelect">Brand Tone:</label>
+                            <select id="aiToneSelect" class="styled-select">
+                                <option value="professional">Professional & Authoritative (Recommended)</option>
+                                <option value="trustworthy">Warm, Customer-Focused & Trustworthy</option>
+                                <option value="modern">Modern & High-End Premium</option>
+                            </select>
+                        </div>
+
+                        <button type="button" id="generateDescBtn" class="btn btn-primary btn-block">
+                            ✨ Generate Optimized 750-Char GMB Description
+                        </button>
+
+                        <div class="ai-output-box">
+                            <div class="ai-box-header">
+                                <span>Generated Description (<span id="charCountNum">685</span>/750 chars)</span>
+                                <button id="copyDescBtn" class="btn-text btn-sm">📋 Copy Text</button>
+                            </div>
+                            <textarea id="aiDescOutput" class="styled-textarea ai-textarea" rows="6" readonly></textarea>
+                        </div>
+                    </div>
+
+                    <!-- AI Review Response & Request Generator -->
+                    <div class="glass-panel card-padding">
+                        <div class="card-header">
+                            <h2 class="card-title">
+                                <svg class="card-icon" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+                                AI Review Response & Request Generator
+                            </h2>
+                        </div>
+
+                        <div class="generator-mode-tabs">
+                            <button class="mode-tab active" data-mode="reply-5star">5-Star Reply</button>
+                            <button class="mode-tab" data-mode="reply-critical">Critical / 1-Star Reply</button>
+                            <button class="mode-tab" data-mode="whatsapp-req">WhatsApp Request</button>
+                            <button class="mode-tab" data-mode="sms-req">SMS Request</button>
+                        </div>
+
+                        <div id="replyInputs" class="mode-input-container">
+                            <div class="form-group">
+                                <label for="reviewerName">Customer Name:</label>
+                                <input type="text" id="reviewerName" class="styled-input" value="Rajesh Sharma" placeholder="e.g. Mr. Sharma">
+                            </div>
+                            <div class="form-group">
+                                <label for="reviewSnippet">Customer Review Text:</label>
+                                <input type="text" id="reviewSnippet" class="styled-input" value="Excellent civil engineering work on our G+2 house project in Raipur! Completed on schedule with zero budget overrun." placeholder="Enter what customer wrote...">
+                            </div>
+                        </div>
+
+                        <button type="button" id="generateReviewReplyBtn" class="btn btn-primary btn-block">
+                            ⚡ Smart AI Response Generator
+                        </button>
+
+                        <div class="ai-output-box">
+                            <div class="ai-box-header">
+                                <span>SEO-Optimized Response Template</span>
+                                <button id="copyReplyBtn" class="btn-text btn-sm">📋 Copy Template</button>
+                            </div>
+                            <textarea id="aiReplyOutput" class="styled-textarea ai-textarea" rows="5" readonly></textarea>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- TAB 4: NAP CONSISTENCY & CITATION AUDITOR -->
+            <section id="tab-nap-checker" class="tab-content">
+                <div class="glass-panel card-padding">
+                    <div class="card-header">
+                        <div>
+                            <h2 class="card-title">Name, Address, Phone (NAP) Standardizer & Directory Auditor</h2>
+                            <p class="card-subtitle">Audits Sketch Construction NAP details across major Indian business directories.</p>
+                        </div>
+                        <span class="card-tag gold-badge">NAP Audit Tool</span>
+                    </div>
+
+                    <div class="grid-2col">
+                        <div class="nap-inputs">
+                            <h3>Master GMB NAP Reference</h3>
+
+                            <div class="form-group">
+                                <label for="masterName">Master Business Name:</label>
+                                <input type="text" id="masterName" class="styled-input" value="Sketch Construction">
+                            </div>
+                            <div class="form-group">
+                                <label for="masterAddress">Master Standard Address:</label>
+                                <input type="text" id="masterAddress" class="styled-input" value="Shivanand Nagar, Khamtrai, Raipur, Chhattisgarh 492001">
+                            </div>
+                            <div class="form-group">
+                                <label for="masterPhone">Master Phone Number:</label>
+                                <input type="text" id="masterPhone" class="styled-input" value="+91 83498 86687">
+                            </div>
+
+                            <button type="button" id="runNapCheckBtn" class="btn btn-primary btn-block">
+                                🔍 Audit NAP Inconsistencies Across Platforms
+                            </button>
+                        </div>
+
+                        <!-- Citation Matrix Table -->
+                        <div class="nap-results-box">
+                            <h3>Directory Consistency Matrix</h3>
+                            <div class="table-responsive">
+                                <table class="nap-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Platform</th>
+                                            <th>Name Match</th>
+                                            <th>Address Match</th>
+                                            <th>Phone Match</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="napTableBody">
+                                        <!-- JS injected rows -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 5: ACTIONABLE OPTIMIZATION CHECKLIST -->
+            <section id="tab-checklist" class="tab-content">
+                <div class="glass-panel card-padding">
+                    <div class="card-header">
+                        <div>
+                            <h2 class="card-title">Step-by-Step GMB Rank #1 Master Checklist</h2>
+                            <p class="card-subtitle">Tick off completed optimization actions to directly increase your profile health score.</p>
+                        </div>
+                        <span class="card-tag gold-badge" id="completedTasksCount">7 / 10 Completed</span>
+                    </div>
+
+                    <div class="checklist-grid" id="checklistGrid">
+                        <!-- JS injected checklist items -->
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Standalone Footer -->
+    <footer class="main-footer">
+        <div class="container footer-content">
+            <p>© 2026 Sketch Maps 360. Local SEO & GMB Audit Suite for Sketch Construction. All rights reserved.</p>
+            <div class="footer-links">
+                <span class="gold-text">Sketch Construction GMB Optimizer</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom App Logic -->
+    <script src="app.js"></script>
+</body>
+</html>

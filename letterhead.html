@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sketch Construction - Interactive Letterhead Generator</title>
+    <meta name="description" content="Official letterhead generator for Sketch Construction. Create, customize, and print estimates or correspondence on brand-compliant layouts.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- STYLE SYSTEM TOKENS --- */
+        :root {
+            --workspace-bg: #0f1013;
+            --sheet-bg: #ffffff;
+            --text-dark: #121212;
+            --text-muted: #555555;
+            
+            /* Theme Grayscale Card (Default) */
+            --accent: #121212; /* Deep Charcoal matching card details */
+            --accent-hover: #333333;
+            --header-band-bg: #e5e7eb; /* Silver grey split matching card background */
+            --card-shadow: rgba(0, 0, 0, 0.4);
+            --border-color: rgba(255, 255, 255, 0.08);
+            
+            --font-head: 'Outfit', sans-serif;
+            --font-tech: 'Space Grotesk', sans-serif;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Theme Gold (Website Amber Gold) */
+        .theme-gold {
+            --accent: #FFB800; /* Safety Amber */
+            --accent-hover: #E0A200;
+            --header-band-bg: #fffbf0;
+        }
+
+        /* Theme Blueprint */
+        .theme-blueprint {
+            --accent: #00d2ff;
+            --accent-hover: #00b4db;
+            --header-band-bg: #eef8fc;
+        }
+
+        /* --- BASIC RESET & LAYOUT --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--workspace-bg);
+            font-family: var(--font-head);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            transition: var(--transition);
+        }
+
+        /* Workspace Grid Background */
+        .workspace-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* --- DASHBOARD HEADER --- */
+        .dashboard-navbar {
+            background-color: #16171d;
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .db-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+        .db-logo i {
+            color: var(--accent);
+            font-size: 24px;
+        }
+
+        .db-title {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .db-subtitle {
+            font-size: 10px;
+            font-family: var(--font-tech);
+            color: #a0a0a0;
+            letter-spacing: 0.1em;
+        }
+
+        /* --- CONTROL TOOLBAR HUB --- */
+        .toolbar-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-tool {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            font-size: 12px;
+            font-weight: 600;
+            font-family: var(--font-tech);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #ffffff;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-tool:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        .btn-tool.btn-primary {
+            background: var(--accent);
+            color: #000000;
+            border-color: var(--accent);
+        }
+
+        .btn-tool.btn-primary:hover {
+            background: var(--accent-hover);
+            box-shadow: 0 4px 15px rgba(255, 184, 0, 0.2);
+        }
+
+        /* --- EDITING WORKSPACE STAGE --- */
+        .workspace-stage {
+            flex-grow: 1;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            z-index: 2;
+        }
+
+        /* Virtual A4 Sheet Container */
+        .sheet-container {
+            width: 210mm;
+            min-height: 297mm;
+            background-color: var(--sheet-bg);
+            color: var(--text-dark);
+            box-shadow: 0 20px 50px var(--card-shadow);
+            border-radius: 2px;
+            padding: 20mm;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        /* Logo Watermark in center of paper */
+        .sheet-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120mm;
+            height: 120mm;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: url('assets/logo.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 0;
+            transition: var(--transition);
+        }
+
+        .theme-blueprint .sheet-watermark {
+            opacity: 0.04;
+            filter: hue-rotate(180deg);
+        }
+
+        /* --- LETTERHEAD HEADER LAYOUT --- */
+        .lh-header {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 18px;
+            margin-bottom: 30px;
+            z-index: 2;
+        }
+
+        /* Diagonal geometric background block */
+        .lh-header::before {
+            content: '';
+            position: absolute;
+            top: -20mm;
+            left: -20mm;
+            right: -20mm;
+            height: 48mm;
+            background: linear-gradient(135deg, var(--header-band-bg) 0%, var(--header-band-bg) 70%, transparent 70.1%);
+            z-index: -1;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        /* Extra diagonal highlight strip representing the business card geometry */
+        .lh-header::after {
+            content: '';
+            position: absolute;
+            top: -20mm;
+            left: -20mm;
+            right: -20mm;
+            height: 48.5mm;
+            background: linear-gradient(135deg, transparent 0%, transparent 70%, var(--accent) 70.1%, var(--accent) 70.6%, transparent 70.7%);
+            z-index: -1;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .lh-logo-block {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .lh-logo-box {
+            width: 72px;
+            height: 72px;
+            border-radius: 8px;
+            background: #ffffff;
+            border: 2px solid var(--accent);
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .lh-logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .lh-brand-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .lh-company-title {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            color: #121212;
+            line-height: 1;
+        }
+
+        .lh-company-subtitle {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            color: var(--accent);
+            text-transform: uppercase;
+            font-family: var(--font-tech);
+        }
+
+        .lh-contact-block {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .lh-engineer-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #121212;
+        }
+
+        .lh-engineer-title {
+            font-size: 10px;
+            font-weight: 600;
+            font-family: var(--font-tech);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .lh-contact-item {
+            font-size: 10.5px;
+            color: var(--text-muted);
+            font-family: var(--font-tech);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 6px;
+        }
+
+        .lh-contact-item i {
+            color: var(--accent);
+            font-size: 10px;
+            width: 12px;
+            text-align: center;
+        }
+
+        /* --- LETTERHEAD BODY WORKSPACE --- */
+        .lh-body-workspace {
+            flex-grow: 1;
+            z-index: 2;
+            outline: none;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-dark);
+            text-align: justify;
+        }
+
+        .letter-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            font-family: var(--font-tech);
+            font-size: 12.5px;
+            color: #222222;
+        }
+
+        .letter-recipient {
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+
+        .letter-recipient p {
+            margin-bottom: 2px;
+        }
+
+        .letter-subject {
+            margin-bottom: 24px;
+            border-bottom: 1px dashed #cccccc;
+            padding-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .letter-content {
+            margin-bottom: 30px;
+        }
+
+        .letter-content p {
+            margin-bottom: 14px;
+            text-indent: 10mm;
+        }
+
+        /* Estimate Quote Table */
+        .estimate-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 12.5px;
+            font-family: var(--font-tech);
+            background: #ffffff;
+        }
+
+        .estimate-table th, .estimate-table td {
+            border: 1px solid #dddddd;
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        .estimate-table th {
+            background-color: var(--header-band-bg);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .estimate-table td[contenteditable="true"] {
+            background-color: #fcfcfc;
+        }
+
+        .estimate-table td[contenteditable="true"]:focus {
+            background-color: #fffae8;
+            outline: none;
+        }
+
+        .text-right {
+            text-align: right !important;
+        }
+
+        .text-center {
+            text-align: center !important;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        /* Sign-off Signature block */
+        .letter-signature-block {
+            margin-top: 50px;
+            display: inline-block;
+            float: right;
+            text-align: center;
+            min-width: 180px;
+            page-break-inside: avoid;
+        }
+
+        .signature-line {
+            width: 100%;
+            height: 1px;
+            background-color: #999999;
+            margin-bottom: 8px;
+        }
+
+        .signature-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #121212;
+        }
+
+        .signature-subtitle {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-family: var(--font-tech);
+            letter-spacing: 0.05em;
+        }
+
+        /* --- LETTERHEAD FOOTER --- */
+        .lh-footer {
+            border-top: 1px solid #dddddd;
+            padding-top: 12px;
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 9.5px;
+            font-family: var(--font-tech);
+            color: var(--text-muted);
+            z-index: 2;
+        }
+
+        .lh-footer-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lh-footer-badge {
+            background-color: var(--header-band-bg);
+            border: 1px solid var(--accent);
+            color: #121212;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 2px;
+            text-transform: uppercase;
+        }
+
+        .lh-footer-right {
+            text-align: right;
+            line-height: 1.4;
+        }
+
+        /* --- THEME HUD IN BAR --- */
+        .theme-select-box {
+            display: flex;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 4px;
+            gap: 4px;
+        }
+
+        .theme-tab {
+            font-size: 10px;
+            font-family: var(--font-tech);
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #a0a0a0;
+            background: none;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .theme-tab:hover {
+            color: #ffffff;
+        }
+
+        .theme-tab.active {
+            color: #000000;
+            background-color: var(--accent);
+        }
+
+        /* --- PRINT STYLES --- */
+        @media print {
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                min-height: auto;
+            }
+            
+            .workspace-overlay, .dashboard-navbar {
+                display: none !important;
+            }
+            
+            .workspace-stage {
+                display: block !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            
+            .sheet-container {
+                box-shadow: none !important;
+                border: none !important;
+                padding: 0 !important;
+                width: 100% !important;
+                min-height: auto !important;
+                margin: 0 !important;
+            }
+
+            .estimate-table td[contenteditable="true"] {
+                background-color: transparent !important;
+            }
+        }
+    </style>
+</head>
+<body class="theme-midnight">
+    <!-- Workspace background grid overlay -->
+    <div class="workspace-overlay"></div>
+
+    <!-- DASHBOARD TOP HEADER NAVBAR -->
+    <header class="dashboard-navbar">
+        <a href="index.html" class="db-logo">
+            <i class="fa-solid fa-file-invoice"></i>
+            <div class="lh-brand-info" style="color: #ffffff;">
+                <span class="db-title">SKETCH LETTERHEAD</span>
+                <span class="db-subtitle">Workspace Editor</span>
+            </div>
+        </a>
+
+        <!-- Custom Toolbars -->
+        <div class="toolbar-group">
+            <!-- Theme HUD selector -->
+            <div class="theme-select-box">
+                <button class="theme-tab active btn-midnight" onclick="setLhTheme('midnight')">Card Silver</button>
+                <button class="theme-tab btn-gold" onclick="setLhTheme('gold')">Brand Gold</button>
+                <button class="theme-tab btn-blueprint" onclick="setLhTheme('blueprint')">Blueprint</button>
+            </div>
+
+            <!-- Table insertions -->
+            <button class="btn-tool" onclick="insertEstimateTable()">
+                <i class="fa-solid fa-table-list"></i> Insert Estimate Grid
+            </button>
+
+            <button class="btn-tool" onclick="insertCastingQuoteTemplate()">
+                <i class="fa-solid fa-file-contract"></i> Load Casting Quote
+            </button>
+
+            <!-- Signature block insertion -->
+            <button class="btn-tool" onclick="insertSignature()">
+                <i class="fa-solid fa-signature"></i> Add Signature
+            </button>
+
+            <!-- Reset Template -->
+            <button class="btn-tool" onclick="resetLetterContent()">
+                <i class="fa-solid fa-rotate-left"></i> Reset
+            </button>
+
+            <!-- Print Action -->
+            <button class="btn-tool btn-primary" onclick="window.print()">
+                <i class="fa-solid fa-file-pdf"></i> Export PDF / Print
+            </button>
+        </div>
+    </header>
+
+    <!-- WORKSPACE EDITING STAGE -->
+    <main class="workspace-stage">
+        <!-- virtual A4 Sheet page -->
+        <article class="sheet-container">
+            <!-- Low opacity watermark -->
+            <div class="sheet-watermark"></div>
+
+            <!-- SHEET HEADER -->
+            <header class="lh-header">
+                <div class="lh-logo-block">
+                    <div class="lh-logo-box">
+                        <img src="assets/logo.png" alt="Sketch Construction Logo" class="lh-logo-img">
+                    </div>
+                    <div class="lh-brand-info">
+                        <span class="lh-company-title">SKETCH CONSTRUCTION</span>
+                        <span class="lh-company-subtitle">SK Construction</span>
+                    </div>
+                </div>
+
+                <div class="lh-contact-block">
+                    <span class="lh-engineer-name">Vikky Sharma</span>
+                    <span class="lh-engineer-title">Lead Civil Engg. & Founder</span>
+                    
+                    <span class="lh-contact-item">
+                        <i class="fa-solid fa-envelope"></i> sketchconstruction.in@gmail.com
+                    </span>
+                    <span class="lh-contact-item">
+                        <i class="fa-solid fa-phone"></i> +91 8349886687, 6263898315
+                    </span>
+                    <span class="lh-contact-item">
+                        <i class="fa-solid fa-location-dot"></i> Shivanand Nagar, Khamtrai, Raipur
+                    </span>
+                    <span class="lh-contact-item">
+                        <i class="fa-solid fa-globe"></i> www.sketchconstruction.in
+                    </span>
+                </div>
+            </header>
+
+            <!-- SHEET EDITABLE BODY CONTENT -->
+            <section class="lh-body-workspace" contenteditable="true" id="letterBody">
+                <div class="letter-meta" contenteditable="false">
+                    <span><strong>Ref No:</strong> SC/ENGG/2026/042</span>
+                    <span><strong>Date:</strong> 16-Jun-2026</span>
+                </div>
+
+                <div class="letter-recipient">
+                    <p><strong>To,</strong></p>
+                    <p><strong>The Project Director,</strong></p>
+                    <p>Residential Duplex Site Layout,</p>
+                    <p>VIP Road, Raipur, Chhattisgarh</p>
+                </div>
+
+                <div class="letter-subject">
+                    <p><strong>Subject:</strong> Proposal and Material Cost Estimates for Foundation Layout casting</p>
+                </div>
+
+                <div class="letter-content">
+                    <p>Dear Sir,</p>
+                    <p>We are pleased to submit our engineering estimate and quantity schedule for the foundation casting layout of the duplex structure. Our team has verified the site centerline layout coordinates and adjusted excavation levels to compensate for the localized black cotton clay soil bearing capacity, assuring high structural margins.</p>
+                    <p>The estimation matrix below details required cement bags, steel tonnes, aggregate sand ratios, and civil command costs:</p>
+                    
+                    <!-- Dynamically populated estimate table -->
+                    <table class="estimate-table" contenteditable="false">
+                        <thead>
+                            <tr>
+                                <th width="10%" class="text-center">Item</th>
+                                <th width="50%">Material Description & Quality Grade</th>
+                                <th width="12%" class="text-center">Unit</th>
+                                <th width="13%" class="text-right">Qty</th>
+                                <th width="15%" class="text-right">Rate (₹)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">1</td>
+                                <td>ACC Gold Premium Cement (IS 456 concrete design)</td>
+                                <td class="text-center">Bags</td>
+                                <td class="text-right">450</td>
+                                <td class="text-right">440</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">2</td>
+                                <td>Tata Tiscon Fe550D TMT Reinforcement Steel</td>
+                                <td class="text-center">Tons</td>
+                                <td class="text-right">3.8</td>
+                                <td class="text-right">62,000</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">3</td>
+                                <td>Coarse Aggregate Sand (IS standard coarse mix)</td>
+                                <td class="text-center">Brass</td>
+                                <td class="text-right">24</td>
+                                <td class="text-right">4,500</td>
+                            </tr>
+                            <tr class="font-bold">
+                                <td colspan="3" class="text-right">Estimated Total Civil Structural Cost:</td>
+                                <td colspan="2" class="text-right" style="color: #000000; background: var(--header-band-bg);">₹ 5,42,800</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p>All casting and binding layout checks will be physically verified on site by the lead engineer prior to concrete injection. Slab moist curing is structured to run for a full 14 days under standard specifications.</p>
+                    <p>Kindly review the estimate. We look forward to executing your project with engineering precision.</p>
+                </div>
+
+                <div class="letter-signature-block" contenteditable="false">
+                    <div class="signature-line"></div>
+                    <span class="signature-title">Vikky Sharma</span><br>
+                    <span class="signature-subtitle">Founder & Lead Civil Engineer</span>
+                </div>
+            </section>
+
+            <!-- SHEET FOOTER -->
+            <footer class="lh-footer">
+                <div class="lh-footer-left">
+                    <span class="lh-footer-badge">BIS Standard</span>
+                    <span>IS 456 (Concrete Design) | IS 1786 (Steel Rebars) | IS 1893 (Seismic Damping)</span>
+                </div>
+                <div class="lh-footer-right">
+                    <span>Office: Shivanand Nagar, Khamtrai, Raipur, CG, 492001</span><br>
+                    <span>Executing Structural Integrity • Build to Last Generations</span>
+                </div>
+            </footer>
+        </article>
+    </main>
+
+    <!-- INTERACTIVE SCRIPT CONTROL -->
+    <script>
+        // Store default template content for reset functionality
+        let defaultTemplateContent = "";
+        window.addEventListener('DOMContentLoaded', () => {
+            defaultTemplateContent = document.getElementById('letterBody').innerHTML;
+        });
+
+        // --- THEME SELECTOR HANDLER ---
+        function setLhTheme(themeName) {
+            // Remove previous active classes
+            document.body.className = '';
+            document.querySelectorAll('.theme-tab').forEach(tab => tab.classList.remove('active'));
+
+            document.body.classList.add(`theme-${themeName}`);
+            
+            // Mark active button
+            const activeTab = document.querySelector(`.btn-${themeName}`);
+            if (activeTab) activeTab.classList.add('active');
+        }
+
+        // --- INSERT ESTIMATE TABLE HELPER ---
+        function insertEstimateTable() {
+            const tableHtml = `
+                <table class="estimate-table" contenteditable="false" style="margin: 20px 0;">
+                    <thead>
+                        <tr>
+                            <th width="10%" class="text-center">Item</th>
+                            <th width="50%">Description</th>
+                            <th width="12%" class="text-center">Unit</th>
+                            <th width="13%" class="text-right">Qty</th>
+                            <th width="15%" class="text-right">Rate (₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-center">1</td>
+                            <td contenteditable="true">Cement Bags (Ambuja/Ultratech)</td>
+                            <td class="text-center" contenteditable="true">Bags</td>
+                            <td class="text-right" contenteditable="true" onblur="calculateRowTotals(this)">0</td>
+                            <td class="text-right" contenteditable="true" onblur="calculateRowTotals(this)">0</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">2</td>
+                            <td contenteditable="true">TMT Steel Reinforcement (Fe 550D)</td>
+                            <td class="text-center" contenteditable="true">Tons</td>
+                            <td class="text-right" contenteditable="true" onblur="calculateRowTotals(this)">0</td>
+                            <td class="text-right" contenteditable="true" onblur="calculateRowTotals(this)">0</td>
+                        </tr>
+                        <tr class="font-bold">
+                            <td colspan="3" class="text-right">Total Estimated cost:</td>
+                            <td colspan="2" class="text-right row-total-cell" style="color: #000000; background: var(--header-band-bg);">₹ 0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+            
+            // Focus on workspace and append
+            const workspace = document.getElementById('letterBody');
+            const selection = window.getSelection();
+            
+            if (selection.rangeCount > 0) {
+                const range = selection.getRangeAt(0);
+                if (workspace.contains(range.commonAncestorContainer)) {
+                    // Insert at cursor position
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = tableHtml.trim();
+                    const tableNode = tempDiv.firstChild;
+                    range.insertNode(tableNode);
+                    range.collapse(false);
+                    return;
+                }
+            }
+            
+            // Append at the bottom if cursor not active inside workspace
+            const range = document.createRange();
+            range.selectNodeContents(workspace);
+            range.collapse(false);
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = tableHtml.trim();
+            workspace.appendChild(tempDiv.firstChild);
+        }
+
+        // --- ROW TOTALS CALCULATOR ---
+        function calculateRowTotals(cellElement) {
+            const table = cellElement.closest('table');
+            if (!table) return;
+            
+            const rows = table.querySelectorAll('tbody tr');
+            let grandTotal = 0;
+            
+            for (let i = 0; i < rows.length - 1; i++) { // Skip the last total row
+                const cells = rows[i].querySelectorAll('td');
+                const qty = parseFloat(cells[3].textContent.replace(/[^\d.]/g, '')) || 0;
+                const rate = parseFloat(cells[4].textContent.replace(/[^\d.]/g, '')) || 0;
+                grandTotal += qty * rate;
+            }
+            
+            // Update the total cell
+            const totalCell = table.querySelector('.row-total-cell');
+            if (totalCell) {
+                totalCell.textContent = '₹ ' + grandTotal.toLocaleString('en-IN');
+            }
+        }
+
+        // --- INSERT SIGNATURE HELPER ---
+        function insertSignature() {
+            const sigHtml = `
+                <div class="letter-signature-block" contenteditable="false" style="margin-top: 40px; display: inline-block; float: right; text-align: center; min-width: 180px;">
+                    <div class="signature-line"></div>
+                    <span class="signature-title">Vikky Sharma</span><br>
+                    <span class="signature-subtitle">Founder & Lead Civil Engineer</span>
+                </div>
+            `;
+            
+            const workspace = document.getElementById('letterBody');
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = sigHtml.trim();
+            workspace.appendChild(tempDiv.firstChild);
+        }
+
+        // --- RESET TEMPLATE ---
+        function resetLetterContent() {
+            if (confirm("Are you sure you want to reset the letter to default template? Your current edits will be lost.")) {
+                document.getElementById('letterBody').innerHTML = defaultTemplateContent;
+            }
+        }
+
+        // --- INSERT SHUTTERING, BINDING, & CASTING QUOTATION TEMPLATE ---
+        function insertCastingQuoteTemplate() {
+            if (confirm("This will replace your current letterhead workspace content with a preformatted Shuttering, Binding, & Casting Quotation template. Do you want to proceed?")) {
+                const quoteHtml = `
+                <div class="letter-meta" contenteditable="false">
+                    <span><strong>Ref No:</strong> SC/QUOTE/2026/\${Math.floor(Math.random() * 900) + 100}</span>
+                    <span><strong>Date:</strong> \${new Date().toLocaleDateString('en-IN', {day: '2-digit', month: 'Short', year: 'numeric'})}</span>
+                </div>
+
+                <div class="letter-recipient">
+                    <p><strong>To,</strong></p>
+                    <p><strong>[Client Name / Organization Name],</strong></p>
+                    <p>[Site Location/Address, e.g. Shankar Nagar],</p>
+                    <p>Raipur, Chhattisgarh</p>
+                </div>
+
+                <div class="letter-subject">
+                    <p><strong>Subject:</strong> Quotation for Labor Rates of Centering, Shuttering, Steel Binding, & Concrete Casting Works</p>
+                </div>
+
+                <div class="letter-content">
+                    <p>Dear Sir/Madam,</p>
+                    <p>We are pleased to submit our competitive labor rate quotation for the execution of civil structural framework (formwork shuttering, steel reinforcement binding, and concrete casting) for your upcoming residential construction project in Raipur. Our rates are optimized for high-integrity structural durability and zero-deviation execution supervising IS codes.</p>
+                    
+                    <!-- Dynamic calculations table -->
+                    <table class="estimate-table" contenteditable="false">
+                        <thead>
+                            <tr>
+                                <th width="8%" class="text-center">S.No</th>
+                                <th width="42%">Scope of Civil Work / Specifications</th>
+                                <th width="12%" class="text-center">Unit</th>
+                                <th width="12%" class="text-right">Qty</th>
+                                <th width="12%" class="text-right">Rate (₹)</th>
+                                <th width="14%" class="text-right">Total (₹)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">1</td>
+                                <td contenteditable="true"><strong>Centering & Shuttering (Formwork):</strong> Installation of waterproof ply and steel plates with prop scaffolding for columns, beam bottom-sides, and roof slabs.</td>
+                                <td class="text-center" contenteditable="true">Sq. Ft.</td>
+                                <td class="text-right" contenteditable="true" onblur="calculateQuoteTableTotals(this)">4500</td>
+                                <td class="text-right" contenteditable="true" onblur="calculateQuoteTableTotals(this)">45</td>
+                                <td class="text-right row-row-total">₹ 2,02,500</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">2</td>
+                                <td contenteditable="true"><strong>Steel Reinforcement Binding:</strong> Cutting, bending, laying, and secure binding of Fe 550D TMT rebar grids for footing, columns, beams, and slabs.</td>
+                                <td class="text-center" contenteditable="true">Tons</td>
+                                <td class="text-right" contenteditable="true" onblur="calculateQuoteTableTotals(this)">3.5</td>
+                                <td class="text-right" contenteditable="true" onblur="calculateQuoteTableTotals(this)">8000</td>
+                                <td class="text-right row-row-total">₹ 28,000</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">3</td>
+                                <td contenteditable="true"><strong>Concrete Mixing & Casting:</strong> Pouring of concrete mix (M20/M25 grade), mechanical needle/plate vibration compaction, leveling, and moist curing.</td>
+                                <td class="text-center" contenteditable="true">Cu. M.</td>
+                                <td class="text-right" contenteditable="true" onblur="calculateQuoteTableTotals(this)">85</td>
+                                <td class="text-right" contenteditable="true" onblur="calculateQuoteTableTotals(this)">1200</td>
+                                <td class="text-right row-row-total">₹ 1,02,000</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">4</td>
+                                <td contenteditable="true"><strong>Foundation Excavation & Layout:</strong> Marking of centerline grids, footing excavation supervision, and base lean concrete layout.</td>
+                                <td class="text-center" contenteditable="true">L.S.</td>
+                                <td class="text-right" contenteditable="true" onblur="calculateQuoteTableTotals(this)">1</td>
+                                <td class="text-right" contenteditable="true" onblur="calculateQuoteTableTotals(this)">25000</td>
+                                <td class="text-right row-row-total">₹ 25,000</td>
+                            </tr>
+                            <tr class="font-bold" style="background-color: var(--header-band-bg);">
+                                <td colspan="4" class="text-right">Grand Total Estimated Cost:</td>
+                                <td colspan="2" class="text-right quote-total-cell" style="color: #000000; font-size: 14px;">₹ 3,57,500</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p><strong>Work Specifications & Terms:</strong></p>
+                    <ul style="list-style: square; padding-left: 20px; margin: 10px 0; font-size: 13px; color: #333333;">
+                        <li><strong>Material Supply:</strong> Electricity, water, cement, sand, aggregates, and steel rebars will be provided on site by the Client.</li>
+                        <li><strong>Tools & Equipment:</strong> Shuttering plates, wooden ply, adjustable props, scaffolding, concrete mixer, and vibrators will be arranged by the Contractor.</li>
+                        <li><strong>IS Standards:</strong> Execution strictly adheres to IS 456:2000 (concrete) and IS 1786:2008 (TMT rebar standards).</li>
+                        <li><strong>Payment Schedule:</strong> 15% advance upon mobilization; 35% after plinth casting; 30% after column casting and slab shuttering; 20% after final slab casting.</li>
+                    </ul>
+                    
+                    <p>Please review our proposal. We are ready to mobilize labor and equipment to start centering marking as soon as structural drawing is finalized.</p>
+                </div>
+
+                <div class="letter-signature-block" contenteditable="false" style="margin-top: 40px; display: inline-block; float: right; text-align: center; min-width: 180px;">
+                    <div class="signature-line"></div>
+                    <span class="signature-title">Vikky Sharma</span><br>
+                    <span class="signature-subtitle">Founder & Lead Civil Engineer</span>
+                </div>
+                `;
+                document.getElementById('letterBody').innerHTML = quoteHtml;
+            }
+        }
+
+        // --- CALCULATION FOR CASTING QUOTATION ROW TOTALS ---
+        function calculateQuoteTableTotals(cellElement) {
+            const row = cellElement.closest('tr');
+            if (!row) return;
+            const cells = row.querySelectorAll('td');
+            const qty = parseFloat(cells[3].textContent.replace(/[^\d.]/g, '')) || 0;
+            const rate = parseFloat(cells[4].textContent.replace(/[^\d.]/g, '')) || 0;
+            const total = qty * rate;
+            cells[5].textContent = '₹ ' + total.toLocaleString('en-IN');
+            
+            // Now update the grand total of the entire table
+            const table = cellElement.closest('table');
+            if (!table) return;
+            const rows = table.querySelectorAll('tbody tr');
+            let grandTotal = 0;
+            for (let i = 0; i < rows.length - 1; i++) { // Skip the last total row
+                const rCells = rows[i].querySelectorAll('td');
+                const rQty = parseFloat(rCells[3].textContent.replace(/[^\d.]/g, '')) || 0;
+                const rRate = parseFloat(rCells[4].textContent.replace(/[^\d.]/g, '')) || 0;
+                grandTotal += rQty * rRate;
+            }
+            const grandTotalCell = table.querySelector('.quote-total-cell');
+            if (grandTotalCell) {
+                grandTotalCell.textContent = '₹ ' + grandTotal.toLocaleString('en-IN');
+            }
+        }
+    </script>
+</body>
+</html>

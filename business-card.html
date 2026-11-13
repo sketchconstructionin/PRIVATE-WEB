@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vikky Sharma | Lead Civil Engineer & Founder - Sketch Construction</title>
+    <meta name="description" content="Digital business card for Vikky Sharma, Lead Civil Engineer and Founder of Sketch Construction. Save contact, call, message, or explore services in Raipur, Chhattisgarh.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- QRCode JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <style>
+        /* --- BRAND DESIGN SYSTEM & TOKENS --- */
+        :root {
+            /* Theme Midnight (Default) */
+            --bg-body: #0a0a0a;
+            --bg-card-front: linear-gradient(135deg, #151515 0%, #0d0d0d 100%);
+            --bg-card-back: linear-gradient(135deg, #1c1c1c 0%, #111111 100%);
+            --accent: #FFB800; /* Amber Gold */
+            --accent-rgb: 255, 184, 0;
+            --accent-hover: #E0A200;
+            --text-main: #FFFFFF;
+            --text-sub: #A0A0A0;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(255, 184, 0, 0.15);
+            --card-shadow: rgba(0, 0, 0, 0.6);
+            --grid-opacity: 0.02;
+            
+            --font-head: 'Outfit', sans-serif;
+            --font-tech: 'Space Grotesk', sans-serif;
+            --radius-card: 16px;
+            --radius-btn: 8px;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Theme Blueprint Blue */
+        .theme-blueprint {
+            --bg-body: #0d1b2a;
+            --bg-card-front: linear-gradient(135deg, #1b263b 0%, #0d1b2a 100%);
+            --bg-card-back: linear-gradient(135deg, #1b263b 0%, #0d1b2a 100%);
+            --accent: #00d2ff;
+            --accent-rgb: 0, 210, 255;
+            --accent-hover: #00b4db;
+            --text-main: #FFFFFF;
+            --text-sub: #8ecae6;
+            --border: rgba(0, 210, 255, 0.2);
+            --border-glow: rgba(0, 210, 255, 0.25);
+            --card-shadow: rgba(0, 8, 20, 0.5);
+            --grid-opacity: 0.08;
+        }
+
+        /* Theme Stealth Carbon */
+        .theme-stealth {
+            --bg-body: #111111;
+            --bg-card-front: linear-gradient(135deg, #222222 0%, #141414 100%);
+            --bg-card-back: linear-gradient(135deg, #282828 0%, #181818 100%);
+            --accent: #39ff14; /* Neon Lime */
+            --accent-rgb: 57, 255, 20;
+            --accent-hover: #32cd32;
+            --text-main: #FFFFFF;
+            --text-sub: #888888;
+            --border: rgba(255, 255, 255, 0.05);
+            --border-glow: rgba(57, 255, 20, 0.15);
+            --card-shadow: rgba(0, 0, 0, 0.7);
+            --grid-opacity: 0.01;
+        }
+
+        /* Theme Premium Gold */
+        .theme-gold {
+            --bg-body: #0f0d0a;
+            --bg-card-front: linear-gradient(135deg, #1e1912 0%, #0a0907 100%);
+            --bg-card-back: linear-gradient(135deg, #282118 0%, #0f0d0a 100%);
+            --accent: #d4af37; /* Metallic Gold */
+            --accent-rgb: 212, 175, 55;
+            --accent-hover: #aa8c2c;
+            --text-main: #FFFFFF;
+            --text-sub: #c5b358;
+            --border: rgba(212, 175, 55, 0.25);
+            --border-glow: rgba(212, 175, 55, 0.35);
+            --card-shadow: rgba(20, 15, 5, 0.6);
+            --grid-opacity: 0.03;
+        }
+
+        /* --- CSS RESETS --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            min-height: 100vh;
+            font-family: var(--font-head);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: background-color 0.5s ease;
+        }
+
+        /* Background Grid */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(var(--accent-rgb), var(--grid-opacity)) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(var(--accent-rgb), var(--grid-opacity)) 1px, transparent 1px);
+            background-size: 30px 30px;
+            pointer-events: none;
+            z-index: 1;
+            transition: var(--transition);
+        }
+
+        /* --- CARD STAGE & CONTAINER --- */
+        .card-stage {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 20px;
+            z-index: 2;
+            perspective: 1500px;
+        }
+
+        .card-container {
+            width: 100%;
+            max-width: 420px;
+            height: 250px;
+            position: relative;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Flips the card */
+        .card-container.flipped {
+            transform: rotateY(180deg);
+        }
+
+        /* --- CARD FACES --- */
+        .card-face {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: var(--radius-card);
+            padding: 24px;
+            backface-visibility: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 15px 35px var(--card-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        /* Face Front Styling */
+        .card-front {
+            background: var(--bg-card-front);
+            z-index: 2;
+        }
+
+        /* Face Back Styling */
+        .card-back {
+            background: var(--bg-card-back);
+            transform: rotateY(180deg);
+            z-index: 1;
+        }
+
+        /* Holographic / Reflection Sheet */
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.08) 0%, transparent 60%),
+                        linear-gradient(115deg, transparent 0%, rgba(var(--accent-rgb), 0.03) 30%, rgba(255, 255, 255, 0.05) 50%, transparent 70%);
+            mix-blend-mode: overlay;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Carbon Fiber pattern for Stealth theme */
+        .theme-stealth .card-face::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(45deg, #1b1b1b 25%, transparent 25%), 
+                linear-gradient(-45deg, #1b1b1b 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, #1b1b1b 75%), 
+                linear-gradient(-45deg, transparent 75%, #1b1b1b 75%);
+            background-size: 8px 8px;
+            background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
+            opacity: 0.15;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Blueprint Grid pattern for Blueprint theme */
+        .theme-blueprint .card-face::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 210, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 210, 255, 0.03) 1px, transparent 1px);
+            background-size: 15px 15px;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* --- CARD CONTENTS --- */
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .card-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-logo-container {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            padding: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid var(--accent);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: var(--transition);
+        }
+
+        .card-logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-brand-title {
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            font-family: var(--font-head);
+            color: var(--text-main);
+            line-height: 1.1;
+        }
+
+        .card-brand-subtitle {
+            font-size: 8px;
+            font-weight: 600;
+            letter-spacing: 0.22em;
+            color: var(--accent);
+            font-family: var(--font-tech);
+            text-transform: uppercase;
+        }
+
+        .chip-icon {
+            font-size: 24px;
+            color: rgba(255, 255, 255, 0.15);
+            transition: var(--transition);
+        }
+        .theme-midnight .chip-icon,
+        .theme-gold .chip-icon {
+            color: rgba(var(--accent-rgb), 0.25);
+        }
+
+        .card-body-front {
+            z-index: 2;
+        }
+
+        .card-tagline {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--text-sub);
+            line-height: 1.4;
+            border-left: 2px solid var(--accent);
+            padding-left: 12px;
+            margin-bottom: 8px;
+        }
+
+        .card-footer-front {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            z-index: 2;
+        }
+
+        .card-holder {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-holder-name {
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            color: var(--text-main);
+        }
+
+        .card-holder-title {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            color: var(--accent);
+            font-family: var(--font-tech);
+            text-transform: uppercase;
+        }
+
+        .card-indicator {
+            font-size: 11px;
+            font-family: var(--font-tech);
+            color: var(--text-sub);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            opacity: 0.6;
+            animation: bounceLeftRight 2s infinite ease-in-out;
+        }
+
+        @keyframes bounceLeftRight {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(4px); }
+        }
+
+        /* Back Card Contents */
+        .card-body-back {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 2;
+            margin-top: 10px;
+        }
+
+        .contact-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--text-sub);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-row:hover {
+            color: var(--text-main);
+        }
+
+        .contact-icon {
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: var(--accent);
+            flex-shrink: 0;
+            transition: var(--transition);
+        }
+
+        .contact-row:hover .contact-icon {
+            background: rgba(var(--accent-rgb), 0.1);
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        .contact-detail {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-family: var(--font-tech);
+            font-weight: 400;
+        }
+
+        .card-footer-back {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border);
+            padding-top: 12px;
+            z-index: 2;
+        }
+
+        .card-badge {
+            background-color: rgba(var(--accent-rgb), 0.08);
+            border: 1px solid rgba(var(--accent-rgb), 0.2);
+            color: var(--accent);
+            font-size: 8px;
+            font-weight: 600;
+            font-family: var(--font-tech);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        /* --- CONTROL HUB (ACTIONS & THEMES) --- */
+        .controls-section {
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 0 20px 30px;
+            z-index: 2;
+        }
+
+        /* Quick Action Buttons Grid */
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .btn-action {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            font-family: var(--font-tech);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-btn);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-action:hover {
+            background: rgba(var(--accent-rgb), 0.05);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        .btn-action.btn-primary {
+            background: var(--accent);
+            color: #000000;
+            border-color: var(--accent);
+            grid-column: span 2;
+        }
+
+        .btn-action.btn-primary:hover {
+            background: var(--accent-hover);
+            box-shadow: 0 8px 20px rgba(var(--accent-rgb), 0.35);
+        }
+
+        /* Theme Picker HUD */
+        .theme-picker-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .theme-picker-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-sub);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+            font-family: var(--font-tech);
+        }
+
+        .themes-flex {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+        }
+
+        .theme-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .theme-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: inherit;
+        }
+
+        .theme-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .theme-btn.active {
+            border-color: var(--accent);
+            transform: scale(1.1);
+        }
+
+        /* Custom buttons styling for theme previews */
+        .t-midnight { background: #FFB800; border-color: #151515; }
+        .t-blueprint { background: #00d2ff; border-color: #1b263b; }
+        .t-stealth { background: #39ff14; border-color: #222222; }
+        .t-gold { background: #d4af37; border-color: #1e1912; }
+
+        /* Card flip reminder toggle */
+        .card-tip {
+            font-size: 11px;
+            color: var(--text-sub);
+            text-align: center;
+            font-family: var(--font-tech);
+            opacity: 0.7;
+        }
+
+        /* --- QR CODE OVERLAY MODAL --- */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .modal.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-content {
+            width: 90%;
+            max-width: 360px;
+            background: #151515;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            text-align: center;
+            position: relative;
+            transform: scale(0.9);
+            transition: var(--transition);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+        }
+
+        .modal.open .modal-content {
+            transform: scale(1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 20px;
+            color: var(--text-sub);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-btn:hover {
+            color: var(--text-main);
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .modal-subtitle {
+            font-size: 12px;
+            color: var(--text-sub);
+            margin-bottom: 24px;
+            font-family: var(--font-tech);
+        }
+
+        .qr-box {
+            background: #FFFFFF;
+            padding: 16px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .qr-box canvas, .qr-box img {
+            display: block;
+            margin: 0 auto;
+        }
+
+        .share-link-box {
+            display: flex;
+            align-items: center;
+            background: #202020;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 8px 12px;
+        }
+
+        .share-input {
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-size: 11px;
+            font-family: var(--font-tech);
+            width: 100%;
+            outline: none;
+            user-select: all;
+        }
+
+        .btn-copy {
+            background: var(--accent);
+            color: #000000;
+            border: none;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-family: var(--font-tech);
+            text-transform: uppercase;
+            transition: var(--transition);
+        }
+
+        .btn-copy:hover {
+            background: var(--accent-hover);
+        }
+
+        /* --- FOOTER --- */
+        .footer-brand {
+            padding: 24px 20px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            z-index: 2;
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: var(--text-sub);
+            font-family: var(--font-tech);
+        }
+
+        .footer-text a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .footer-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- MEDIA PRINT DESIGN --- */
+        @media print {
+            body, html {
+                background: #FFFFFF !important;
+                color: #000000 !important;
+                min-height: auto;
+                overflow: visible;
+            }
+            .grid-overlay, .controls-section, .modal, .footer-brand, .card-indicator {
+                display: none !important;
+            }
+            .card-stage {
+                padding: 0;
+                margin: 0;
+                justify-content: flex-start;
+                display: block;
+            }
+            .card-container {
+                width: 3.5in !important;
+                height: 2.0in !important;
+                position: relative !important;
+                margin: 20px auto !important;
+                transform: none !important;
+                page-break-inside: avoid;
+            }
+            .card-face {
+                position: relative !important;
+                width: 3.5in !important;
+                height: 2.0in !important;
+                border: 1px solid #000000 !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                background: #FFFFFF !important;
+                color: #000000 !important;
+                float: none !important;
+                display: flex !important;
+                margin-bottom: 20px !important;
+                page-break-inside: avoid;
+            }
+            .card-back {
+                transform: none !important;
+            }
+            .card-overlay {
+                display: none !important;
+            }
+            .card-brand-title, .card-holder-name {
+                color: #000000 !important;
+            }
+            .card-brand-subtitle, .card-holder-title, .contact-icon {
+                color: #555555 !important;
+            }
+            .contact-icon {
+                background: none !important;
+                border: none !important;
+            }
+            .contact-row {
+                color: #000000 !important;
+            }
+            .card-badge {
+                border: 1px solid #000000 !important;
+                color: #000000 !important;
+                background: none !important;
+            }
+            .chip-icon {
+                color: #888888 !important;
+            }
+            .card-logo-container {
+                border-color: #000000 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Canvas background grid -->
+    <div class="grid-overlay"></div>
+
+    <!-- MAIN CARD STAGE -->
+    <main class="card-stage">
+        <!-- Interactive 3D Mockup Container -->
+        <div class="card-container" id="businessCard" onclick="flipCard()">
+            
+            <!-- REFLECTION LAYER FOR GLASS/SHEEN EFFECT -->
+            <div class="card-overlay" id="reflectionLayer"></div>
+
+            <!-- CARD FRONT -->
+            <div class="card-face card-front">
+                <div class="card-header">
+                    <div class="card-brand">
+                        <div class="card-logo-container">
+                            <img src="assets/logo.png" alt="Sketch Construction Logo" class="card-logo-img">
+                        </div>
+                        <div class="card-brand-text">
+                            <span class="card-brand-title">SKETCH CONSTRUCTION</span>
+                            <span class="card-brand-subtitle">SK Construction</span>
+                        </div>
+                    </div>
+                    <!-- Smart card chip graphic -->
+                    <i class="fa-solid fa-microchip chip-icon"></i>
+                </div>
+                
+                <div class="card-body-front">
+                    <p class="card-tagline">Engineering Integrity.<br>Executing Structural Vision.</p>
+                </div>
+                
+                <div class="card-footer-front">
+                    <div class="card-holder">
+                        <span class="card-holder-name">Vikky Sharma</span>
+                        <span class="card-holder-title">Lead Civil Engineer & Founder</span>
+                    </div>
+                    <div class="card-indicator">
+                        <span>Flip</span>
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD BACK -->
+            <div class="card-face card-back">
+                <div class="card-header">
+                    <div class="card-brand">
+                        <div class="card-logo-container">
+                            <img src="assets/logo.png" alt="Sketch Construction Logo" class="card-logo-img">
+                        </div>
+                        <div class="card-brand-text">
+                            <span class="card-brand-title">SKETCH CONSTRUCTION</span>
+                            <span class="card-brand-subtitle">SK Construction</span>
+                        </div>
+                    </div>
+                    <span class="card-badge">BIS Compliant</span>
+                </div>
+                
+                <div class="card-body-back">
+                    <a href="tel:+918349886687" class="contact-row" onclick="event.stopPropagation()">
+                        <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+                        <span class="contact-detail">+91 8349886687</span>
+                    </a>
+                    
+                    <a href="mailto:sketchconstruction.in@gmail.com" class="contact-row" onclick="event.stopPropagation()">
+                        <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                        <span class="contact-detail">sketchconstruction.in@gmail.com</span>
+                    </a>
+                    
+                    <a href="https://sketchconstruction.in" target="_blank" class="contact-row" onclick="event.stopPropagation()">
+                        <div class="contact-icon"><i class="fa-solid fa-globe"></i></div>
+                        <span class="contact-detail">sketchconstruction.in</span>
+                    </a>
+                    
+                    <a href="https://share.google/G9UJyIGMR3okPzGLz" target="_blank" class="contact-row" onclick="event.stopPropagation()">
+                        <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <span class="contact-detail">Khamtrai, Raipur, CG</span>
+                    </a>
+                </div>
+                
+                <div class="card-footer-back">
+                    <span style="font-size: 8px; color: var(--text-sub); font-family: var(--font-tech);">IS 456 | IS 1786 | IS 1893</span>
+                    <span style="font-size: 10px; color: var(--accent); font-family: var(--font-tech); font-weight: bold;">SKETCH</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- HUB FOR CONTROLS & UTILITIES -->
+    <section class="controls-section">
+        
+        <!-- Theme Selector Box -->
+        <div class="theme-picker-card">
+            <h4 class="theme-picker-title">Select Card Texture</h4>
+            <div class="themes-flex">
+                <button class="theme-btn t-midnight active" onclick="setTheme('midnight')" aria-label="Midnight Amber"></button>
+                <button class="theme-btn t-blueprint" onclick="setTheme('blueprint')" aria-label="Blueprint Blue"></button>
+                <button class="theme-btn t-stealth" onclick="setTheme('stealth')" aria-label="Stealth Carbon"></button>
+                <button class="theme-btn t-gold" onclick="setTheme('gold')" aria-label="Premium Gold"></button>
+            </div>
+        </div>
+
+        <!-- Utility Buttons Grid -->
+        <div class="actions-grid">
+            <button class="btn-action btn-primary" onclick="downloadVCard()">
+                <i class="fa-solid fa-address-book"></i> Save Contact to Phone
+            </button>
+            
+            <a href="tel:+918349886687" class="btn-action" style="text-decoration:none;">
+                <i class="fa-solid fa-phone-volume"></i> Call Direct
+            </a>
+            
+            <button class="btn-action" onclick="openWhatsApp()">
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp Me
+            </button>
+            
+            <a href="https://sketchconstruction.in" class="btn-action" style="text-decoration:none;" target="_blank">
+                <i class="fa-solid fa-house-laptop"></i> Visit Website
+            </a>
+            
+            <button class="btn-action" onclick="openShareModal()">
+                <i class="fa-solid fa-qrcode"></i> Share QR Code
+            </button>
+        </div>
+
+        <p class="card-tip"><i class="fa-solid fa-circle-info"></i> Click or tap card to rotate 3D view. Fits standard printable sheets (Ctrl+P).</p>
+    </section>
+
+    <!-- QR CODE SHARE MODAL -->
+    <div class="modal" id="qrModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeShareModal()">&times;</span>
+            <h3 class="modal-title">Scan QR Code</h3>
+            <p class="modal-subtitle">Share this digital card instantly with anyone</p>
+            
+            <!-- QR Code container rendered by JS -->
+            <div class="qr-box" id="qrcode"></div>
+            
+            <div class="share-link-box">
+                <input type="text" class="share-input" id="shareUrl" readonly>
+                <button class="btn-copy" onclick="copyCardUrl()" id="btnCopyText">Copy</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER BRANDING -->
+    <footer class="footer-brand">
+        <p class="footer-text">&copy; 2026 Powered by <a href="https://sketchconstruction.in" target="_blank">Sketch Construction</a> & Civil Engineers</p>
+    </footer>
+
+    <!-- INTERACTIVE SCRIPTS -->
+    <script>
+        // --- 3D CARD INTERACTION ---
+        const card = document.getElementById('businessCard');
+        const reflection = document.getElementById('reflectionLayer');
+        let isFlipped = false;
+
+        // Flip Card State handler
+        function flipCard() {
+            isFlipped = !isFlipped;
+            card.classList.toggle('flipped', isFlipped);
+        }
+
+        // 3D Tilting Effect on Mouse Move (Desktop Only)
+        if (window.matchMedia('(pointer: fine)').matches) {
+            document.addEventListener('mousemove', (e) => {
+                // Return if card is flipped or cursor is too far from it
+                const cardRect = card.getBoundingClientRect();
+                const cardCenterX = cardRect.left + cardRect.width / 2;
+                const cardCenterY = cardRect.top + cardRect.height / 2;
+                
+                // Distance to card center
+                const distanceX = e.clientX - cardCenterX;
+                const distanceY = e.clientY - cardCenterY;
+                const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+                
+                // If cursor is within 400px of card center, perform premium 3D rotate
+                if (distance < 400) {
+                    const rotateX = -(distanceY / cardRect.height) * 20; // Max tilt 20deg
+                    const rotateY = (distanceX / cardRect.width) * 20;
+                    
+                    // Card tilt (accounting for Y rotation if flipped)
+                    if (isFlipped) {
+                        card.style.transform = `rotateY(${180 + rotateY}deg) rotateX(${-rotateX}deg)`;
+                    } else {
+                        card.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
+                    }
+                    
+                    // Update holographic position variables
+                    const relX = ((e.clientX - cardRect.left) / cardRect.width) * 100;
+                    const relY = ((e.clientY - cardRect.top) / cardRect.height) * 100;
+                    reflection.style.setProperty('--mouse-x', `${relX}%`);
+                    reflection.style.setProperty('--mouse-y', `${relY}%`);
+                    reflection.style.opacity = 1;
+                } else {
+                    // Reset styling smoothly if cursor is far
+                    if (isFlipped) {
+                        card.style.transform = 'rotateY(180deg)';
+                    } else {
+                        card.style.transform = 'rotateY(0)';
+                    }
+                    reflection.style.opacity = 0.5;
+                }
+            });
+
+            // Reset tilt when mouse leaves window
+            document.addEventListener('mouseleave', () => {
+                if (isFlipped) {
+                    card.style.transform = 'rotateY(180deg)';
+                } else {
+                    card.style.transform = 'rotateY(0)';
+                }
+                reflection.style.opacity = 0.5;
+            });
+        }
+
+        // --- THEME PICKER HANDLER ---
+        function setTheme(themeName) {
+            // Remove previous active classes
+            document.body.className = '';
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+
+            if (themeName !== 'midnight') {
+                document.body.classList.add(`theme-${themeName}`);
+            }
+
+            // Mark active button
+            const activeBtn = document.querySelector(`.t-${themeName}`);
+            if (activeBtn) activeBtn.classList.add('active');
+        }
+
+        // --- VCARD (.VCF) DYNAMIC GENERATION ---
+        function downloadVCard() {
+            // Generate standard VCF 3.0 file content
+            const vCardContent = [
+                'BEGIN:VCARD',
+                'VERSION:3.0',
+                'N:Sharma;Vikky;;Mr.;',
+                'FN:Vikky Sharma',
+                'ORG:Sketch Construction',
+                'TITLE:Lead Civil Engineer & Founder',
+                'TEL;TYPE=WORK,VOICE:+918349886687',
+                'TEL;TYPE=CELL,VOICE:+916263898315',
+                'EMAIL;TYPE=PREF,INTERNET:sketchconstruction.in@gmail.com',
+                'URL:https://sketchconstruction.in',
+                'ADR;TYPE=WORK,POSTAL,PARCEL:;;Shivanand Nagar, Khamtrai;Raipur;Chhattisgarh;492001;India',
+                'NOTE:Raipur\'s Leading Civil Engineering & Structural Contractors. BIS Compliant (IS 456, IS 1786).',
+                'REV:' + new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z',
+                'END:VCARD'
+            ].join('\r\n');
+
+            // Build Blob
+            const blob = new Blob([vCardContent], { type: 'text/vcard;charset=utf-8;' });
+            
+            // Device Compatibility handler
+            if (navigator.msSaveBlob) { // IE10+
+                navigator.msSaveBlob(blob, 'Vikky_Sharma_Sketch_Construction.vcf');
+            } else {
+                const link = document.createElement('a');
+                if (link.download !== undefined) {
+                    const url = URL.createObjectURL(blob);
+                    link.setAttribute('href', url);
+                    link.setAttribute('download', 'Vikky_Sharma_Sketch_Construction.vcf');
+                    link.style.visibility = 'hidden';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                } else {
+                    // Fallback to direct raw url stream
+                    window.open('data:text/vcard;charset=utf-8,' + encodeURIComponent(vCardContent));
+                }
+            }
+        }
+
+        // --- WHATSAPP REDIRECT WRAPPER ---
+        function openWhatsApp() {
+            const phone = '918349886687';
+            const message = encodeURIComponent("Hello Vikky, I visited your digital business card and would like to connect with Sketch Construction regarding an upcoming construction project.");
+            window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+        }
+
+        // --- SHARING MODAL & QR CODE ---
+        const modal = document.getElementById('qrModal');
+        const shareInput = document.getElementById('shareUrl');
+        const currentUrl = window.location.href;
+        
+        // Put current page url inside text input
+        shareInput.value = currentUrl;
+
+        // Initialize QR Code inside container
+        let qrCodeInstance = null;
+        
+        function openShareModal() {
+            modal.classList.add('open');
+            
+            // Generate QR Code dynamically if not already rendered
+            if (!qrCodeInstance) {
+                const qrContainer = document.getElementById('qrcode');
+                qrContainer.innerHTML = ''; // Clear fallback text
+                
+                qrCodeInstance = new QRCode(qrContainer, {
+                    text: currentUrl,
+                    width: 180,
+                    height: 180,
+                    colorDark : "#000000",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.H
+                });
+            }
+        }
+
+        function closeShareModal() {
+            modal.classList.remove('open');
+        }
+
+        // Copy Card URL functionality
+        function copyCardUrl() {
+            shareInput.select();
+            shareInput.setSelectionRange(0, 99999); // Mobile compatibility
+            
+            try {
+                navigator.clipboard.writeText(shareInput.value).then(() => {
+                    toggleCopyFeedback();
+                }).catch(() => {
+                    // Fallback for older browsers
+                    document.execCommand('copy');
+                    toggleCopyFeedback();
+                });
+            } catch (err) {
+                // Final fallback
+                document.execCommand('copy');
+                toggleCopyFeedback();
+            }
+        }
+
+        function toggleCopyFeedback() {
+            const btn = document.getElementById('btnCopyText');
+            btn.textContent = 'Copied!';
+            btn.style.background = '#FFFFFF';
+            btn.style.color = '#000000';
+            
+            setTimeout(() => {
+                btn.textContent = 'Copy';
+                btn.style.background = 'var(--accent)';
+                btn.style.color = '#000000';
+            }, 2000);
+        }
+
+        // Close modal when user clicks outside modal-content container
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeShareModal();
+            }
+        });
+    </script>
+</body>
+</html>
