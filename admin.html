@@ -1857,10 +1857,12 @@
             
             try {
                 if (supabase) {
-                    const { data, error } = await supabase
+                    const sbPromise = supabase
                         .from('blogs')
                         .select('*')
                         .order('created_at', { ascending: false });
+                    const timeoutPromise = new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 800));
+                    const { data, error } = await Promise.race([sbPromise, timeoutPromise]);
 
                     if (!error && data && data.length > 0) {
                         blogsList = data;
