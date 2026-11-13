@@ -47,7 +47,50 @@
     <link rel="icon" type="image/webp" href="assets/logo.webp">
     <link rel="apple-touch-icon" href="assets/logo.webp">
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css?v=2.0.0">
+    <link rel="stylesheet" href="style.css?v=2.1.0">
+
+    <!-- Embedded Critical Modal Styles (Guaranteed Fixed Viewport Centering & Safe Default Hidden) -->
+    <style id="sitePhotoModalStyles">
+    .site-photo-modal {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        z-index: 100000 !important;
+        display: none !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 16px !important;
+        box-sizing: border-box !important;
+    }
+    .site-photo-modal.active {
+        display: flex !important;
+    }
+    .site-photo-modal .modal-backdrop {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        background: rgba(5, 7, 10, 0.94) !important;
+        backdrop-filter: blur(14px) !important;
+        -webkit-backdrop-filter: blur(14px) !important;
+        z-index: 100001 !important;
+    }
+    .site-photo-modal .modal-content-wrapper {
+        position: relative !important;
+        z-index: 100002 !important;
+        width: 100% !important;
+        max-width: 1100px !important;
+        max-height: 90vh !important;
+        background: #11141A !important;
+        border: 1px solid rgba(255, 184, 0, 0.35) !important;
+        border-radius: 12px !important;
+        overflow: hidden !important;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(255, 184, 0, 0.15) !important;
+    }
+    </style>
 
     <!-- Preload FontAwesome for Premium Icons -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -1763,20 +1806,22 @@
                 </div>
 
                 <!-- Project Card 3 (Structural / Engineering) -->
-                <a href="blueprint-viewer.html?project=sadarbazar" target="_blank" class="portfolio-item engineering reveal reveal-delay-3" data-category="engineering">
+                <div class="portfolio-item engineering reveal reveal-delay-3" data-category="engineering" onclick="window.openSitePhotoModal('proj-4')" style="cursor: pointer;">
                     <div class="portfolio-image-box">
                         <img src="assets/blueprint_schematic.webp" alt="Structural centerline layout blueprint Sadar Bazar Raipur" width="1024" height="1024" loading="lazy">
                         <div class="portfolio-overlay">
-                            <span class="project-tag">Engineering Layout</span>
+                            <span class="project-tag" style="background: rgba(255, 184, 0, 0.15); color: #FFB800; border: 1px solid rgba(255, 184, 0, 0.3);">
+                                <span class="pulse-dot" style="display:inline-block; margin-right:5px; background:#FFB800;"></span> BLUEPRINT &amp; SITE INSPECTION
+                            </span>
                             <h3>Sadar Bazar Centerline Layout</h3>
                             <p class="project-desc">Physical grid markings, centerline mapping coordinates, and load-bearing column orientation calculations for local shops.</p>
                             <span class="project-more">
-                                Inspect Mapping Calculations
+                                View Blueprint &amp; Centerline Photos
                                 <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
                             </span>
                         </div>
                     </div>
-                </a>
+                </div>
 
                 <!-- Project Card 4 (Materials / Concrete Engineering & Ongoing Site Photos) -->
                 <div class="portfolio-item ongoing engineering reveal reveal-delay-4" data-category="ongoing engineering" onclick="window.openSitePhotoModal('proj-2')" style="cursor: pointer;">
@@ -1797,20 +1842,22 @@
                 </div>
 
                 <!-- Project Card 5 (Structural / Ongoing) -->
-                <a href="blueprint-viewer.html?project=sector12" target="_blank" class="portfolio-item ongoing engineering reveal reveal-delay-1" data-category="ongoing engineering">
+                <div class="portfolio-item ongoing engineering reveal reveal-delay-1" data-category="ongoing engineering" onclick="window.openSitePhotoModal('proj-5')" style="cursor: pointer;">
                     <div class="portfolio-image-box">
                         <img src="assets/sector12_drawing.webp" alt="Sector 12 elevation plan Naya Raipur duplex layout blueprint" width="715" height="800" loading="lazy">
                         <div class="portfolio-overlay">
-                            <span class="project-tag">Ongoing Site / Structural</span>
+                            <span class="project-tag" style="background: rgba(74, 222, 128, 0.15); color: #4ade80; border: 1px solid rgba(74, 222, 128, 0.3);">
+                                <span class="pulse-dot" style="display:inline-block; margin-right:5px; background:#4ade80;"></span> LIVE ONGOING SITE
+                            </span>
                             <h3>Sector 12 Elevation Plan (Naya Raipur)</h3>
                             <p class="project-desc">Ongoing structural drafting and technical level height mapping (LVL +0" to +42') for a multi-story duplex shell.</p>
                             <span class="project-more">
-                                Inspect Elevation Blueprint
+                                View CAD Elevation &amp; Site Photos
                                 <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
                             </span>
                         </div>
                     </div>
-                </a>
+                </div>
 
                 <!-- Project Card 6 (Residential / Ongoing Live Site) -->
                 <div class="portfolio-item ongoing residential reveal reveal-delay-2" data-category="ongoing residential" onclick="window.openSitePhotoModal('proj-1')" style="cursor: pointer;">
@@ -2283,6 +2330,9 @@
                         <a id="modalWhatsappBtn" href="#" target="_blank" class="btn btn-primary btn-block">
                             <i class="fa-brands fa-whatsapp"></i> Inquire About Site Visit
                         </a>
+                        <a id="modalBlueprintBtn" href="#" target="_blank" class="btn btn-outline btn-block" style="display: none; margin-top: 10px; text-align: center; text-decoration: none; justify-content: center; align-items: center; gap: 8px;">
+                            <i class="fa-solid fa-compass-drafting"></i> Open Full CAD Blueprint Viewer
+                        </a>
                     </div>
                 </div>
             </div>
@@ -2338,6 +2388,38 @@
                 photos: [
                     { url: "assets/hero_luxury.webp", stageName: "Completed Structural Frame Handover", date: "Aug 20, 2026", caption: "Structural shell fully cast and moisture cured. Handed over to client on schedule with 100% BIS compliance certificate." }
                 ]
+            },
+            {
+                id: "proj-4",
+                title: "Sadar Bazar Centerline Layout",
+                location: "Sadar Bazar, Raipur, CG",
+                stage: "Centerline Grid & Footing Layout",
+                progress: 100,
+                date: "August 2026",
+                engineer: "Er. Vikky Sharma",
+                description: "Physical grid markings, centerline mapping coordinates, and load-bearing column orientation calculations for commercial and residential shops.",
+                coverImage: "assets/blueprint_schematic.webp",
+                blueprintUrl: "blueprint-viewer.html?project=sadarbazar",
+                photos: [
+                    { url: "assets/blueprint_schematic.webp", stageName: "Centerline Layout & Axis Marking", date: "Aug 15, 2026", caption: "Total station survey and centerline grid lines laid out with 0mm angular error tolerance." },
+                    { url: "assets/concrete_material.webp", stageName: "Column Footing Excavation Alignment", date: "Aug 18, 2026", caption: "Excavation depth and column coordinates cross-verified against municipal approved drawings." }
+                ]
+            },
+            {
+                id: "proj-5",
+                title: "Sector 12 Elevation Plan (Naya Raipur)",
+                location: "Sector 12, Naya Raipur, CG",
+                stage: "Architectural Elevation & Structural Drafting",
+                progress: 85,
+                date: "September 2026",
+                engineer: "Er. Vikky Sharma",
+                description: "Ongoing structural drafting and technical level height mapping (LVL +0' to +42') for a multi-story duplex shell.",
+                coverImage: "assets/sector12_drawing.webp",
+                blueprintUrl: "blueprint-viewer.html?project=sector12",
+                photos: [
+                    { url: "assets/sector12_drawing.webp", stageName: "Front Elevation CAD Drafting", date: "Sep 22, 2026", caption: "Detailed working drawing with cantilever balcony projections, sunshade depths, and floor levels mapped." },
+                    { url: "assets/sector12_duplex.webp", stageName: "Actual On-Site Execution Alignment", date: "Oct 05, 2026", caption: "Actual on-site civil frame matching CAD elevation dimensions to perfection." }
+                ]
             }
         ];
 
@@ -2353,6 +2435,7 @@
             currentModalPhotoIdx = 0;
             const modal = document.getElementById('sitePhotoModal');
             if (modal) {
+                modal.classList.add('active');
                 modal.style.display = 'flex';
                 document.body.style.overflow = 'hidden';
                 window.updateModalPhotoDisplay();
@@ -2362,6 +2445,7 @@
         window.closeSitePhotoModal = function() {
             const modal = document.getElementById('sitePhotoModal');
             if (modal) {
+                modal.classList.remove('active');
                 modal.style.display = 'none';
                 document.body.style.overflow = '';
             }
@@ -2425,6 +2509,16 @@
                 waBtn.href = 'https://wa.me/918349886687?text=' + waMsg;
             }
 
+            const bpBtn = document.getElementById('modalBlueprintBtn');
+            if (bpBtn) {
+                if (currentModalProject.blueprintUrl) {
+                    bpBtn.href = currentModalProject.blueprintUrl;
+                    bpBtn.style.display = 'flex';
+                } else {
+                    bpBtn.style.display = 'none';
+                }
+            }
+
             const thumbContainer = document.getElementById('modalThumbnails');
             if (thumbContainer) {
                 thumbContainer.innerHTML = '';
@@ -2445,8 +2539,8 @@
     })();
     </script>
 
-    <!-- Application Scripts (Cache-Busted v2.0.0) -->
-    <script type="module" src="app.js?v=2.0.0"></script>
+    <!-- Application Scripts (Cache-Busted v2.1.0) -->
+    <script type="module" src="app.js?v=2.1.0"></script>
 </body>
 </html>
 

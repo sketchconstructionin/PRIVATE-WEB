@@ -4484,6 +4484,7 @@ button, input, select, textarea {
     color: var(--primary);
     font-weight: 600;
     display: inline-block;
+}
 /* --- Page Hero & Header Specs Centering --- */
 .page-hero {
     text-align: center !important;
@@ -4830,11 +4831,16 @@ button, input, select, textarea {
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 10000;
-    display: flex;
+    z-index: 100000;
+    display: none;
     align-items: center;
     justify-content: center;
     padding: 20px;
+    box-sizing: border-box;
+}
+
+.site-photo-modal.active {
+    display: flex;
 }
 
 .site-photo-modal .modal-backdrop {

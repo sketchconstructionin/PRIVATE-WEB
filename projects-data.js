@@ -102,6 +102,68 @@ export const DEFAULT_PROJECTS = [
                 verified: true
             }
         ]
+    },
+    {
+        id: "proj-4",
+        title: "Sadar Bazar Centerline Layout",
+        location: "Sadar Bazar, Raipur, CG",
+        category: "engineering",
+        progress: 100,
+        stage: "Centerline Grid & Footing Layout",
+        date: "August 2026",
+        engineer: "Er. Vikky Sharma",
+        description: "Physical grid markings, centerline mapping coordinates, and load-bearing column orientation calculations for commercial and residential shops.",
+        coverImage: "assets/blueprint_schematic.webp",
+        blueprintUrl: "blueprint-viewer.html?project=sadarbazar",
+        photos: [
+            {
+                id: "photo-4-1",
+                url: "assets/blueprint_schematic.webp",
+                stageName: "Centerline Layout & Axis Marking",
+                date: "Aug 15, 2026",
+                caption: "Total station survey and centerline grid lines laid out with 0mm angular error tolerance.",
+                verified: true
+            },
+            {
+                id: "photo-4-2",
+                url: "assets/concrete_material.webp",
+                stageName: "Column Footing Excavation Alignment",
+                date: "Aug 18, 2026",
+                caption: "Excavation depth and column coordinates cross-verified against municipal approved drawings.",
+                verified: true
+            }
+        ]
+    },
+    {
+        id: "proj-5",
+        title: "Sector 12 Elevation Plan (Naya Raipur)",
+        location: "Sector 12, Naya Raipur, CG",
+        category: "ongoing",
+        progress: 85,
+        stage: "Architectural Elevation & Structural Drafting",
+        date: "September 2026",
+        engineer: "Er. Vikky Sharma",
+        description: "Ongoing structural drafting and technical level height mapping (LVL +0' to +42') for modern multi-story luxury duplex shell.",
+        coverImage: "assets/sector12_drawing.webp",
+        blueprintUrl: "blueprint-viewer.html?project=sector12",
+        photos: [
+            {
+                id: "photo-5-1",
+                url: "assets/sector12_drawing.webp",
+                stageName: "Front Elevation CAD Drafting",
+                date: "Sep 22, 2026",
+                caption: "Detailed working drawing with cantilever balcony projections, sunshade depths, and floor levels mapped.",
+                verified: true
+            },
+            {
+                id: "photo-5-2",
+                url: "assets/sector12_duplex.webp",
+                stageName: "Actual On-Site Execution Alignment",
+                date: "Oct 05, 2026",
+                caption: "Actual on-site civil frame matching CAD elevation dimensions to perfection.",
+                verified: true
+            }
+        ]
     }
 ];
 

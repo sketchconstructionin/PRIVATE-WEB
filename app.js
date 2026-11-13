@@ -579,7 +579,7 @@ function initApp() {
         existingDynamic.forEach(el => el.remove());
 
         // For any projects created dynamically that aren't hardcoded in the static HTML:
-        const hardcodedIds = ['proj-1', 'proj-2', 'proj-3'];
+        const hardcodedIds = ['proj-1', 'proj-2', 'proj-3', 'proj-4', 'proj-5'];
 
         projectsData.forEach(proj => {
             if (!hardcodedIds.includes(proj.id)) {
@@ -639,6 +639,7 @@ function initApp() {
         currentModalPhotoIdx = 0;
         const modal = document.getElementById('sitePhotoModal');
         if (modal) {
+            modal.classList.add('active');
             modal.style.display = 'flex';
             document.body.style.overflow = 'hidden';
             updateModalPhotoDisplay();
@@ -648,6 +649,7 @@ function initApp() {
     window.closeSitePhotoModal = function() {
         const modal = document.getElementById('sitePhotoModal');
         if (modal) {
+            modal.classList.remove('active');
             modal.style.display = 'none';
             document.body.style.overflow = '';
         }
@@ -676,34 +678,60 @@ function initApp() {
         const photos = currentModalProject.photos || [{ url: currentModalProject.coverImage, stageName: currentModalProject.stage, date: currentModalProject.date, caption: currentModalProject.description }];
         const currentPhoto = photos[currentModalPhotoIdx] || photos[0];
 
-        document.getElementById('modalMainImg').src = currentPhoto.url;
-        document.getElementById('modalStageBadge').textContent = currentPhoto.stageName || currentModalProject.stage || 'Site Photo';
-        document.getElementById('modalProjectTitle').textContent = currentModalProject.title;
-        document.getElementById('modalProjectLocation').innerHTML = `<i class="fa-solid fa-location-dot" style="color: var(--primary);"></i> ${currentModalProject.location}`;
+        const imgEl = document.getElementById('modalMainImg');
+        if (imgEl) imgEl.src = currentPhoto.url;
+        const stageEl = document.getElementById('modalStageBadge');
+        if (stageEl) stageEl.textContent = currentPhoto.stageName || currentModalProject.stage || 'Site Photo';
+        const titleEl = document.getElementById('modalProjectTitle');
+        if (titleEl) titleEl.textContent = currentModalProject.title;
+        const locEl = document.getElementById('modalProjectLocation');
+        if (locEl) locEl.innerHTML = `<i class="fa-solid fa-location-dot" style="color: var(--primary);"></i> ${currentModalProject.location}`;
         
-        document.getElementById('modalProgressVal').textContent = (currentModalProject.progress || 0) + '%';
-        document.getElementById('modalProgressBar').style.width = (currentModalProject.progress || 0) + '%';
+        const progVal = document.getElementById('modalProgressVal');
+        if (progVal) progVal.textContent = (currentModalProject.progress || 0) + '%';
+        const progBar = document.getElementById('modalProgressBar');
+        if (progBar) progBar.style.width = (currentModalProject.progress || 0) + '%';
 
-        document.getElementById('modalPhotoCaption').textContent = currentPhoto.caption || currentModalProject.description;
-        document.getElementById('modalEngineer').textContent = currentModalProject.engineer || 'Er. Vikky Sharma';
-        document.getElementById('modalPhotoDate').textContent = 'Date: ' + (currentPhoto.date || currentModalProject.date || 'Active');
+        const capEl = document.getElementById('modalPhotoCaption');
+        if (capEl) capEl.textContent = currentPhoto.caption || currentModalProject.description;
+        const engEl = document.getElementById('modalEngineer');
+        if (engEl) engEl.textContent = currentModalProject.engineer || 'Er. Vikky Sharma';
+        const dateEl = document.getElementById('modalPhotoDate');
+        if (dateEl) dateEl.textContent = 'Date: ' + (currentPhoto.date || currentModalProject.date || 'Active');
 
-        document.getElementById('modalPhotoCounter').textContent = `${currentModalPhotoIdx + 1} / ${photos.length}`;
+        const counterEl = document.getElementById('modalPhotoCounter');
+        if (counterEl) counterEl.textContent = `${currentModalPhotoIdx + 1} / ${photos.length}`;
 
         // WhatsApp inquiry deep link
-        const waMsg = encodeURIComponent(`Hello Er. Vikky Sharma, I saw your ongoing site photos for "${currentModalProject.title}" in ${currentModalProject.location}. I would like to inquire about a similar construction project.`);
-        document.getElementById('modalWhatsappBtn').href = `https://wa.me/918349886687?text=${waMsg}`;
+        const waBtn = document.getElementById('modalWhatsappBtn');
+        if (waBtn) {
+            const waMsg = encodeURIComponent(`Hello Er. Vikky Sharma, I saw your ongoing site photos for "${currentModalProject.title}" in ${currentModalProject.location}. I would like to inquire about a similar construction project.`);
+            waBtn.href = `https://wa.me/918349886687?text=${waMsg}`;
+        }
+
+        // CAD Blueprint link
+        const bpBtn = document.getElementById('modalBlueprintBtn');
+        if (bpBtn) {
+            if (currentModalProject.blueprintUrl) {
+                bpBtn.href = currentModalProject.blueprintUrl;
+                bpBtn.style.display = 'flex';
+            } else {
+                bpBtn.style.display = 'none';
+            }
+        }
 
         // Thumbnails
         const thumbContainer = document.getElementById('modalThumbnails');
-        thumbContainer.innerHTML = '';
-        photos.forEach((ph, i) => {
-            const thumb = document.createElement('img');
-            thumb.src = ph.url;
-            thumb.className = `modal-thumb-item ${i === currentModalPhotoIdx ? 'active' : ''}`;
-            thumb.onclick = () => window.selectSitePhoto(i);
-            thumbContainer.appendChild(thumb);
-        });
+        if (thumbContainer) {
+            thumbContainer.innerHTML = '';
+            photos.forEach((ph, i) => {
+                const thumb = document.createElement('img');
+                thumb.src = ph.url;
+                thumb.className = `modal-thumb-item ${i === currentModalPhotoIdx ? 'active' : ''}`;
+                thumb.onclick = () => window.selectSitePhoto(i);
+                thumbContainer.appendChild(thumb);
+            });
+        }
     }
 
     // ESC key closes modal
