@@ -579,7 +579,7 @@ function initApp() {
         existingDynamic.forEach(el => el.remove());
 
         // For any projects created dynamically that aren't hardcoded in the static HTML:
-        const hardcodedIds = ['proj-1', 'proj-2', 'proj-3', 'proj-4', 'proj-5'];
+        const hardcodedIds = ['proj-1', 'proj-2', 'proj-3', 'proj-5'];
 
         projectsData.forEach(proj => {
             if (!hardcodedIds.includes(proj.id)) {

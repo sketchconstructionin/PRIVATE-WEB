@@ -104,37 +104,6 @@ export const DEFAULT_PROJECTS = [
         ]
     },
     {
-        id: "proj-4",
-        title: "Sadar Bazar Centerline Layout",
-        location: "Sadar Bazar, Raipur, CG",
-        category: "engineering",
-        progress: 100,
-        stage: "Centerline Grid & Footing Layout",
-        date: "August 2026",
-        engineer: "Er. Vikky Sharma",
-        description: "Physical grid markings, centerline mapping coordinates, and load-bearing column orientation calculations for commercial and residential shops.",
-        coverImage: "assets/blueprint_schematic.webp",
-        blueprintUrl: "blueprint-viewer.html?project=sadarbazar",
-        photos: [
-            {
-                id: "photo-4-1",
-                url: "assets/blueprint_schematic.webp",
-                stageName: "Centerline Layout & Axis Marking",
-                date: "Aug 15, 2026",
-                caption: "Total station survey and centerline grid lines laid out with 0mm angular error tolerance.",
-                verified: true
-            },
-            {
-                id: "photo-4-2",
-                url: "assets/concrete_material.webp",
-                stageName: "Column Footing Excavation Alignment",
-                date: "Aug 18, 2026",
-                caption: "Excavation depth and column coordinates cross-verified against municipal approved drawings.",
-                verified: true
-            }
-        ]
-    },
-    {
         id: "proj-5",
         title: "Sector 12 Elevation Plan (Naya Raipur)",
         location: "Sector 12, Naya Raipur, CG",

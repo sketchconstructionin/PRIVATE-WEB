@@ -4612,8 +4612,9 @@ textarea {
     color: var(--primary);
     font-weight: 600;
     display: inline-block;
+}
 
-    /* --- Page Hero & Header Specs Centering --- */
+/* --- Page Hero & Header Specs Centering --- */
     .page-hero {
         text-align: center !important;
         display: flex !important;
@@ -4949,3 +4950,24 @@ textarea {
             right: -36px !important;
         }
     }
+
+/* ========================================================================
+   ONGOING SITE PROJECTS & LIGHTBOX PHOTO GALLERY STYLES
+   ======================================================================== */
+.site-photo-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.site-photo-modal.active {
+    display: flex;
+}
