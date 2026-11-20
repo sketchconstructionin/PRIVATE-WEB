@@ -6,6 +6,7 @@ yarn-error.log*
 
 # Local environment variables
 .env
+woopsocial-cli.js
 whatsapp-api/app.yaml
 .env.local
 .env.development.local
